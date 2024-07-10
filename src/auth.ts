@@ -1,11 +1,6 @@
 import NextAuth from "next-auth";
-import { authConfig } from "./auth.config";
+import { authConfig, Role } from "./auth.config";
 import credentials from "next-auth/providers/credentials";
-
-export enum Role {
-  ADMIN = 0,
-  EMPLOYEE = 1,
-}
 
 const users = [
   {
@@ -35,9 +30,11 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
       async authorize(credentials, request) {
         const user = users.find(
           (user) =>
-            user.username === credentials.email &&
+            user.username === credentials.username &&
             user.password === credentials.password
         );
+
+        console.log(user);
 
         if (user) {
           return {

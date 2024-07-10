@@ -1,8 +1,13 @@
-export default function page() {
+"use client";
+import { signinAction } from "@/lib/actions";
+import { useFormState } from "react-dom";
+
+export default function Page() {
+  const [error, formAction] = useFormState(signinAction, undefined);
   return (
     <div className="container mt-28">
       <form
-        action=""
+        action={formAction}
         className="max-w-[700px] w-full mx-auto bg-black-200 p-4 rounded-lg shadow-lg"
       >
         <h2 className="text-center text-4xl capitalize mb-6">log in</h2>
@@ -11,11 +16,13 @@ export default function page() {
             type="text"
             className="p-3 rounded-lg bg-black-400 placeholder:capitalize  horder-none outline-none focus:ring-1 focus:ring-blue-300  transition-shadow duration-300"
             placeholder="write your username"
+            name="username"
           />
           <input
             type="password"
             className="p-3 rounded-lg bg-black-400 placeholder:capitalize  horder-none outline-none focus:ring-1 focus:ring-blue-300  transition-shadow duration-300"
             placeholder="write your password"
+            name="password"
           />
         </div>
         <button

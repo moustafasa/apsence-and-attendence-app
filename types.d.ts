@@ -1,4 +1,4 @@
-import { Role } from "@/auth";
+import type { Role } from "@/auth.config";
 import { DefaultSession } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
