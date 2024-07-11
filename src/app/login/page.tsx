@@ -4,11 +4,7 @@ import { useEffect } from "react";
 import { useFormState } from "react-dom";
 
 export default function Page() {
-  const [error, formAction, isPending] = useFormState(signinAction, undefined);
-
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
+  const [error, formAction] = useFormState(signinAction, undefined);
 
   return (
     <div className="container mt-28">
