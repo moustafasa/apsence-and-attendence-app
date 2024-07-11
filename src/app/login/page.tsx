@@ -1,9 +1,15 @@
 "use client";
 import { signinAction } from "@/lib/actions";
+import { useEffect } from "react";
 import { useFormState } from "react-dom";
 
 export default function Page() {
-  const [error, formAction] = useFormState(signinAction, undefined);
+  const [error, formAction, isPending] = useFormState(signinAction, undefined);
+
+  useEffect(() => {
+    console.log(error);
+  }, [error]);
+
   return (
     <div className="container mt-28">
       <form

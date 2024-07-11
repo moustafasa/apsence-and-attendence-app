@@ -17,6 +17,9 @@ export const authConfig = {
       return token;
     },
 
+    redirect({ baseUrl }) {
+      return baseUrl + "/dashboard";
+    },
     session({ session, token }) {
       session.user.username = token.username;
       session.user.role = token.role;

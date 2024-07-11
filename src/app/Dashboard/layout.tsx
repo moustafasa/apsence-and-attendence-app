@@ -2,13 +2,9 @@ import { auth } from "@/auth";
 import { Role } from "@/auth.config";
 import { ReactNode } from "react";
 
-type Props = { children: ReactNode; Employee: ReactNode; Admin: ReactNode };
+type Props = { Employee: ReactNode; Admin: ReactNode };
 
-export default async function DashboardLayout({
-  children,
-  Employee,
-  Admin,
-}: Props) {
+export default async function DashboardLayout({ Employee, Admin }: Props) {
   const session = await auth();
   if (!session?.user) {
     return null;
