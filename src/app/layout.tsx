@@ -20,10 +20,8 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={cairo.className + " bg-black-300 text-white"}>
-        <SessionProvider>
-          <NavBar />
-          {children}
-        </SessionProvider>
+        <NavBar />
+        {children}
       </body>
     </html>
   );

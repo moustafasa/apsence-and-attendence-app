@@ -3,12 +3,16 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SignOutButton from "./SignOutButton";
+import { Session } from "next-auth";
 
-export default function NavBarButtons() {
-  const { data } = useSession();
+export default function NavBarButtons({
+  session,
+}: {
+  session: Session | null;
+}) {
   const pathname = usePathname();
 
-  return data?.user ? (
+  return session?.user ? (
     pathname === "/" ? (
       <div className="flex gap-3">
         <Link

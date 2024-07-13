@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      spacing: {
+        nav: "65px",
+      },
       colors: {
         blue: {
           100: "#402E7A",
