@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import { authConfig, Role } from "./auth.config";
 import credentials from "next-auth/providers/credentials";
+import { getDb } from "./lib/db";
 
 const users = [
   {
@@ -28,6 +29,8 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
   providers: [
     credentials({
       async authorize(credentials, request) {
+        const test = await getDb();
+        console.log(test);
         const user = users.find(
           (user) =>
             user.username === credentials.username &&
