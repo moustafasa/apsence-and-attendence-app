@@ -1,9 +1,5 @@
 import { NextAuthConfig } from "next-auth";
 
-export enum Role {
-  ADMIN = 0,
-  EMPLOYEE = 1,
-}
 export const authConfig = {
   pages: {
     signIn: "/login",

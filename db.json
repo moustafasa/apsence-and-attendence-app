@@ -4,29 +4,19 @@
       "name": "dr-moustafa",
       "username": "moustafa",
       "password": "123456",
-      "role": 0
+      "role": 1,
+      "hourlyRate": 275
     },
     {
       "name": "dr-menna",
       "username": "menna",
       "password": "123456",
-      "role": 0
+      "role": 1,
+      "hourlyRate": 275
     },
     {
       "name": "dr-adel",
       "username": "adel",
-      "password": "123456",
-      "role": 0
-    },
-    {
-      "name": "dr-abeer",
-      "username": "abeer",
-      "password": "123456",
-      "role": 0
-    },
-    {
-      "name": "dr-abeer",
-      "username": "abeer",
       "password": "123456",
       "role": 0
     }

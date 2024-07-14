@@ -1,9 +1,8 @@
-import type { Role } from "@/auth.config";
 import { DefaultSession } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
 declare module "next-auth" {
-  interface User extends DefaultSession["user"] {
+  interface User {
     name: string;
     username: string;
     role: Role;
@@ -23,4 +22,8 @@ declare module "next-auth/jwt" {
     username: string;
     name: string;
   }
+}
+export enum Role {
+  ADMIN = 0,
+  EMPLOYEE = 1,
 }

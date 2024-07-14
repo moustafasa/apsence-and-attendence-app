@@ -1,4 +1,5 @@
 "use client";
+import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -13,7 +14,10 @@ export default function DashboardSideNav({ links }: Props) {
           <Link
             key={link.label}
             href={link.href}
-            className="block duration-300 transition-colors  hover:bg-blue-300 py-2 px-3 rounded-lg"
+            className={clsx(
+              "block duration-300 transition-colors  hover:bg-blue-300 py-2 px-3 rounded-lg",
+              { "bg-blue-300": pathname === link.href }
+            )}
           >
             {link.label}
           </Link>

@@ -1,7 +1,7 @@
 export const adminLinks: LinkObj[] = [
   {
     label: "employees",
-    href: "/dashboard/",
+    href: "/dashboard",
   },
   {
     label: "add employee",

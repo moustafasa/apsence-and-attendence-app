@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Cairo } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/NavBar";
+import NavBar from "@/app/components/NavBar";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 
