@@ -12,7 +12,7 @@ export default async function DashboardLayout({ Employee, Admin }: Props) {
     return null;
   }
   return (
-    <div className="flex gap-2 h-[calc(100vh-theme(spacing.nav))] ">
+    <div className="flex gap-2 min-h-[calc(100vh-theme(spacing.nav))]">
       <aside className="w-60 bg-black-400">
         <DashboardSideNav
           links={
