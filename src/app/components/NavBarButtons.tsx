@@ -29,7 +29,7 @@ export default function NavBarButtons({
   ) : (
     <Link
       href="/login"
-      className="block bg-blue-200 px-3 py-2 rounded-lg hover:bg-blue-300 transition-colors duration-300"
+      className="block bg-blue-300 px-3 py-2 rounded-lg hover:bg-blue-200 transition-colors duration-300"
     >
       login
     </Link>

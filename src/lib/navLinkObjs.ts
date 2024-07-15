@@ -8,3 +8,8 @@ export const adminLinks: LinkObj[] = [
     href: "/dashboard/add",
   },
 ];
+
+export const employeeLinks: LinkObj[] = [
+  { label: "attendence", href: "/dashboard" },
+  { label: "set attendence", href: "/dashboard/set" },
+];

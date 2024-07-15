@@ -9,7 +9,7 @@ export default function DashboardSideNav({ links }: Props) {
   return (
     <div className="capitalize p-3 ">
       <h2 className="my-3 text-xl ">pages</h2>
-      <nav>
+      <nav className=" space-y-3">
         {links.map((link) => (
           <Link
             key={link.label}

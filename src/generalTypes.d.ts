@@ -9,27 +9,31 @@ type LinkObj = {
 };
 
 type DbEmployeeUser = {
+  id: number;
+  name: string;
+  hourlyRate: number;
+  bonus: number;
+  totalHours: number;
+};
+
+type DbUser = {
+  id: number;
   password: string;
   username: string;
   name: string;
-  role: Role.EMPLOYEE;
-  hourlyRate: number;
+  role: Role;
 };
-
-type DbUser =
-  | {
-      password: string;
-      username: string;
-      name: string;
-      role: Role.ADMIN;
-    }
-  | DbEmployeeUser;
 
 type Db = {
   users: DbUser[];
+  attendence: Attendence[];
+  employees: DbEmployeeUser[];
 };
 
-type credentials = {
-  password: string;
-  username: string;
+type Attendence = {
+  id: number;
+  userId: number;
+  startDate: string;
+  endDate: string;
+  numberOfHours: number;
 };

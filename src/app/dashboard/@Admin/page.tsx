@@ -1,14 +1,14 @@
-import Table from "@/app/components/Table";
-import { getEmployee } from "@/lib/db";
+import EmployeeTable from "@/app/components/EmployeeTable";
+import { getEmployees } from "@/lib/db";
 
 export default async function page() {
-  const employees = await getEmployee();
+  const employees = await getEmployees();
   return (
     <div>
       <h2 className="text-center p-3 mt-10 mb-4 capitalize text-3xl font-bold">
         emplyees list
       </h2>
-      <Table employees={employees} />
+      <EmployeeTable employees={employees} />
     </div>
   );
 }
