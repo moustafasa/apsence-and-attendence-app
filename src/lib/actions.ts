@@ -20,3 +20,21 @@ export async function signinAction(
 export async function signOutAction() {
   await signOut();
 }
+
+export async function setAttandence(formData: FormData) {
+  const [startHours, startMinutes] = (formData.get("start") as string).split(
+    ":"
+  );
+  const [endHours, endMinutes] = (formData.get("end") as string).split(":");
+  const startDate = new Date(formData.get("day") as string);
+  startDate.setHours(Number(startHours));
+  startDate.setMinutes(Number(startMinutes));
+
+  const endDate = new Date(formData.get("day") as string);
+  if (Number(endHours) > 12) {
+    endDate.setDate(endDate.getDate() + 1);
+  }
+  endDate.setHours(Number(endHours));
+  endDate.setMinutes(Number(endMinutes));
+  console.log(startDate.getDate(), endDate.getDate());
+}

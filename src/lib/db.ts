@@ -32,3 +32,19 @@ export const getEmployee = cache(async (id: number) => {
   const employees = await getEmployees();
   return employees.find((employee) => employee.id === id);
 });
+
+export const setAttandence = cache(
+  async (start: string, end: string, dayDate: string, userId: number) => {
+    const db = await getDb();
+
+    // db.update((data) => {
+    //   data.attendence.push({
+    //     id: Math.random() * 3,
+    //     start,
+    //     endDate,
+    //     userId,
+    //     numberOfHours: 3,
+    //   });
+    // });
+  }
+);
