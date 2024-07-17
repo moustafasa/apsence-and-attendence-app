@@ -1,7 +1,10 @@
+"use client";
 import { setAttandenceAction } from "@/lib/actions";
 import { getNumberOfPassedMonthDays } from "@/lib/getNumberOfPassedMonthDays";
+import { useFormState } from "react-dom";
+import { FaExclamation } from "react-icons/fa";
 
-export default function page() {
+export default function Page() {
   const numberOfPassedDays = getNumberOfPassedMonthDays();
   const nowDate = new Date();
   const defaultDayValue = new Date(
@@ -9,13 +12,18 @@ export default function page() {
     nowDate.getMonth(),
     nowDate.getHours() > 5 ? nowDate.getDate() : nowDate.getDate() - 1
   ).toISOString();
+  const [error, formAction] = useFormState(setAttandenceAction, undefined);
 
   return (
     <div className="container">
       <form
         className="mt-10 flex flex-col max-w-[700px] mx-auto"
-        action={setAttandenceAction}
+        action={formAction}
+        noValidate
       >
+        <p className="capitalize  p-3 mb-3 rounded-lg bg-red-600 flex items-center gap-3 ">
+          <FaExclamation className="inline" /> {error}
+        </p>
         <h2 className=" text-center capitalize text-3xl mb-6 font-bold p-3">
           set your attendence
         </h2>
