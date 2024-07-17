@@ -12,6 +12,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
 
         if (user) {
           return {
+            userId: user.id,
             username: user.username,
             name: user.name,
             role: user.role,

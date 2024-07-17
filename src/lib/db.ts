@@ -1,4 +1,4 @@
-import { Role } from "@/authTypes.d";
+import { auth } from "@/auth";
 import { JSONFilePreset } from "lowdb/node";
 import { cache } from "react";
 
@@ -34,17 +34,32 @@ export const getEmployee = cache(async (id: number) => {
 });
 
 export const setAttandence = cache(
-  async (start: string, end: string, dayDate: string, userId: number) => {
+  async (startDate: Date, endDate: Date, userId: number) => {
     const db = await getDb();
 
-    // db.update((data) => {
-    //   data.attendence.push({
-    //     id: Math.random() * 3,
-    //     start,
-    //     endDate,
-    //     userId,
-    //     numberOfHours: 3,
-    //   });
-    // });
+    db.update((data) => {
+      const att = data.attendence.find(({ id }) => id === startDate.getDate());
+      if (att) {
+        att.endDate = endDate.toISOString();
+        att.startDate = startDate.toISOString();
+        att.numberOfHours = endDate.getTime() - startDate.getTime();
+      } else {
+        data.attendence.push({
+          id: startDate.getDate(),
+          startDate: startDate.toISOString(),
+          endDate: endDate.toISOString(),
+          userId,
+          numberOfHours: endDate.getTime() - startDate.getTime(),
+        });
+      }
+    });
   }
 );
+
+export const getAttendence = cache(async () => {
+  const session = await auth();
+  const db = await getDb();
+  return db.data.attendence
+    .filter((att) => att.userId === session?.user.userId)
+    .toSorted((a, b) => a.id - b.id);
+});

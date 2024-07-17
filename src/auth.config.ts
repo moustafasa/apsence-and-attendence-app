@@ -7,6 +7,7 @@ export const authConfig = {
   callbacks: {
     jwt({ token, user }) {
       if (user) {
+        token.userId = user.userId;
         token.username = user.username;
         token.role = user.role;
       }
@@ -17,6 +18,7 @@ export const authConfig = {
       return baseUrl + "/dashboard";
     },
     session({ session, token }) {
+      session.user.userId = token.userId;
       session.user.username = token.username;
       session.user.role = token.role;
       return session;

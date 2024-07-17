@@ -1,7 +1,9 @@
 "use server";
 
-import { signIn, signOut } from "@/auth";
+import { auth, signIn, signOut } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
+import { setAttandence } from "./db";
+import { revalidatePath } from "next/cache";
 
 export async function signinAction(
   prevState: string | undefined,
@@ -21,20 +23,31 @@ export async function signOutAction() {
   await signOut();
 }
 
-export async function setAttandence(formData: FormData) {
-  const [startHours, startMinutes] = (formData.get("start") as string).split(
-    ":"
-  );
-  const [endHours, endMinutes] = (formData.get("end") as string).split(":");
-  const startDate = new Date(formData.get("day") as string);
-  startDate.setHours(Number(startHours));
-  startDate.setMinutes(Number(startMinutes));
+export async function setAttandenceAction(formData: FormData) {
+  const session = await auth();
+  if (session?.user) {
+    const [startHours, startMinutes] = (formData.get("start") as string)
+      .split(":")
+      .map((time) => Number(time));
+    const [endHours, endMinutes] = (formData.get("end") as string)
+      .split(":")
+      .map((time) => Number(time));
 
-  const endDate = new Date(formData.get("day") as string);
-  if (Number(endHours) > 12) {
-    endDate.setDate(endDate.getDate() + 1);
+    const startDate = new Date(formData.get("day") as string);
+    startDate.setHours(startHours);
+    startDate.setMinutes(startMinutes);
+
+    const endDate = new Date(formData.get("day") as string);
+    if (endHours < 5) {
+      endDate.setDate(endDate.getDate() + 1);
+    }
+    endDate.setHours(endHours);
+    endDate.setMinutes(endMinutes);
+
+    console.log(endDate.toString());
+
+    await setAttandence(startDate, endDate, session.user.userId);
+    revalidatePath("/dashboard/");
+    return;
   }
-  endDate.setHours(Number(endHours));
-  endDate.setMinutes(Number(endMinutes));
-  console.log(startDate.getDate(), endDate.getDate());
 }

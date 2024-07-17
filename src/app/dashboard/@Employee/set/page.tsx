@@ -1,15 +1,20 @@
-import { setAttandence } from "@/lib/actions";
+import { setAttandenceAction } from "@/lib/actions";
 import { getNumberOfPassedMonthDays } from "@/lib/getNumberOfPassedMonthDays";
 
 export default function page() {
   const numberOfPassedDays = getNumberOfPassedMonthDays();
   const nowDate = new Date();
+  const defaultDayValue = new Date(
+    nowDate.getFullYear(),
+    nowDate.getMonth(),
+    nowDate.getHours() > 5 ? nowDate.getDate() : nowDate.getDate() - 1
+  ).toISOString();
 
   return (
     <div className="container">
       <form
         className="mt-10 flex flex-col max-w-[700px] mx-auto"
-        action={setAttandence}
+        action={setAttandenceAction}
       >
         <h2 className=" text-center capitalize text-3xl mb-6 font-bold p-3">
           set your attendence
@@ -20,11 +25,7 @@ export default function page() {
           </label>
           <select
             id="day"
-            defaultValue={new Date(
-              nowDate.getFullYear(),
-              nowDate.getMonth(),
-              nowDate.getDate()
-            ).toISOString()}
+            defaultValue={defaultDayValue}
             className="flex-1 bg-black-200 outline-none shadow-lg focus:ring-2 rounded-lg capitalize px-3 py-2 "
             name="day"
           >
