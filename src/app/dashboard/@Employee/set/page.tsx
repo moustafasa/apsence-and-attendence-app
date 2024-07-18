@@ -1,17 +1,13 @@
 "use client";
 import { setAttandenceAction } from "@/lib/actions";
-import { getNumberOfPassedMonthDays } from "@/lib/getNumberOfPassedMonthDays";
+import cn from "@/lib/cssConditional";
+import getTodayDate from "@/lib/getTodayDate";
+import clsx from "clsx";
 import { useFormState } from "react-dom";
 import { FaExclamation } from "react-icons/fa";
 
 export default function Page() {
-  const numberOfPassedDays = getNumberOfPassedMonthDays();
-  const nowDate = new Date();
-  const defaultDayValue = new Date(
-    nowDate.getFullYear(),
-    nowDate.getMonth(),
-    nowDate.getHours() > 5 ? nowDate.getDate() : nowDate.getDate() - 1
-  ).toISOString();
+  const todayDate = getTodayDate();
   const [error, formAction] = useFormState(setAttandenceAction, undefined);
 
   return (
@@ -21,38 +17,24 @@ export default function Page() {
         action={formAction}
         noValidate
       >
-        <p className="capitalize  p-3 mb-3 rounded-lg bg-red-600 flex items-center gap-3 ">
+        <p
+          className={cn(
+            `capitalize  p-3 mb-3 rounded-lg bg-red-600 flex items-center gap-3 invisible min-h-14 `,
+            { visible: !!error }
+          )}
+        >
           <FaExclamation className="inline" /> {error}
         </p>
         <h2 className=" text-center capitalize text-3xl mb-6 font-bold p-3">
           set your attendence
         </h2>
         <div className="flex gap-3 items-center mb-5">
-          <label htmlFor="day" className="capitalize text-xl w-[150px]">
-            choose day
-          </label>
-          <select
-            id="day"
-            defaultValue={defaultDayValue}
-            className="flex-1 bg-black-200 outline-none shadow-lg focus:ring-2 rounded-lg capitalize px-3 py-2 "
-            name="day"
-          >
-            <option value="" disabled>
-              choose
-            </option>
-            {new Array(numberOfPassedDays).fill(3).map((value, index) => (
-              <option
-                key={index + 1}
-                value={new Date(
-                  nowDate.getFullYear(),
-                  nowDate.getMonth(),
-                  index + 1
-                ).toISOString()}
-              >
-                {index + 1}
-              </option>
-            ))}
-          </select>
+          <span className="capitalize text-xl w-[150px]">today date</span>
+          <p className="flex-1 text-xl capitalize px-3 py-2 ">
+            {Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(
+              todayDate
+            )}
+          </p>
         </div>
         <div className="flex gap-3 items-center mb-5">
           <label htmlFor="startTime" className="capitalize text-xl w-[150px]">

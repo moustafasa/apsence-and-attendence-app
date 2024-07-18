@@ -5,6 +5,7 @@ import { isRedirectError } from "next/dist/client/components/redirect";
 import { setAttandence } from "./db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import getTodayDate from "./getTodayDate";
 
 export async function signinAction(
   prevState: string | undefined,
@@ -47,12 +48,12 @@ export async function setAttandenceAction(
     .map((time) => Number(time));
 
   //convert startHours and startMinutes into date Object
-  const startDate = new Date(formData.get("day") as string);
+  const startDate = getTodayDate();
   startDate.setHours(startHours);
   startDate.setMinutes(startMinutes);
 
   //convert endHours and endMinutes into date Object
-  const endDate = new Date(formData.get("day") as string);
+  const endDate = getTodayDate();
   if (endHours < 5) {
     endDate.setDate(endDate.getDate() + 1);
   }

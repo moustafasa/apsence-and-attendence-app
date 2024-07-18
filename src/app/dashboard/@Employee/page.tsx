@@ -1,8 +1,8 @@
 import AttendenceTable from "@/app/components/AttendenceTable";
-import { getAttendence } from "@/lib/db";
+import { getAttendences } from "@/lib/db";
 
 export default async function page() {
-  const attendences = await getAttendence();
+  const attendences = await getAttendences();
 
   return (
     <div>

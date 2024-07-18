@@ -56,10 +56,20 @@ export const setAttandence = cache(
   }
 );
 
-export const getAttendence = cache(async () => {
+export const getAttendences = cache(async () => {
   const session = await auth();
   const db = await getDb();
   return db.data.attendence
     .filter((att) => att.userId === session?.user.userId)
     .toSorted((a, b) => a.id - b.id);
+});
+
+export const getSingleAttendence = cache(async (id: number) => {
+  const session = await auth();
+  const db = await getDb();
+  if (session?.user)
+    return db.data.attendence.find(
+      (att) => att.userId === session.user.userId && att.id === id
+    );
+  else throw new Error("you must log in");
 });
