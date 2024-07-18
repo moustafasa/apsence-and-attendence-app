@@ -39,6 +39,7 @@ export const setAttandence = cache(
 
     db.update((data) => {
       const att = data.attendence.find(({ id }) => id === startDate.getDate());
+      console.log(att);
       if (att) {
         att.endDate = endDate.toISOString();
         att.startDate = startDate.toISOString();
