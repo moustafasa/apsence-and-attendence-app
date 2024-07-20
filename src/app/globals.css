@@ -6,4 +6,7 @@
   .text-balance {
     text-wrap: balance;
   }
+  .outline-solid {
+    outline-style: solid;
+  }
 }
