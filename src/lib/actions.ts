@@ -30,7 +30,7 @@ export async function setAttandenceAction(
   formData: FormData
 ) {
   const session = await auth();
-  if (!formData.get("start") || !formData.get("end")) {
+  if (!formData.get("start")) {
     return "please add a valid date in the start date and the end date";
   }
   if (!session?.user) {
@@ -43,29 +43,33 @@ export async function setAttandenceAction(
     .split(":")
     .map((time) => Number(time));
 
-  // get EndHours and EndMinutes
-  const [endHours, endMinutes] = (formData.get("end") as string)
-    .split(":")
-    .map((time) => Number(time));
-
   //convert startHours and startMinutes into date Object
   const startDate = new Date(day);
   startDate.setHours(startHours);
   startDate.setMinutes(startMinutes);
 
-  //convert endHours and endMinutes into date Object
-  const endDate = new Date(day);
-  if (endHours < 5) {
-    endDate.setDate(endDate.getDate() + 1);
-  }
-  endDate.setHours(endHours);
-  endDate.setMinutes(endMinutes);
+  let endDate: Date | undefined;
 
-  if (endDate.getTime() <= startDate.getTime()) {
-    return "the end date must be greater than the start date";
+  if (formData.get("end")) {
+    // get EndHours and EndMinutes
+    const [endHours, endMinutes] = (formData.get("end") as string)
+      .split(":")
+      .map((time) => Number(time));
+
+    //convert endHours and endMinutes into date Object
+    endDate = new Date(day);
+    if (endHours < 5) {
+      endDate.setDate(endDate.getDate() + 1);
+    }
+    endDate.setHours(endHours);
+    endDate.setMinutes(endMinutes);
+
+    if (endDate.getTime() <= startDate.getTime()) {
+      return "the end date must be greater than the start date";
+    }
   }
 
-  await setAttandence(startDate, endDate, session.user.userId);
+  await setAttandence(startDate, endDate);
   revalidatePath("/dashboard/");
   redirect("/dashboard/");
 }

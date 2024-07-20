@@ -1,7 +1,7 @@
 import AttendenceForm from "@/app/components/AttendenceForm";
 import { getSingleAttendence } from "@/lib/db";
 import formatTime from "@/lib/formatTime";
-import getDateOfDay from "@/lib/getDateOfDay";
+import getDayDate from "@/lib/getDayDate";
 
 type Props = { params: { id: string } };
 
@@ -10,7 +10,7 @@ export default async function Page({ params: { id } }: Props) {
   console.log(attendence);
 
   if (!attendence) {
-    const date = getDateOfDay(+id);
+    const date = getDayDate(+id);
     return <AttendenceForm date={date} />;
   }
   const startDate = new Date(attendence.startDate);

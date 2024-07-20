@@ -33,28 +33,36 @@ export const getEmployee = cache(async (id: number) => {
   return employees.find((employee) => employee.id === id);
 });
 
-export const setAttandence = cache(
-  async (startDate: Date, endDate: Date, userId: number) => {
-    const db = await getDb();
-
+export const setAttandence = cache(async (startDate: Date, endDate?: Date) => {
+  const db = await getDb();
+  const session = await auth();
+  if (session?.user) {
     db.update((data) => {
-      const att = data.attendence.find(({ id }) => id === startDate.getDate());
+      const endDataSerialized = endDate?.toISOString() || "";
+      const numberOfHours = endDate
+        ? endDate.getTime() - startDate.getTime()
+        : 0;
+      const att = data.attendence.find(
+        ({ id, userId: user }) =>
+          id === startDate.getDate() && user === session.user.userId
+      );
+
       if (att) {
-        att.endDate = endDate.toISOString();
+        att.endDate = endDataSerialized;
         att.startDate = startDate.toISOString();
-        att.numberOfHours = endDate.getTime() - startDate.getTime();
+        att.numberOfHours = numberOfHours;
       } else {
         data.attendence.push({
           id: startDate.getDate(),
           startDate: startDate.toISOString(),
-          endDate: endDate.toISOString(),
-          userId,
-          numberOfHours: endDate.getTime() - startDate.getTime(),
+          endDate: endDataSerialized,
+          userId: session?.user.userId,
+          numberOfHours,
         });
       }
     });
   }
-);
+});
 
 export const getAttendences = cache(async () => {
   const session = await auth();
