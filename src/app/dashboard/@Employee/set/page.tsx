@@ -1,13 +1,21 @@
-"use client";
 import AttendenceForm from "@/app/components/AttendenceForm";
-import { setAttandenceAction } from "@/lib/actions";
-import cn from "@/lib/cssConditional";
-import getTodayDate from "@/lib/getTodayDate";
-import { useFormState } from "react-dom";
-import { FaExclamation } from "react-icons/fa";
+import { getSingleAttendence } from "@/lib/db";
+import formatTime from "@/lib/formatTime";
+import getDayDate from "@/lib/getDayDate";
 
-export default function Page() {
-  const todayDate = getTodayDate();
+export default async function Page() {
+  const todayDate = getDayDate();
+  const att = await getSingleAttendence(todayDate.getDate());
 
-  return <AttendenceForm date={todayDate} />;
+  return (
+    <AttendenceForm
+      date={todayDate}
+      startTime={
+        att?.startDate ? formatTime(new Date(att.startDate), false) : undefined
+      }
+      endTime={
+        att?.endDate ? formatTime(new Date(att.endDate), false) : undefined
+      }
+    />
+  );
 }

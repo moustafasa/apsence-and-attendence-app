@@ -1,15 +1,19 @@
 "use client";
 import { setAttandenceAction } from "@/lib/actions";
 import cn from "@/lib/cssConditional";
-import { getAttendences } from "@/lib/db";
-import getTodayDate from "@/lib/getTodayDate";
+import getDayDate from "@/lib/getDayDate";
 import { useFormState } from "react-dom";
 import { FaExclamation } from "react-icons/fa";
 
 type Props = { date: Date; startTime?: string; endTime?: string };
 
 export default function AttendenceForm({ date, startTime, endTime }: Props) {
-  const [error, formAction] = useFormState(setAttandenceAction, undefined);
+  const [error, formAction] = useFormState(
+    setAttandenceAction.bind(null, date),
+    undefined
+  );
+
+  const todayDate = getDayDate();
 
   return (
     <div className="container">
@@ -27,7 +31,9 @@ export default function AttendenceForm({ date, startTime, endTime }: Props) {
           <FaExclamation className="inline" /> {error}
         </p>
         <h2 className=" text-center capitalize text-3xl mb-6 font-bold p-3">
-          edit the attendence
+          {date.getTime() !== todayDate.getTime()
+            ? "edit the attendence"
+            : "set today attendence"}
         </h2>
         <div className="flex gap-3 items-center mb-5">
           <span className="capitalize text-xl w-[150px]">today date</span>
