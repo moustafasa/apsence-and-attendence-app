@@ -2,14 +2,16 @@
 import { setAttandenceAction } from "@/lib/actions";
 import cn from "@/lib/cssConditional";
 import { getAttendences } from "@/lib/db";
-import getTodayDate from "@/lib/getTodayDate";
 import { useFormState } from "react-dom";
 import { FaExclamation } from "react-icons/fa";
 
 type Props = { date: Date; startTime?: string; endTime?: string };
 
 export default function AttendenceForm({ date, startTime, endTime }: Props) {
-  const [error, formAction] = useFormState(setAttandenceAction, undefined);
+  const [error, formAction] = useFormState(
+    setAttandenceAction.bind(null, date),
+    undefined
+  );
 
   return (
     <div className="container">

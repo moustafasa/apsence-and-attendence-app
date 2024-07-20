@@ -1,16 +1,16 @@
 import AttendenceForm from "@/app/components/AttendenceForm";
 import { getSingleAttendence } from "@/lib/db";
 import formatTime from "@/lib/formatTime";
-import getTodayDate from "@/lib/getTodayDate";
+import getDateOfDay from "@/lib/getDateOfDay";
 
 type Props = { params: { id: string } };
 
 export default async function Page({ params: { id } }: Props) {
   const attendence = await getSingleAttendence(+id);
+  console.log(attendence);
 
   if (!attendence) {
-    const date = getTodayDate();
-    date.setDate(+id);
+    const date = getDateOfDay(+id);
     return <AttendenceForm date={date} />;
   }
   const startDate = new Date(attendence.startDate);
@@ -19,8 +19,8 @@ export default async function Page({ params: { id } }: Props) {
   return (
     <AttendenceForm
       date={startDate}
-      startTime={formatTime(startDate)}
-      endTime={formatTime(endDate)}
+      startTime={formatTime(startDate, false)}
+      endTime={formatTime(endDate, false)}
     />
   );
 }
