@@ -1,3 +1,4 @@
+import calcTotalMonthHours from "@/lib/calcTotalMonthHours";
 import cn from "@/lib/cssConditional";
 import formatTime from "@/lib/formatTime";
 import getDayDate from "@/lib/getDayDate";
@@ -5,8 +6,9 @@ import Link from "next/link";
 
 type Props = { attendence: Attendence[] };
 
-export default function AttendenceTable({ attendence }: Props) {
+export default async function AttendenceTable({ attendence }: Props) {
   const todayDate = getDayDate();
+  const totalMonthHours = await calcTotalMonthHours();
   const tableData = new Array(30).fill("d").map((_, index) => {
     const att = attendence.find((att) => att.id === index + 1);
     const endDate = att && att.endDate && formatTime(new Date(att.endDate));
@@ -62,7 +64,7 @@ export default function AttendenceTable({ attendence }: Props) {
               colSpan={3}
               className=" text-blue-400 font-bold text-3xl py-5 px-3 text-center rounded-ee-lg"
             >
-              300 hours
+              {(totalMonthHours / 1000 / 60 / 60).toFixed(2)} hours
             </td>
           </tr>
         </tfoot>

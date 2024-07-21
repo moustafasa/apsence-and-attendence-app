@@ -37,3 +37,8 @@ type Attendence = {
   endDate: string;
   numberOfHours: number;
 };
+
+type TableHeader = {
+  label: string;
+  size?: string;
+};
