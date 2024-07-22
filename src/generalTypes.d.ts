@@ -42,3 +42,8 @@ type TableHeader = {
   label: string;
   size?: string;
 };
+
+type TableBodyElement<T> = {
+  getContent: (item: T, index: number) => ReactNode;
+  addonClassName?: string;
+};

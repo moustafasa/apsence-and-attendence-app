@@ -20,7 +20,7 @@ export default async function DashboardLayout({ Employee, Admin }: Props) {
           }
         />
       </aside>
-      <div className="flex-1">
+      <div className="flex-1 max-w-full">
         {session.user.role === Role.ADMIN
           ? Admin
           : session.user.role === Role.EMPLOYEE

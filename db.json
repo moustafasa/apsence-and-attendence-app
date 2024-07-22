@@ -194,10 +194,17 @@
     },
     {
       "id": 20,
-      "startDate": "2024-07-20T16:00:00.000Z",
+      "startDate": "2024-07-20T16:30:00.000Z",
       "endDate": "2024-07-20T23:00:00.000Z",
       "userId": 1,
-      "numberOfHours": 25200000
+      "numberOfHours": 23400000
+    },
+    {
+      "id": 21,
+      "startDate": "2024-07-21T16:24:00.000Z",
+      "endDate": "2024-07-21T23:00:00.000Z",
+      "userId": 1,
+      "numberOfHours": 23760000
     }
   ]
 }

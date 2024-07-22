@@ -3,12 +3,13 @@ import cn from "@/lib/cssConditional";
 import formatTime from "@/lib/formatTime";
 import getDayDate from "@/lib/getDayDate";
 import Link from "next/link";
+import Table from "./table/Table";
+import AttendenceTableFooter from "./AttendenceTableFooter";
 
 type Props = { attendence: Attendence[] };
 
 export default async function AttendenceTable({ attendence }: Props) {
   const todayDate = getDayDate();
-  const totalMonthHours = await calcTotalMonthHours();
   const tableData = new Array(30).fill("d").map((_, index) => {
     const att = attendence.find((att) => att.id === index + 1);
     const endDate = att && att.endDate && formatTime(new Date(att.endDate));
@@ -42,33 +43,19 @@ export default async function AttendenceTable({ attendence }: Props) {
     );
   });
 
+  const theader = [
+    { label: "days", size: "70px" },
+    { label: "start", size: "200px" },
+    { label: "end", size: "200px" },
+    { label: "total hours", size: "200px" },
+  ] satisfies TableHeader[];
+
   return (
-    <div className="p-5 overflow-auto ">
-      <table className="min-w-full border-separate capitalize table-fixed border-spacing-0 text-center shadow-lg text-nowrap">
-        <thead className="">
-          <tr className="bg-black-100">
-            <th className=" rounded-ss-lg px-3 py-5 w-[70px]">days</th>
-            <th className="px-3 py-5 w-[200px]">start</th>
-            <th className=" px-3 py-5 w-[200px]">end</th>
-            <th className=" px-3 py-5 w-[200px]">total hours</th>
-            <th className="rounded-se-lg px-3 py-5 w-[200px]">options</th>
-          </tr>
-        </thead>
-        <tbody>{tableData}</tbody>
-        <tfoot className="">
-          <tr className="bg-black-200">
-            <th className="px-3 py-5 text-2xl rounded-es-lg" colSpan={2}>
-              total month hours :
-            </th>
-            <td
-              colSpan={3}
-              className=" text-blue-400 font-bold text-3xl py-5 px-3 text-center rounded-ee-lg"
-            >
-              {(totalMonthHours / 1000 / 60 / 60).toFixed(2)} hours
-            </td>
-          </tr>
-        </tfoot>
-      </table>
+    <div className="max-w-full">
+      <Table theaders={theader} tfoot={<AttendenceTableFooter />}>
+        {tableData}
+      </Table>
+
       <button className="mx-auto block w-fit mt-5 capitalize bg-green-100 p-3 rounded-lg shadow-lg hover:bg-green-200 transition-colors duration-500 mb-5">
         calc salary
       </button>
