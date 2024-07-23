@@ -19,9 +19,8 @@ export default function Table({ tfoot, children, theaders }: Props) {
             {theaders.map((th, ind) => (
               <th
                 key={th.label}
-                className={cn("px-3 py-5", {
+                className={cn("px-3 py-5", th.addonClassName, {
                   "rounded-ss-lg": ind === 0,
-                  [`w-[${th.size}]`]: !!th.size,
                 })}
               >
                 {th.label}

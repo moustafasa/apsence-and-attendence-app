@@ -1,54 +1,66 @@
-import AttendenceTable from "@/app/components/AttendenceTable";
 import AttendenceTableFooter from "@/app/components/AttendenceTableFooter";
 import Table from "@/app/components/table/Table";
-import cn from "@/lib/cssConditional";
-import { getAttendences } from "@/lib/db";
+import TableBody from "@/app/components/table/TableBody";
 import formatTime from "@/lib/formatTime";
 import getDayDate from "@/lib/getDayDate";
+import modifiedGetAttendence from "@/lib/modifiedGetAttendence";
 import Link from "next/link";
 
-export default async function page() {
-  const attendences = await getAttendences();
+export default function page() {
+  const attendences = modifiedGetAttendence();
+
   const todayDate = getDayDate();
-  const tableData = new Array(30).fill("d").map((_, index) => {
-    const att = attendences.find((att) => att.id === index + 1);
-    const endDate = att && att.endDate && formatTime(new Date(att.endDate));
-    return (
-      <tr
-        key={att?.id || index + 1}
-        className={cn("odd:bg-black-400", {
-          "outline-2 outline-green-100 outline-solid rounded-lg":
-            todayDate.getDate() === index + 1,
-        })}
-      >
-        <th className="px-3 py-5 ">{index + 1}</th>
-        <td className="px-3 py-5">
-          {att && formatTime(new Date(att.startDate))}
-        </td>
-        <td className="px-3 py-5">{endDate}</td>
-        <td className="px-3 py-5">
-          {att && (att.numberOfHours / 1000 / 60 / 60).toFixed(2) + " hours"}
-        </td>
-        <td className="px-3 py-5">
-          {index + 1 < todayDate.getDate() && (
+
+  const theader = [
+    { label: "days", addonClassName: "w-[70px]" },
+    { label: "start", addonClassName: "w-[200px]" },
+    { label: "end", addonClassName: "w-[200px]" },
+    { label: "total hours", addonClassName: "w-[200px]" },
+  ] satisfies TableHeader[];
+
+  const tableBodyData = [
+    {
+      getContent(bodyData, index) {
+        return bodyData.id;
+      },
+      th: true,
+    },
+    {
+      getContent(bodyData, index) {
+        return bodyData.startDate
+          ? formatTime(new Date(bodyData.startDate))
+          : bodyData.startDate;
+      },
+    },
+    {
+      getContent(bodyData, index) {
+        return bodyData.endDate
+          ? formatTime(new Date(bodyData.endDate))
+          : bodyData.endDate;
+      },
+    },
+    {
+      getContent(bodyData, index) {
+        return todayDate.getDate() > bodyData.id
+          ? (bodyData.numberOfHours / 1000 / 60 / 60).toFixed(2) + " hours"
+          : "";
+      },
+    },
+    {
+      getContent(bodyData, index) {
+        return (
+          index + 1 < todayDate.getDate() && (
             <Link
-              href={`/dashboard/edit/${att?.id || index + 1}`}
+              href={`/dashboard/edit/${bodyData.id}`}
               className="capitalize bg-green-100 transition-colors duration-300 hover:bg-green-200 shadow-sm px-4 py-1 rounded-lg"
             >
               edit
             </Link>
-          )}
-        </td>
-      </tr>
-    );
-  });
-
-  const theader = [
-    { label: "days", size: "70px" },
-    { label: "start", size: "200px" },
-    { label: "end", size: "200px" },
-    { label: "total hours", size: "200px" },
-  ] satisfies TableHeader[];
+          )
+        );
+      },
+    },
+  ] satisfies TableBodyElement<Attendence>[];
 
   return (
     <div>
@@ -57,7 +69,14 @@ export default async function page() {
       </h2>
       <div className="max-w-full">
         <Table theaders={theader} tfoot={<AttendenceTableFooter />}>
-          {tableData}
+          <TableBody<Attendence>
+            promise={attendences as Promise<Attendence[]>}
+            tableBodyData={tableBodyData}
+            addOnClassNames={(index) => ({
+              "outline-2 outline-green-100 outline-solid rounded-lg":
+                todayDate.getDate() === index,
+            })}
+          />
         </Table>
 
         <button className="mx-auto block w-fit mt-5 capitalize bg-green-100 p-3 rounded-lg shadow-lg hover:bg-green-200 transition-colors duration-500 mb-5">

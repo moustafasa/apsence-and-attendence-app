@@ -40,10 +40,10 @@ type Attendence = {
 
 type TableHeader = {
   label: string;
-  size?: string;
+  addonClassName?: string;
 };
 
 type TableBodyElement<T> = {
   getContent: (bodyData: T, index: number) => ReactNode;
-  addonClassName?: string;
+  th?: boolean;
 };

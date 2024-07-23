@@ -205,6 +205,13 @@
       "endDate": "2024-07-21T23:00:00.000Z",
       "userId": 1,
       "numberOfHours": 23760000
+    },
+    {
+      "id": 22,
+      "startDate": "2024-07-22T16:30:00.000Z",
+      "endDate": "2024-07-22T23:00:00.000Z",
+      "userId": 1,
+      "numberOfHours": 23400000
     }
   ]
 }

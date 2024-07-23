@@ -39,7 +39,10 @@ export default async function page() {
         emplyees list
       </h2>
       <Table theaders={tHeaders}>
-        <TableBody<DbEmployeeUser> promise={employees} tableBody={tableBody} />
+        <TableBody<DbEmployeeUser>
+          promise={employees}
+          tableBodyData={tableBody}
+        />
       </Table>
     </div>
   );
