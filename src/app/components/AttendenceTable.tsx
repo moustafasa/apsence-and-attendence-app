@@ -3,8 +3,8 @@ import cn from "@/lib/cssConditional";
 import formatTime from "@/lib/formatTime";
 import getDayDate from "@/lib/getDayDate";
 import Link from "next/link";
-import Table from "./table/Table";
 import AttendenceTableFooter from "./AttendenceTableFooter";
+import Table from "./table/Table";
 
 type Props = { attendence: Attendence[] };
 

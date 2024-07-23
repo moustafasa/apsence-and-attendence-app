@@ -15,10 +15,10 @@ export default async function page() {
 
   const tableBody = [
     { getContent: (_, index) => index + 1 },
-    { getContent: (item) => item.name },
-    { getContent: (item) => item.hourlyRate },
-    { getContent: (item) => item.bonus },
-    { getContent: (item) => item.bonus },
+    { getContent: (bodyData) => bodyData.name },
+    { getContent: (bodyData) => bodyData.hourlyRate },
+    { getContent: (bodyData) => bodyData.bonus },
+    { getContent: (bodyData) => bodyData.bonus },
     {
       getContent: () => (
         <div className="flex justify-center gap-3">

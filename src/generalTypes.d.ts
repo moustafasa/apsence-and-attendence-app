@@ -44,6 +44,6 @@ type TableHeader = {
 };
 
 type TableBodyElement<T> = {
-  getContent: (item: T, index: number) => ReactNode;
+  getContent: (bodyData: T, index: number) => ReactNode;
   addonClassName?: string;
 };
