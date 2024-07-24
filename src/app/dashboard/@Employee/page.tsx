@@ -1,4 +1,5 @@
 import AttendenceTableFooter from "@/app/components/AttendenceTableFooter";
+import CalcSalaryModal from "@/app/components/CalcSalaryModal";
 import Table from "@/app/components/table/Table";
 import TableBody from "@/app/components/table/TableBody";
 import formatTime from "@/lib/formatTime";
@@ -6,7 +7,11 @@ import getDayDate from "@/lib/getDayDate";
 import modifiedGetAttendence from "@/lib/modifiedGetAttendence";
 import Link from "next/link";
 
-export default function page() {
+type Props = {
+  searchParams: { show?: string };
+};
+
+export default function page({ searchParams }: Props) {
   const attendences = modifiedGetAttendence();
 
   const todayDate = getDayDate();
@@ -41,7 +46,7 @@ export default function page() {
     },
     {
       getContent(bodyData, index) {
-        return todayDate.getDate() > bodyData.id
+        return todayDate.getDate() >= bodyData.id
           ? (bodyData.numberOfHours / 1000 / 60 / 60).toFixed(2) + " hours"
           : "";
       },
@@ -83,6 +88,7 @@ export default function page() {
           calc salary
         </button>
       </div>
+      {searchParams.show !== undefined && <CalcSalaryModal />}
     </div>
   );
 }
