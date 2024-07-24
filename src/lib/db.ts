@@ -1,11 +1,12 @@
 import { auth } from "@/auth";
 import { JSONFilePreset } from "lowdb/node";
 import { cache } from "react";
+import getDayDate from "./getDayDate";
 
 const getDb = cache(async () => {
   const db = await JSONFilePreset<Db>("db.json", {
     users: [],
-    attendence: [],
+    attendence: {},
     employees: [],
   });
   await db.read();
@@ -33,16 +34,31 @@ export const getEmployee = cache(async (id: number) => {
   return employees.find((employee) => employee.id === id);
 });
 
+export const getAttendences = cache(async (month?: number) => {
+  const session = await auth();
+  const db = await getDb();
+  const todayDate = getDayDate();
+  const allAttendences =
+    db.data.attendence[todayDate.getMonth().toString()].days;
+  return allAttendences
+    ? allAttendences
+        .filter((att) => att.userId === session?.user.userId)
+        .toSorted((a, b) => a.id - b.id)
+    : [];
+});
+
 export const setAttandence = cache(async (startDate: Date, endDate?: Date) => {
   const db = await getDb();
   const session = await auth();
   if (session?.user) {
+    const attendences = await getAttendences();
     db.update((data) => {
       const endDataSerialized = endDate?.toISOString() || "";
+
       const numberOfHours = endDate
         ? endDate.getTime() - startDate.getTime()
         : 0;
-      const att = data.attendence.find(
+      const att = attendences.find(
         ({ id, userId: user }) =>
           id === startDate.getDate() && user === session.user.userId
       );
@@ -52,7 +68,7 @@ export const setAttandence = cache(async (startDate: Date, endDate?: Date) => {
         att.startDate = startDate.toISOString();
         att.numberOfHours = numberOfHours;
       } else {
-        data.attendence.push({
+        attendences.push({
           id: startDate.getDate(),
           startDate: startDate.toISOString(),
           endDate: endDataSerialized,
@@ -64,20 +80,14 @@ export const setAttandence = cache(async (startDate: Date, endDate?: Date) => {
   }
 });
 
-export const getAttendences = cache(async () => {
+export const getSingleAttendence = cache(async (id: number, month?: number) => {
   const session = await auth();
-  const db = await getDb();
-  return db.data.attendence
-    .filter((att) => att.userId === session?.user.userId)
-    .toSorted((a, b) => a.id - b.id);
-});
-
-export const getSingleAttendence = cache(async (id: number) => {
-  const session = await auth();
-  const db = await getDb();
+  const attendences = await getAttendences();
   if (session?.user)
-    return db.data.attendence.find(
+    return attendences.find(
       (att) => att.userId === session.user.userId && att.id === id
     );
   else throw new Error("you must log in");
 });
+
+export const clearThisMonthAttendence = cache(async () => {});

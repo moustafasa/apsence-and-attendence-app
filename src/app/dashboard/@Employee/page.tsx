@@ -1,5 +1,5 @@
 import AttendenceTableFooter from "@/app/components/AttendenceTableFooter";
-import CalcSalaryModal from "@/app/components/CalcSalaryModal";
+import CalcSalaryModal from "@/app/components/CalcSalaryModal/CalcSalaryModal";
 import Table from "@/app/components/table/Table";
 import TableBody from "@/app/components/table/TableBody";
 import formatTime from "@/lib/formatTime";
@@ -84,9 +84,13 @@ export default function page({ searchParams }: Props) {
           />
         </Table>
 
-        <button className="mx-auto block w-fit mt-5 capitalize bg-green-100 p-3 rounded-lg shadow-lg hover:bg-green-200 transition-colors duration-500 mb-5">
+        <Link
+          href={"?show"}
+          className="mx-auto block w-fit mt-5 capitalize bg-green-100 p-3 rounded-lg shadow-lg hover:bg-green-200 transition-colors duration-500 mb-5"
+          scroll={false}
+        >
           calc salary
-        </button>
+        </Link>
       </div>
       {searchParams.show !== undefined && <CalcSalaryModal />}
     </div>

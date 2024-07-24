@@ -26,7 +26,7 @@ type DbUser = {
 
 type Db = {
   users: DbUser[];
-  attendence: Attendence[];
+  attendence: { [month: string]: { days: Attendence[]; completed: boolean } };
   employees: DbEmployeeUser[];
 };
 
