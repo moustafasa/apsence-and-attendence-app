@@ -19,7 +19,7 @@ export default async function TableBody<T extends Attendence | DbEmployeeUser>({
       className={cn("odd:bg-black-400", addOnClassNames(item.id))}
     >
       {tableBodyData.map(({ getContent, th }, i) =>
-        th ? (
+        !th ? (
           <td key={i + item.id} className={cn("px-3 py-5")}>
             {getContent(item, index)}
           </td>

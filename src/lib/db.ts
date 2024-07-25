@@ -89,4 +89,22 @@ export const getSingleAttendence = cache(async (id: number, month?: number) => {
   else throw new Error("you must log in");
 });
 
+export const getUserMonthsMetaData = cache(async () => {
+  const session = await auth();
+  const db = await getDb();
+
+  return Object.keys(db.data.attendence)
+    .filter((month) =>
+      db.data.attendence[month].find(
+        (att) => att.userId === session?.user.userId
+      )
+    )
+    .map((month) => ({
+      month,
+      completed: db.data.attendence[month].find(
+        (att) => att.userId === session?.user.userId
+      )?.completed,
+    }));
+});
+
 export const clearThisMonthAttendence = cache(async () => {});

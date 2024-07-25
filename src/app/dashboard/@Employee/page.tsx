@@ -2,6 +2,7 @@ import AttendenceTableFooter from "@/app/components/AttendenceTableFooter";
 import CalcSalaryModal from "@/app/components/CalcSalaryModal/CalcSalaryModal";
 import Table from "@/app/components/table/Table";
 import TableBody from "@/app/components/table/TableBody";
+import { getUserMonthsMetaData } from "@/lib/db";
 import formatTime from "@/lib/formatTime";
 import getDayDate from "@/lib/getDayDate";
 import modifiedGetAttendence from "@/lib/modifiedGetAttendence";
@@ -13,9 +14,10 @@ type Props = {
   searchParams: { show?: string; month?: string };
 };
 
-export default function page({ searchParams }: Props) {
+export default async function page({ searchParams }: Props) {
   const month = searchParams?.month ? +searchParams.month : undefined;
   const attendences = modifiedGetAttendence(month);
+  const monthMeta = await getUserMonthsMetaData();
 
   const todayDate = getDayDate();
 
@@ -70,6 +72,7 @@ export default function page({ searchParams }: Props) {
     },
   ] satisfies TableBodyElement<Attendence>[];
 
+  console.log(month);
   return (
     <div>
       <h2 className="text-center p-3 mt-10 mb-4 capitalize text-3xl font-bold flex justify-center items-center gap-6">
@@ -78,21 +81,30 @@ export default function page({ searchParams }: Props) {
         </Link>
         <span>
           attendence of{" "}
-          {Intl.DateTimeFormat("en-US", { month: "long" }).format(todayDate)}
+          {Intl.DateTimeFormat("en-US", { month: "long" }).format(
+            month ? new Date().setMonth(month) : todayDate
+          )}
         </span>
         <Link href={"?"}>
           <FaAngleRight />
         </Link>
       </h2>
       <div className="max-w-full">
-        <Table theaders={theader} tfoot={<AttendenceTableFooter />}>
+        <Table
+          theaders={theader}
+          tfoot={<AttendenceTableFooter />}
+          disabled={monthMeta[0].completed}
+        >
           <TableBody<Attendence>
             promise={attendences as Promise<Attendence[]>}
             tableBodyData={tableBodyData}
-            addOnClassNames={(index) => ({
-              "outline-2 outline-green-100 outline-solid rounded-lg":
-                todayDate.getDate() === index,
-            })}
+            addOnClassNames={(index) => [
+              {
+                "outline-2 outline-green-100 outline-solid rounded-lg":
+                  todayDate.getDate() === index && !month,
+              },
+              ,
+            ]}
           />
         </Table>
 

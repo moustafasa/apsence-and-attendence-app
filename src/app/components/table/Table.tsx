@@ -8,11 +8,21 @@ type Props = {
   theaders: TableHeader[];
   tfoot?: ReactNode;
   children: ReactNode;
+  disabled?: boolean;
 };
 
-export default function Table({ tfoot, children, theaders }: Props) {
+export default function Table({
+  tfoot,
+  children,
+  theaders,
+  disabled = false,
+}: Props) {
   return (
-    <div className="p-5 overflow-x-auto max-w-full">
+    <div
+      className={cn("p-5 overflow-x-auto max-w-full ", {
+        "opacity-70 pointer-events-none": disabled,
+      })}
+    >
       <table className="min-w-full border-separate capitalize table-fixed border-spacing-0 text-center shadow-lg text-nowrap">
         <thead className="">
           <tr className="bg-black-100">
