@@ -72,11 +72,10 @@ export default async function page({ searchParams }: Props) {
     },
   ] satisfies TableBodyElement<Attendence>[];
 
-  console.log(month);
   return (
     <div>
       <h2 className="text-center p-3 mt-10 mb-4 capitalize text-3xl font-bold flex justify-center items-center gap-6">
-        <Link href={`?month=${todayDate.getMonth() - 1}`}>
+        <Link href={{ query: { month: todayDate.getMonth() - 1 } }}>
           <FaAngleLeft />
         </Link>
         <span>
