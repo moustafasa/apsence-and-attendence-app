@@ -6,13 +6,16 @@ import formatTime from "@/lib/formatTime";
 import getDayDate from "@/lib/getDayDate";
 import modifiedGetAttendence from "@/lib/modifiedGetAttendence";
 import Link from "next/link";
+import { BiLeftArrow } from "react-icons/bi";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 type Props = {
-  searchParams: { show?: string };
+  searchParams: { show?: string; month?: string };
 };
 
 export default function page({ searchParams }: Props) {
-  const attendences = modifiedGetAttendence();
+  const month = searchParams?.month ? +searchParams.month : undefined;
+  const attendences = modifiedGetAttendence(month);
 
   const todayDate = getDayDate();
 
@@ -69,8 +72,17 @@ export default function page({ searchParams }: Props) {
 
   return (
     <div>
-      <h2 className="text-center p-3 mt-10 mb-4 capitalize text-3xl font-bold">
-        your attendence
+      <h2 className="text-center p-3 mt-10 mb-4 capitalize text-3xl font-bold flex justify-center items-center gap-6">
+        <Link href={`?month=${todayDate.getMonth() - 1}`}>
+          <FaAngleLeft />
+        </Link>
+        <span>
+          attendence of{" "}
+          {Intl.DateTimeFormat("en-US", { month: "long" }).format(todayDate)}
+        </span>
+        <Link href={"?"}>
+          <FaAngleRight />
+        </Link>
       </h2>
       <div className="max-w-full">
         <Table theaders={theader} tfoot={<AttendenceTableFooter />}>

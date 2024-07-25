@@ -45,185 +45,157 @@
     }
   ],
   "attendence": {
-    "6": {
-      "completed": false,
-      "days": [
-        {
-          "id": 1,
-          "startDate": "2024-07-01T16:00:00.000Z",
-          "endDate": "2024-07-01T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 25200000
-        },
-        {
-          "id": 2,
-          "startDate": "2024-07-02T16:00:00.000Z",
-          "endDate": "2024-07-02T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 25200000
-        },
-        {
-          "id": 3,
-          "startDate": "2024-07-03T16:00:00.000Z",
-          "endDate": "2024-07-03T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 25200000
-        },
-        {
-          "id": 4,
-          "startDate": "2024-07-04T16:15:00.000Z",
-          "endDate": "2024-07-04T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 24300000
-        },
-        {
-          "id": 5,
-          "startDate": "2024-07-05T16:20:00.000Z",
-          "endDate": "2024-07-05T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 24000000
-        },
-        {
-          "id": 6,
-          "startDate": "2024-07-06T16:20:00.000Z",
-          "endDate": "2024-07-06T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 24000000
-        },
-        {
-          "id": 7,
-          "startDate": "2024-07-07T16:18:00.000Z",
-          "endDate": "2024-07-07T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 24120000
-        },
-        {
-          "id": 8,
-          "startDate": "2024-07-08T16:00:00.000Z",
-          "endDate": "2024-07-08T23:30:00.000Z",
-          "userId": 1,
-          "numberOfHours": 27000000
-        },
-        {
-          "id": 9,
-          "startDate": "2024-07-09T16:15:00.000Z",
-          "endDate": "2024-07-09T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 24300000
-        },
-        {
-          "id": 10,
-          "startDate": "2024-07-10T16:24:00.000Z",
-          "endDate": "2024-07-10T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 23760000
-        },
-        {
-          "id": 11,
-          "startDate": "2024-07-11T16:30:00.000Z",
-          "endDate": "2024-07-11T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 23400000
-        },
-        {
-          "id": 12,
-          "startDate": "2024-07-12T16:17:00.000Z",
-          "endDate": "2024-07-12T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 24180000
-        },
-        {
-          "id": 13,
-          "startDate": "2024-07-13T16:20:00.000Z",
-          "endDate": "2024-07-13T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 24000000
-        },
-        {
-          "id": 14,
-          "startDate": "2024-07-14T16:20:00.000Z",
-          "endDate": "2024-07-14T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 24000000
-        },
-        {
-          "id": 15,
-          "startDate": "2024-07-15T16:00:00.000Z",
-          "endDate": "2024-07-15T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 25200000
-        },
-        {
-          "id": 16,
-          "startDate": "2024-07-16T16:00:00.000Z",
-          "endDate": "2024-07-16T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 25200000
-        },
-        {
-          "id": 18,
-          "startDate": "2024-07-18T16:19:00.000Z",
-          "endDate": "2024-07-18T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 24060000
-        },
-        {
-          "id": 19,
-          "startDate": "2024-07-19T16:20:00.000Z",
-          "endDate": "2024-07-19T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 24000000
-        },
-        {
-          "id": 17,
-          "startDate": "2024-07-17T16:00:00.000Z",
-          "endDate": "2024-07-17T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 25200000
-        },
-        {
-          "id": 19,
-          "startDate": "2024-07-19T05:00:00.000Z",
-          "endDate": "2024-07-19T11:00:00.000Z",
-          "userId": 2,
-          "numberOfHours": 21600000
-        },
-        {
-          "id": 1,
-          "startDate": "2024-07-01T05:00:00.000Z",
-          "endDate": "2024-07-01T11:00:00.000Z",
-          "userId": 2,
-          "numberOfHours": 21600000
-        },
-        {
-          "id": 20,
-          "startDate": "2024-07-20T16:30:00.000Z",
-          "endDate": "2024-07-20T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 23400000
-        },
-        {
-          "id": 21,
-          "startDate": "2024-07-21T16:24:00.000Z",
-          "endDate": "2024-07-21T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 23760000
-        },
-        {
-          "id": 22,
-          "startDate": "2024-07-22T16:30:00.000Z",
-          "endDate": "2024-07-22T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 23400000
-        },
-        {
-          "id": 23,
-          "startDate": "2024-07-23T16:25:00.000Z",
-          "endDate": "2024-07-23T23:00:00.000Z",
-          "userId": 1,
-          "numberOfHours": 23700000
-        }
-      ]
-    }
+    "6": [
+      {
+        "userId": 1,
+        "completed": false,
+        "days": [
+          {
+            "id": 1,
+            "startDate": "2024-07-01T16:00:00.000Z",
+            "endDate": "2024-07-01T23:00:00.000Z",
+            "numberOfHours": 25200000
+          },
+          {
+            "id": 2,
+            "startDate": "2024-07-02T16:00:00.000Z",
+            "endDate": "2024-07-02T23:00:00.000Z",
+            "numberOfHours": 25200000
+          },
+          {
+            "id": 3,
+            "startDate": "2024-07-03T16:00:00.000Z",
+            "endDate": "2024-07-03T23:00:00.000Z",
+            "numberOfHours": 25200000
+          },
+          {
+            "id": 4,
+            "startDate": "2024-07-04T16:15:00.000Z",
+            "endDate": "2024-07-04T23:00:00.000Z",
+            "numberOfHours": 24300000
+          },
+          {
+            "id": 5,
+            "startDate": "2024-07-05T16:20:00.000Z",
+            "endDate": "2024-07-05T23:00:00.000Z",
+            "numberOfHours": 24000000
+          },
+          {
+            "id": 6,
+            "startDate": "2024-07-06T16:20:00.000Z",
+            "endDate": "2024-07-06T23:00:00.000Z",
+            "numberOfHours": 24000000
+          },
+          {
+            "id": 7,
+            "startDate": "2024-07-07T16:18:00.000Z",
+            "endDate": "2024-07-07T23:00:00.000Z",
+            "numberOfHours": 24120000
+          },
+          {
+            "id": 8,
+            "startDate": "2024-07-08T16:00:00.000Z",
+            "endDate": "2024-07-08T23:30:00.000Z",
+            "numberOfHours": 27000000
+          },
+          {
+            "id": 9,
+            "startDate": "2024-07-09T16:15:00.000Z",
+            "endDate": "2024-07-09T23:00:00.000Z",
+            "numberOfHours": 24300000
+          },
+          {
+            "id": 10,
+            "startDate": "2024-07-10T16:24:00.000Z",
+            "endDate": "2024-07-10T23:00:00.000Z",
+            "numberOfHours": 23760000
+          },
+          {
+            "id": 11,
+            "startDate": "2024-07-11T16:30:00.000Z",
+            "endDate": "2024-07-11T23:00:00.000Z",
+            "numberOfHours": 23400000
+          },
+          {
+            "id": 12,
+            "startDate": "2024-07-12T16:17:00.000Z",
+            "endDate": "2024-07-12T23:00:00.000Z",
+            "numberOfHours": 24180000
+          },
+          {
+            "id": 13,
+            "startDate": "2024-07-13T16:20:00.000Z",
+            "endDate": "2024-07-13T23:00:00.000Z",
+            "numberOfHours": 24000000
+          },
+          {
+            "id": 14,
+            "startDate": "2024-07-14T16:20:00.000Z",
+            "endDate": "2024-07-14T23:00:00.000Z",
+            "numberOfHours": 24000000
+          },
+          {
+            "id": 15,
+            "startDate": "2024-07-15T16:00:00.000Z",
+            "endDate": "2024-07-15T23:00:00.000Z",
+            "numberOfHours": 25200000
+          },
+          {
+            "id": 16,
+            "startDate": "2024-07-16T16:00:00.000Z",
+            "endDate": "2024-07-16T23:00:00.000Z",
+            "numberOfHours": 25200000
+          },
+          {
+            "id": 18,
+            "startDate": "2024-07-18T16:19:00.000Z",
+            "endDate": "2024-07-18T23:00:00.000Z",
+            "numberOfHours": 24060000
+          },
+          {
+            "id": 19,
+            "startDate": "2024-07-19T16:20:00.000Z",
+            "endDate": "2024-07-19T23:00:00.000Z",
+            "numberOfHours": 24000000
+          },
+          {
+            "id": 17,
+            "startDate": "2024-07-17T16:00:00.000Z",
+            "endDate": "2024-07-17T23:00:00.000Z",
+            "numberOfHours": 25200000
+          },
+          {
+            "id": 20,
+            "startDate": "2024-07-20T16:30:00.000Z",
+            "endDate": "2024-07-20T23:00:00.000Z",
+            "numberOfHours": 23400000
+          },
+          {
+            "id": 21,
+            "startDate": "2024-07-21T16:24:00.000Z",
+            "endDate": "2024-07-21T23:00:00.000Z",
+            "numberOfHours": 23760000
+          },
+          {
+            "id": 22,
+            "startDate": "2024-07-22T16:30:00.000Z",
+            "endDate": "2024-07-22T23:00:00.000Z",
+            "numberOfHours": 23400000
+          },
+          {
+            "id": 23,
+            "startDate": "2024-07-23T16:25:00.000Z",
+            "endDate": "2024-07-23T23:00:00.000Z",
+            "numberOfHours": 23700000
+          },
+          {
+            "id": 24,
+            "startDate": "2024-07-24T16:20:00.000Z",
+            "endDate": "2024-07-24T23:00:00.000Z",
+            "numberOfHours": 24000000
+          }
+        ]
+      }
+    ]
   }
 }

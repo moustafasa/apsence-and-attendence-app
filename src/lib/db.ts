@@ -38,55 +38,54 @@ export const getAttendences = cache(async (month?: number) => {
   const session = await auth();
   const db = await getDb();
   const todayDate = getDayDate();
-  const allAttendences =
-    db.data.attendence[todayDate.getMonth().toString()].days;
+  const allAttendences = db.data.attendence[
+    month || todayDate.getMonth().toString()
+  ]?.find((att) => att.userId === session?.user.userId);
+
   return allAttendences
-    ? allAttendences
-        .filter((att) => att.userId === session?.user.userId)
-        .toSorted((a, b) => a.id - b.id)
+    ? allAttendences.days.toSorted((a, b) => a.id - b.id)
     : [];
 });
 
-export const setAttandence = cache(async (startDate: Date, endDate?: Date) => {
-  const db = await getDb();
-  const session = await auth();
-  if (session?.user) {
-    const attendences = await getAttendences();
-    db.update((data) => {
-      const endDataSerialized = endDate?.toISOString() || "";
+export const setAttandence = cache(
+  async (startDate: Date, endDate?: Date, month?: number) => {
+    const db = await getDb();
+    const session = await auth();
+    if (session?.user) {
+      db.update((data) => {
+        const endDataSerialized = endDate?.toISOString() || "";
+        const nowData = getDayDate();
+        const attendences =
+          data.attendence[month || nowData.getMonth()].find(
+            ({ userId }) => userId
+          )?.days || [];
 
-      const numberOfHours = endDate
-        ? endDate.getTime() - startDate.getTime()
-        : 0;
-      const att = attendences.find(
-        ({ id, userId: user }) =>
-          id === startDate.getDate() && user === session.user.userId
-      );
+        const numberOfHours = endDate
+          ? endDate.getTime() - startDate.getTime()
+          : 0;
+        const att = attendences.find(({ id }) => id === startDate.getDate());
 
-      if (att) {
-        att.endDate = endDataSerialized;
-        att.startDate = startDate.toISOString();
-        att.numberOfHours = numberOfHours;
-      } else {
-        attendences.push({
-          id: startDate.getDate(),
-          startDate: startDate.toISOString(),
-          endDate: endDataSerialized,
-          userId: session?.user.userId,
-          numberOfHours,
-        });
-      }
-    });
+        if (att) {
+          att.endDate = endDataSerialized;
+          att.startDate = startDate.toISOString();
+          att.numberOfHours = numberOfHours;
+        } else {
+          attendences.push({
+            id: startDate.getDate(),
+            startDate: startDate.toISOString(),
+            endDate: endDataSerialized,
+            numberOfHours,
+          });
+        }
+      });
+    }
   }
-});
+);
 
 export const getSingleAttendence = cache(async (id: number, month?: number) => {
   const session = await auth();
-  const attendences = await getAttendences();
-  if (session?.user)
-    return attendences.find(
-      (att) => att.userId === session.user.userId && att.id === id
-    );
+  const attendences = await getAttendences(month);
+  if (session?.user) return attendences.find((att) => att.id === id);
   else throw new Error("you must log in");
 });
 

@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
 import { getAttendences } from "./db";
 
-export default async function modifiedGetAttendence() {
-  const data = await getAttendences();
+export default async function modifiedGetAttendence(month?: number) {
+  const data = await getAttendences(month);
   const session = await auth();
   if (session?.user.userId)
     return new Array(30).fill(3).map((ele, ind) => {
