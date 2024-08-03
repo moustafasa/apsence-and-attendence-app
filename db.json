@@ -45,6 +45,26 @@
     }
   ],
   "attendence": {
+    "5": [
+      {
+        "userId": 1,
+        "completed": false,
+        "days": [
+          {
+            "id": 1,
+            "startDate": "2024-07-01T16:00:00.000Z",
+            "endDate": "2024-07-01T23:00:00.000Z",
+            "numberOfHours": 25200000
+          },
+          {
+            "id": 2,
+            "startDate": "2024-07-02T16:00:00.000Z",
+            "endDate": "2024-07-02T23:00:00.000Z",
+            "numberOfHours": 25200000
+          }
+        ]
+      }
+    ],
     "6": [
       {
         "userId": 1,
@@ -193,6 +213,12 @@
             "startDate": "2024-07-24T16:20:00.000Z",
             "endDate": "2024-07-24T23:00:00.000Z",
             "numberOfHours": 24000000
+          },
+          {
+            "id": 25,
+            "startDate": "2024-07-25T16:12:00.000Z",
+            "endDate": "2024-07-25T23:00:00.000Z",
+            "numberOfHours": 24480000
           }
         ]
       }

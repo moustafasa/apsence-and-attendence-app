@@ -2,6 +2,7 @@ import AttendenceTableFooter from "@/app/components/AttendenceTableFooter";
 import CalcSalaryModal from "@/app/components/CalcSalaryModal/CalcSalaryModal";
 import Table from "@/app/components/table/Table";
 import TableBody from "@/app/components/table/TableBody";
+import cn from "@/lib/cssConditional";
 import { getUserMonthsMetaData } from "@/lib/db";
 import formatTime from "@/lib/formatTime";
 import getDayDate from "@/lib/getDayDate";
@@ -15,11 +16,15 @@ type Props = {
 };
 
 export default async function page({ searchParams }: Props) {
-  const month = searchParams?.month ? +searchParams.month : undefined;
-  const attendences = modifiedGetAttendence(month);
-  const monthMeta = await getUserMonthsMetaData();
-
   const todayDate = getDayDate();
+  const month = searchParams?.month
+    ? +searchParams.month
+    : todayDate.getMonth();
+  const attendences = modifiedGetAttendence(month);
+  const monthMeta = (await getUserMonthsMetaData()).toSorted(
+    (a, b) => +a.month - +b.month
+  );
+  const currentMonthIndex = monthMeta.findIndex((mon) => +mon.month === month);
 
   const theader = [
     { label: "days", addonClassName: "w-[70px]" },
@@ -75,7 +80,15 @@ export default async function page({ searchParams }: Props) {
   return (
     <div>
       <h2 className="text-center p-3 mt-10 mb-4 capitalize text-3xl font-bold flex justify-center items-center gap-6">
-        <Link href={{ query: { month: todayDate.getMonth() - 1 } }}>
+        <Link
+          href={{
+            query: {
+              month: monthMeta[currentMonthIndex - 1]?.month,
+            },
+          }}
+          prefetch={currentMonthIndex > 0}
+          className={cn({ "pointer-events-none": currentMonthIndex <= 0 })}
+        >
           <FaAngleLeft />
         </Link>
         <span>
@@ -84,7 +97,14 @@ export default async function page({ searchParams }: Props) {
             month ? new Date().setMonth(month) : todayDate
           )}
         </span>
-        <Link href={"?"}>
+        <Link
+          href={{
+            query: {
+              month: monthMeta[currentMonthIndex + 1]?.month,
+            },
+          }}
+          prefetch={currentMonthIndex < monthMeta.length - 1}
+        >
           <FaAngleRight />
         </Link>
       </h2>
