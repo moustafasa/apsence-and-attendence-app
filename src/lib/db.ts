@@ -5,7 +5,11 @@ import getDayDate from "./getDayDate";
 import data from "@/../db.json";
 
 const getDb = cache(async () => {
-  const db = await JSONFilePreset<Db>("/db.json", data);
+  const db = await JSONFilePreset<Db>("/db.json", {
+    users: [],
+    attendence: {},
+    employees: [],
+  });
   await db.read();
   console.log(db.data);
   return db;
