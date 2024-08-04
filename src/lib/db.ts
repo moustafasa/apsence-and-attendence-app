@@ -10,6 +10,7 @@ const getDb = cache(async () => {
     employees: [],
   });
   await db.read();
+  console.log(db.data);
   return db;
 });
 
