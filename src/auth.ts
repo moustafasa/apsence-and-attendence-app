@@ -9,9 +9,9 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
     credentials({
       async authorize(credentials, request) {
         const user = await dbAuth(credentials as DbUser);
+        console.log(user);
 
         if (user) {
-          console.log("user");
           return {
             userId: user.id,
             username: user.username,
@@ -19,7 +19,6 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
             role: user.role,
           };
         }
-        console.log("not user");
 
         return null;
       },
