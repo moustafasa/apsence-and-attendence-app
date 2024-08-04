@@ -2,16 +2,15 @@ import { auth } from "@/auth";
 import { JSONFilePreset } from "lowdb/node";
 import { cache } from "react";
 import getDayDate from "./getDayDate";
-import data from "@/../db.json";
 
-const getDb = cache(async () => {
+export const getDb = cache(async () => {
   const db = await JSONFilePreset<Db>("db.json", {
     users: [],
     attendence: {},
     employees: [],
   });
   await db.read();
-  console.log(db.data);
+  await db.write();
   return db;
 });
 
