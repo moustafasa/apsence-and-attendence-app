@@ -12,9 +12,6 @@ const getDb = cache(async () => {
         username: "moustafa",
         password: "123456",
         role: 1,
-        hourlyRate: 275,
-        bonus: 0,
-        totalHours: 0,
       },
       {
         id: 2,
@@ -22,9 +19,6 @@ const getDb = cache(async () => {
         username: "menna",
         password: "123456",
         role: 1,
-        hourlyRate: 275,
-        bonus: 0,
-        totalHours: 0,
       },
       {
         id: 3,
