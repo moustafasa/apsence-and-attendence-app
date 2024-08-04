@@ -5,7 +5,7 @@ import getDayDate from "./getDayDate";
 import data from "@/../db.json";
 
 const getDb = cache(async () => {
-  const db = await JSONFilePreset<Db>("/db.json", {
+  const db = await JSONFilePreset<Db>("db.json", {
     users: [],
     attendence: {},
     employees: [],
