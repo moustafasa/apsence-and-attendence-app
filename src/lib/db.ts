@@ -15,6 +15,7 @@ const getDb = cache(async () => {
 
 export async function dbAuth(credentials: DbUser) {
   const db = await getDb();
+  console.log(db);
   const users = db.data.users;
   const user = users.find(
     (user) =>
