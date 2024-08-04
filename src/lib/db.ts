@@ -14,9 +14,8 @@ const getDb = cache(async () => {
   return db;
 });
 
-export async function dbAuth(credentials: DbUser) {
+export const dbAuth = cache(async (credentials: DbUser) => {
   const db = await getDb();
-  console.log(db);
   const users = db.data.users;
   const user = users.find(
     (user) =>
@@ -24,7 +23,7 @@ export async function dbAuth(credentials: DbUser) {
       user.password === credentials.password
   );
   return user;
-}
+});
 
 export const getEmployees = cache(async () => {
   const db = await getDb();
