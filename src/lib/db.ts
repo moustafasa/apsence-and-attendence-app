@@ -4,7 +4,7 @@ import { cache } from "react";
 import getDayDate from "./getDayDate";
 
 const getDb = cache(async () => {
-  const db = await JSONFilePreset<Db>(process.env.DB_FILE || "db.json", {
+  const db = await JSONFilePreset<Db>("/db.json", {
     users: [],
     attendence: {},
     employees: [],
