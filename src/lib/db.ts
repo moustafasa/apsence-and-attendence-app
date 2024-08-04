@@ -9,8 +9,7 @@ export const getDb = cache(async () => {
     attendence: {},
     employees: [],
   });
-  await db.read();
-  await db.write();
+
   return db;
 });
 
