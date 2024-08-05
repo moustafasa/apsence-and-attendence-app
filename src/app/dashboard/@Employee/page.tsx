@@ -112,7 +112,7 @@ export default async function page({ searchParams }: Props) {
         <Table
           theaders={theader}
           tfoot={<AttendenceTableFooter />}
-          disabled={monthMeta[0].completed}
+          disabled={monthMeta[0]?.completed}
         >
           <TableBody<Attendence>
             promise={attendences as Promise<Attendence[]>}

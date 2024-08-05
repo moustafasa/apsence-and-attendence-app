@@ -32,6 +32,7 @@ const getDb = cache(async () => {
     employees: [],
   });
   await db.read();
+  await db.write();
   return db;
 });
 
