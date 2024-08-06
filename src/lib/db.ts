@@ -7,7 +7,6 @@ import data from "@/../db.json";
 const getDb = cache(async () => {
   const db = await JSONFilePreset<Db>("db.json", data);
   await db.read();
-  await db.write();
   return db;
 });
 
