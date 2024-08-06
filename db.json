@@ -39,7 +39,7 @@
     }
   ],
   "attendence": {
-    "5": [
+    "8": [
       {
         "userId": 1,
         "completed": false,
@@ -59,7 +59,7 @@
         ]
       }
     ],
-    "6": [
+    "7": [
       {
         "userId": 1,
         "completed": false,
