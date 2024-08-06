@@ -87,7 +87,9 @@ export default async function page({ searchParams }: Props) {
             },
           }}
           prefetch={currentMonthIndex > 0}
-          className={cn({ "pointer-events-none": currentMonthIndex <= 0 })}
+          className={cn({
+            "pointer-events-none text-gray-600": currentMonthIndex <= 0,
+          })}
         >
           <FaAngleLeft />
         </Link>
@@ -104,6 +106,10 @@ export default async function page({ searchParams }: Props) {
             },
           }}
           prefetch={currentMonthIndex < monthMeta.length - 1}
+          className={cn({
+            "pointer-events-none text-gray-600":
+              currentMonthIndex >= monthMeta.length - 1,
+          })}
         >
           <FaAngleRight />
         </Link>
