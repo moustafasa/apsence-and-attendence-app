@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SignOutButton from "./SignOutButton";
 import { Session } from "next-auth";
-import { IoNotifications } from "react-icons/io5";
+import NotificationButton from "./NotificationButton";
 
 export default function NavBarButtons({
   session,
@@ -14,13 +14,7 @@ export default function NavBarButtons({
 
   return session?.user ? (
     <div className="flex gap-3 items-center">
-      <button className="text-xl relative">
-        <sub className="grid place-content-center text-xs bg-red-600 absolute aspect-square h-5  left-0 top-0 -translate-x-1/2 -translate-y-1/2  rounded-full ">
-          10
-        </sub>
-        <IoNotifications />
-      </button>
-
+      <NotificationButton />
       {pathname === "/" && (
         <Link
           href={"/dashboard"}
