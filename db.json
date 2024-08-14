@@ -9,8 +9,8 @@
     },
     {
       "id": 2,
-      "name": "dr-menna",
-      "username": "menna",
+      "name": "dr-mohamed",
+      "username": "mohamed",
       "password": "123456",
       "role": 1
     },
@@ -32,13 +32,38 @@
     },
     {
       "id": 2,
-      "name": "dr-menna",
+      "name": "dr-mohamed",
       "hourlyRate": 275,
       "bonus": 0,
       "totalHours": 0
     }
   ],
   "attendence": {
-    "7": []
+    "7": [
+      {
+        "userId": 1,
+        "completed": false,
+        "days": [
+          {
+            "id": 9,
+            "startDate": "2024-08-09T15:00:00.000Z",
+            "endDate": "2024-08-09T23:00:00.000Z",
+            "numberOfHours": 28800000
+          }
+        ]
+      },
+      {
+        "userId": 2,
+        "completed": false,
+        "days": [
+          {
+            "id": 9,
+            "startDate": "2024-08-09T15:00:00.000Z",
+            "endDate": "2024-08-09T23:00:00.000Z",
+            "numberOfHours": 28800000
+          }
+        ]
+      }
+    ]
   }
 }
