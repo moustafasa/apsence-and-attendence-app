@@ -52,3 +52,10 @@ type TableBodyElement<T> = {
   getContent: (bodyData: T, index: number) => ReactNode;
   th?: boolean;
 };
+
+type NotificationMessage = {
+  text: string;
+  acceptLink?: string;
+  rejectLink?: string;
+  clickLink?: string;
+};

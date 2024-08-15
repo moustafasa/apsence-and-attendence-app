@@ -1,23 +1,29 @@
 "use client";
 import convertMillSecondsToHours from "@/lib/convertMillSecondsToHours";
 import cn from "@/lib/cssConditional";
+import { triggerNotification } from "@/lib/PusherConnect";
 import Link from "next/link";
 import { useState } from "react";
 
-type Props = { totalHours: number; hourRate: number };
+type Props = { totalHours: number; hourRate: number; username: string };
 
-export default function ClientCalcSalaryModal({ totalHours, hourRate }: Props) {
+export default function ClientCalcSalaryModal({
+  totalHours,
+  hourRate,
+  username,
+}: Props) {
   const [holidays, setHolidays] = useState(false);
   const [totalSalary, setTotalSalary] = useState(0);
   const totalHoursInHours = convertMillSecondsToHours(totalHours);
+
   const calcSalary = () => {
-    console.log(holidays);
     if (holidays) {
       setTotalSalary(+((totalHoursInHours / 30) * hourRate).toFixed(2));
     } else {
       setTotalSalary(+((totalHoursInHours / 26) * hourRate).toFixed(2));
     }
   };
+
   return (
     <div
       className={cn(
@@ -57,7 +63,14 @@ export default function ClientCalcSalaryModal({ totalHours, hourRate }: Props) {
           <dd className=" ">{totalSalary} pounds</dd>
         </dl>
         <div className="flex items-center gap-3 justify-center">
-          <button className="block capitalize bg-green-100 py-2 px-3 rounded-lg hover:bg-green-200 transition-colors duration-400 shadow-lg text-xl ">
+          <button
+            onClick={async () => {
+              await triggerNotification({
+                text: `${username} ask you to paid his salary he work ${totalHoursInHours} and his salary is ${totalSalary}`,
+              });
+            }}
+            className="block capitalize bg-green-100 py-2 px-3 rounded-lg hover:bg-green-200 transition-colors duration-400 shadow-lg text-xl "
+          >
             get paid
           </button>
           <Link

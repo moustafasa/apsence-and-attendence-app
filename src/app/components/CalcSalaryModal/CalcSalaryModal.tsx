@@ -12,6 +12,7 @@ export default async function CalcSalaryModal() {
       <ClientCalcSalaryModal
         totalHours={totalHours}
         hourRate={employee?.hourlyRate || 0}
+        username={session.user.name}
       />
     );
   }
