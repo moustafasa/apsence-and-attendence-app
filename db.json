@@ -20,6 +20,13 @@
       "username": "adel",
       "password": "123456",
       "role": 0
+    },
+    {
+      "id": 1723835736564,
+      "name": "abd elrahman",
+      "username": "abdelrahman",
+      "password": "123456",
+      "role": 1
     }
   ],
   "employees": [
@@ -34,6 +41,13 @@
       "id": 2,
       "name": "dr-mohamed",
       "hourlyRate": 275,
+      "bonus": 0,
+      "totalHours": 0
+    },
+    {
+      "id": 1723835736564,
+      "name": "abd elrahman",
+      "hourlyRate": 270,
       "bonus": 0,
       "totalHours": 0
     }

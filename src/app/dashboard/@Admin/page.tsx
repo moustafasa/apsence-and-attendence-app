@@ -29,9 +29,12 @@ export default async function page() {
           >
             edit
           </Link>
-          <button className=" capitalize bg-blue-300 transition-colors duration-300 hover:bg-blue-200 shadow-sm px-4 py-2 rounded-lg">
+          <Link
+            href={`/dashboard/view/${bodyData.id}`}
+            className=" capitalize bg-blue-300 transition-colors duration-300 hover:bg-blue-200 shadow-sm px-4 py-2 rounded-lg"
+          >
             view
-          </button>
+          </Link>
         </div>
       ),
     },

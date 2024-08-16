@@ -2,7 +2,7 @@
 
 import { auth, signIn, signOut } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
-import { setAttandence } from "./db";
+import { editEmployee, setAttandence, addEmployee } from "./db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -72,4 +72,34 @@ export async function setAttandenceAction(
   await setAttandence(startDate, endDate);
   revalidatePath("/dashboard/");
   redirect("/dashboard/");
+}
+
+export async function editEmployeeAction(
+  id: number,
+  prevState: string | undefined,
+  formData: FormData
+) {
+  const hourlyRate = formData.get("hourlyRate");
+  if (hourlyRate) {
+    editEmployee(id, +hourlyRate);
+    revalidatePath("/dashboard");
+    return redirect("/dashboard");
+  }
+}
+
+export async function addEmployeeAction(
+  prevState: string | undefined,
+  formData: FormData
+) {
+  const employee = Object.fromEntries(formData) as {
+    name: string;
+    username: string;
+    password: string;
+    hourlyRate: string;
+  };
+
+  await addEmployee({ ...employee, hourlyRate: +employee.hourlyRate });
+
+  revalidatePath("/dashboard");
+  return redirect("/dashboard");
 }

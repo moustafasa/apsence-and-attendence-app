@@ -9,6 +9,7 @@ type Props = {
   tfoot?: ReactNode;
   children: ReactNode;
   disabled?: boolean;
+  noOptions?: boolean;
 };
 
 export default function Table({
@@ -16,6 +17,7 @@ export default function Table({
   children,
   theaders,
   disabled = false,
+  noOptions,
 }: Props) {
   return (
     <div
@@ -31,12 +33,15 @@ export default function Table({
                 key={th.label}
                 className={cn("px-3 py-5", th.addonClassName, {
                   "rounded-ss-lg": ind === 0,
+                  "rounded-se-lg": noOptions && ind === theaders.length - 1,
                 })}
               >
                 {th.label}
               </th>
             ))}
-            <th className="rounded-se-lg px-3 py-5 w-[200px]">options</th>
+            {!noOptions && (
+              <th className="rounded-se-lg px-3 py-5 w-[200px]">options</th>
+            )}
           </tr>
         </thead>
         <tbody>{children}</tbody>

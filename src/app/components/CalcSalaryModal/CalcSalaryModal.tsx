@@ -3,7 +3,7 @@ import ClientCalcSalaryModal from "./ClientCalcSalaryModal";
 import { auth } from "@/auth";
 import { getEmployee } from "@/lib/db";
 
-export default async function CalcSalaryModal() {
+export default async function CalcSalaryModal({ userId }: { userId?: number }) {
   const session = await auth();
   if (session?.user) {
     const employee = await getEmployee(session.user.userId);
