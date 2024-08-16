@@ -1,6 +1,7 @@
 import Table from "@/app/components/table/Table";
 import TableBody from "@/app/components/table/TableBody";
 import { getEmployees } from "@/lib/db";
+import Link from "next/link";
 
 export default async function page() {
   const employees = getEmployees();
@@ -20,11 +21,14 @@ export default async function page() {
     { getContent: (bodyData) => bodyData.bonus },
     { getContent: (bodyData) => bodyData.bonus },
     {
-      getContent: () => (
+      getContent: (bodyData) => (
         <div className="flex justify-center gap-3">
-          <button className=" capitalize bg-green-100 transition-colors duration-300 hover:bg-green-200 shadow-sm px-4 py-2 rounded-lg">
+          <Link
+            href={`/dashboard/edit/${bodyData.id}`}
+            className=" capitalize bg-green-100 transition-colors duration-300 hover:bg-green-200 shadow-sm px-4 py-2 rounded-lg"
+          >
             edit
-          </button>
+          </Link>
           <button className=" capitalize bg-blue-300 transition-colors duration-300 hover:bg-blue-200 shadow-sm px-4 py-2 rounded-lg">
             view
           </button>
