@@ -2,7 +2,7 @@
 
 import { auth, signIn, signOut } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
-import { editEmployee, setAttandence, addEmployee } from "./db";
+import { editEmployee, setAttandence, addEmployee, getMonthPaid } from "./db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -102,4 +102,12 @@ export async function addEmployeeAction(
 
   revalidatePath("/dashboard");
   return redirect("/dashboard");
+}
+
+export async function getPaidAction(
+  month: number,
+  userId: number,
+  salary: number
+) {
+  await getMonthPaid(month, userId, salary);
 }

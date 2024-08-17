@@ -1,7 +1,8 @@
 import calcTotalMonthHours from "@/lib/calcTotalMonthHours";
 
-export default async function AttendenceTableFooter() {
-  const totalMonthHours = await calcTotalMonthHours();
+type Props = { month?: number; id?: number };
+export default async function AttendenceTableFooter({ month, id }: Props) {
+  const totalMonthHours = await calcTotalMonthHours(month, id);
 
   return (
     <tfoot className="">

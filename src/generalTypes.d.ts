@@ -31,6 +31,7 @@ type Db = {
       userId: number;
       completed: boolean;
       days: Attendence[];
+      paidSalary: number;
     }[];
   };
   employees: DbEmployeeUser[];

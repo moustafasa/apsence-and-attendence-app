@@ -21,9 +21,7 @@ export default async function page({ searchParams }: Props) {
     ? +searchParams.month
     : todayDate.getMonth();
   const attendences = modifiedGetAttendence(month);
-  const monthMeta = (await getUserMonthsMetaData()).toSorted(
-    (a, b) => +a.month - +b.month
-  );
+  const monthMeta = await getUserMonthsMetaData();
   const currentMonthIndex = monthMeta.findIndex((mon) => +mon.month === month);
 
   const theader = [
@@ -117,7 +115,7 @@ export default async function page({ searchParams }: Props) {
       <div className="max-w-full">
         <Table
           theaders={theader}
-          tfoot={<AttendenceTableFooter />}
+          tfoot={<AttendenceTableFooter month={month} />}
           disabled={monthMeta[0]?.completed}
         >
           <TableBody<Attendence>
@@ -141,7 +139,7 @@ export default async function page({ searchParams }: Props) {
           calc salary
         </Link>
       </div>
-      {searchParams.show !== undefined && <CalcSalaryModal />}
+      {searchParams.show !== undefined && <CalcSalaryModal month={month} />}
     </div>
   );
 }

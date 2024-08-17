@@ -1,16 +1,25 @@
 "use client";
+import { getPaidAction } from "@/lib/actions";
 import convertMillSecondsToHours from "@/lib/convertMillSecondsToHours";
 import cn from "@/lib/cssConditional";
 import { triggerNotification } from "@/lib/PusherConnect";
 import Link from "next/link";
 import { useState } from "react";
 
-type Props = { totalHours: number; hourRate: number; username: string };
+type Props = {
+  totalHours: number;
+  hourRate: number;
+  username: string;
+  admin?: boolean;
+  month?: number;
+};
 
 export default function ClientCalcSalaryModal({
   totalHours,
   hourRate,
   username,
+  month,
+  admin,
 }: Props) {
   const [holidays, setHolidays] = useState(false);
   const [totalSalary, setTotalSalary] = useState(0);
@@ -22,6 +31,10 @@ export default function ClientCalcSalaryModal({
     } else {
       setTotalSalary(+((totalHoursInHours / 26) * hourRate).toFixed(2));
     }
+  };
+
+  const onPaidHandler = () => {
+    console.log("done");
   };
 
   return (
@@ -65,9 +78,7 @@ export default function ClientCalcSalaryModal({
         <div className="flex items-center gap-3 justify-center">
           <button
             onClick={async () => {
-              await triggerNotification({
-                text: `${username} ask you to paid his salary he work ${totalHoursInHours} and his salary is ${totalSalary}`,
-              });
+              admin ? await getPaidAction(month) : onPaidHandler();
             }}
             className="block capitalize bg-green-100 py-2 px-3 rounded-lg hover:bg-green-200 transition-colors duration-400 shadow-lg text-xl "
           >

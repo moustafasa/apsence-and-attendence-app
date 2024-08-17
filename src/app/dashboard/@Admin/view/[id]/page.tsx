@@ -3,12 +3,12 @@ import CalcSalaryModal from "@/app/components/CalcSalaryModal/CalcSalaryModal";
 import Table from "@/app/components/table/Table";
 import TableBody from "@/app/components/table/TableBody";
 import cn from "@/lib/cssConditional";
-import { getUserMonthsMetaData } from "@/lib/db";
+import { getEmployee, getUserMonthsMetaData } from "@/lib/db";
 import formatTime from "@/lib/formatTime";
 import getDayDate from "@/lib/getDayDate";
 import modifiedGetAttendence from "@/lib/modifiedGetAttendence";
 import Link from "next/link";
-import { BiLeftArrow } from "react-icons/bi";
+import { notFound } from "next/navigation";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 type Props = {
@@ -22,10 +22,14 @@ export default async function page({ searchParams, params: { id } }: Props) {
     ? +searchParams.month
     : todayDate.getMonth();
   const attendences = modifiedGetAttendence(month, +id);
-  const monthMeta = (await getUserMonthsMetaData(+id)).toSorted(
-    (a, b) => +a.month - +b.month
-  );
+  const monthMeta = await getUserMonthsMetaData(+id);
   const currentMonthIndex = monthMeta.findIndex((mon) => +mon.month === month);
+
+  const employee = await getEmployee(+id);
+
+  if (!employee) {
+    notFound();
+  }
 
   const theader = [
     { label: "days", addonClassName: "w-[70px]" },
@@ -66,7 +70,10 @@ export default async function page({ searchParams, params: { id } }: Props) {
 
   return (
     <div>
-      <h2 className="text-center p-3 mt-10 mb-4 capitalize text-3xl font-bold flex justify-center items-center gap-6">
+      <h2 className="text-center text-3xl capitalize mt-10 font-bold">
+        attendence of {employee?.name}
+      </h2>
+      <h3 className="text-center p-3 mb-4 capitalize text-2xl font-bold flex justify-center items-center gap-6">
         <Link
           href={{
             query: {
@@ -81,7 +88,6 @@ export default async function page({ searchParams, params: { id } }: Props) {
           <FaAngleLeft />
         </Link>
         <span>
-          attendence of{" "}
           {Intl.DateTimeFormat("en-US", { month: "long" }).format(
             month ? new Date().setMonth(month) : todayDate
           )}
@@ -100,11 +106,11 @@ export default async function page({ searchParams, params: { id } }: Props) {
         >
           <FaAngleRight />
         </Link>
-      </h2>
+      </h3>
       <div className="max-w-full">
         <Table
           theaders={theader}
-          tfoot={<AttendenceTableFooter />}
+          tfoot={<AttendenceTableFooter month={month} id={+id} />}
           disabled={monthMeta[0]?.completed}
           noOptions
         >
@@ -129,7 +135,9 @@ export default async function page({ searchParams, params: { id } }: Props) {
           calc salary
         </Link>
       </div>
-      {searchParams.show !== undefined && <CalcSalaryModal />}
+      {searchParams.show !== undefined && (
+        <CalcSalaryModal userId={+id} month={month} />
+      )}
     </div>
   );
 }

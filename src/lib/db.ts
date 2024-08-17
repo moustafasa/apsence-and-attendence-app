@@ -110,6 +110,8 @@ export const getUserMonthsMetaData = cache(async (userId?: number) => {
       month,
       completed: db.data.attendence[month].find((att) => att.userId === user)
         ?.completed,
+      paidSalary: db.data.attendence[month].find((att) => att.userId === user)
+        ?.paidSalary,
     }));
 });
 
@@ -147,6 +149,21 @@ export const addEmployee = cache(
         bonus: 0,
         totalHours: 0,
       });
+    });
+  }
+);
+
+export const getMonthPaid = cache(
+  async (month: number, userId: number, salary: number) => {
+    const db = await getDb();
+    db.update((data) => {
+      const userAtt = data.attendence[month].find(
+        (userAtt) => userAtt.userId === userId
+      );
+      if (userAtt) {
+        userAtt.completed = true;
+        userAtt.paidSalary = salary;
+      }
     });
   }
 );
