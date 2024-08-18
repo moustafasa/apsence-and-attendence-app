@@ -2,10 +2,17 @@
 
 import { auth, signIn, signOut } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
-import { editEmployee, setAttandence, addEmployee, getMonthPaid } from "./db";
+import {
+  editEmployee,
+  setAttandence,
+  addEmployee,
+  getMonthPaid,
+  getNotificationOfUser,
+} from "./db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import getDayDate from "./getDayDate";
+import { Role } from "@/authTypes.d";
 
 export async function signinAction(
   prevState: string | undefined,
@@ -117,4 +124,19 @@ export async function getPaidAction(
   }
   await getMonthPaid(mon, userId, salary);
   revalidatePath(`dashboard/view/${userId}`);
+}
+
+export async function getCurrentUser() {
+  const session = await auth();
+  return session?.user;
+}
+
+export async function getUserNotificationAction() {
+  const user = await getCurrentUser();
+  if (user) {
+    const notification = await getNotificationOfUser(
+      user.role === Role.ADMIN ? "admin" : user.userId
+    );
+    return notification;
+  }
 }

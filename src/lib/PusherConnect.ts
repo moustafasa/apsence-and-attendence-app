@@ -1,5 +1,6 @@
 "use server";
 import Pusher from "pusher";
+import { addNotification } from "./db";
 
 const pusher = new Pusher({
   appId: process.env.APP_ID as string,
@@ -8,12 +9,9 @@ const pusher = new Pusher({
   key: process.env.APP_KEY as string,
 });
 
-export async function pusherConnect() {
-  await pusher.trigger("channel", "event", { message: "test" });
-}
-
 export async function triggerNotification(notification: NotificationMessage) {
-  await pusher.trigger("notification", "new", {
+  await pusher.trigger(notification.to.toString(), "notification", {
     message: JSON.stringify(notification),
   });
+  await addNotification(notification);
 }

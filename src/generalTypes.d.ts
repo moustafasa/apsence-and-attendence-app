@@ -12,8 +12,6 @@ type DbEmployeeUser = {
   id: number;
   name: string;
   hourlyRate: number;
-  bonus: number;
-  totalHours: number;
 };
 
 type DbUser = {
@@ -22,6 +20,13 @@ type DbUser = {
   username: string;
   name: string;
   role: Role;
+};
+
+type NotificationMessage = {
+  from: number;
+  to: number | string;
+  read: boolean;
+  type: string;
 };
 
 type Db = {
@@ -35,6 +40,7 @@ type Db = {
     }[];
   };
   employees: DbEmployeeUser[];
+  notifications: NotificationMessage[];
 };
 
 type Attendence = {
@@ -52,11 +58,4 @@ type TableHeader = {
 type TableBodyElement<T> = {
   getContent: (bodyData: T, index: number) => ReactNode;
   th?: boolean;
-};
-
-type NotificationMessage = {
-  text: string;
-  acceptLink?: string;
-  rejectLink?: string;
-  clickLink?: string;
 };

@@ -3,14 +3,14 @@ import { getPaidAction } from "@/lib/actions";
 import convertMillSecondsToHours from "@/lib/convertMillSecondsToHours";
 import cn from "@/lib/cssConditional";
 import { triggerNotification } from "@/lib/PusherConnect";
-import Link from "next/link";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type Props = {
   totalHours: number;
   employee: DbEmployeeUser;
+  id?: number;
   admin?: boolean;
 };
 
@@ -48,7 +48,12 @@ export default function ClientCalcSalaryModal({
   };
 
   const onPaidHandler = () => {
-    console.log("done");
+    triggerNotification({
+      from: employee.id,
+      to: "admin",
+      type: "salaryRequest",
+      read: false,
+    });
   };
 
   return (

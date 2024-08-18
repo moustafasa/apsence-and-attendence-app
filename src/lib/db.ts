@@ -9,6 +9,7 @@ const getDb = cache(async () => {
     users: [],
     employees: [],
     attendence: {},
+    notifications: [],
   });
   await db.read();
   return db;
@@ -146,8 +147,6 @@ export const addEmployee = cache(
         id,
         name: employee.name,
         hourlyRate: employee.hourlyRate,
-        bonus: 0,
-        totalHours: 0,
       });
     });
   }
@@ -167,3 +166,17 @@ export const getMonthPaid = cache(
     });
   }
 );
+
+export const addNotification = cache(
+  async (notification: NotificationMessage) => {
+    const db = await getDb();
+    db.update((data) => {
+      data.notifications.push(notification);
+    });
+  }
+);
+
+export const getNotificationOfUser = cache(async (id: number | string) => {
+  const db = await getDb();
+  return db.data.notifications.find((notif) => notif.to === id);
+});

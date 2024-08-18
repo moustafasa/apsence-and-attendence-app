@@ -1,16 +1,21 @@
 import Table from "@/app/components/table/Table";
 import TableBody from "@/app/components/table/TableBody";
+import calcTotalMonthHours from "@/lib/calcTotalMonthHours";
+import convertMillSecondsToHours from "@/lib/convertMillSecondsToHours";
 import { getEmployees } from "@/lib/db";
 import Link from "next/link";
 
-export default async function page() {
+export default async function page({
+  searchParams,
+}: {
+  searchParams: { month?: string };
+}) {
   const employees = getEmployees();
 
   const tHeaders = [
     { label: "id" },
     { label: "name" },
     { label: "hourly rate" },
-    { label: "bonus" },
     { label: "number of worked hours" },
   ] satisfies TableHeader[];
 
@@ -18,8 +23,15 @@ export default async function page() {
     { getContent: (_, index) => index + 1 },
     { getContent: (bodyData) => bodyData.name },
     { getContent: (bodyData) => bodyData.hourlyRate },
-    { getContent: (bodyData) => bodyData.bonus },
-    { getContent: (bodyData) => bodyData.bonus },
+    {
+      getContent: async (bodyData) => {
+        const totalHours = await calcTotalMonthHours(
+          searchParams.month ? +searchParams.month : undefined,
+          bodyData.id
+        );
+        return convertMillSecondsToHours(totalHours);
+      },
+    },
     {
       getContent: (bodyData) => (
         <div className="flex justify-center gap-3">

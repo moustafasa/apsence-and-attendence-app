@@ -1,16 +1,40 @@
 "use client";
 import { IoNotifications } from "react-icons/io5";
 import Pusher from "pusher-js";
-import { useEffect } from "react";
-import { pusherConnect } from "@/lib/PusherConnect";
+import { useEffect, useState } from "react";
+import { Role } from "@/authTypes.d";
+import { getCurrentUser, getUserNotificationAction } from "@/lib/actions";
 
 export default function NotificationButton() {
+  const [notifications, setNotifications] = useState<NotificationMessage[]>([]);
+
   useEffect(() => {
-    const pusher = new Pusher("8bd15854ea58c1783a94", { cluster: "eu" });
-    const channel = pusher.subscribe("notification");
-    channel.bind("new", (data: { message: string }) => {
-      console.log(data);
-    });
+    const getNotifications = async () => {
+      const notif = await getUserNotificationAction();
+      if (notif) {
+        setNotifications((prev) => [...prev, notif]);
+      }
+    };
+    getNotifications();
+  }, []);
+
+  console.log(notifications);
+
+  useEffect(() => {
+    const getNotification = async () => {
+      const user = await getCurrentUser();
+      if (user) {
+        const pusher = new Pusher("8bd15854ea58c1783a94", { cluster: "eu" });
+        const channel = pusher.subscribe(
+          user.role === Role.ADMIN ? "admin" : user.userId.toString()
+        );
+        channel.bind("notification", (data: { message: string }) => {
+          const parsedMessage = JSON.parse(data.message) as NotificationMessage;
+          setNotifications((prev) => [...prev, parsedMessage]);
+        });
+      }
+    };
+    getNotification();
   }, []);
   return (
     <button className="text-xl relative">

@@ -33,43 +33,43 @@
     {
       "id": 1,
       "name": "dr-moustafa",
-      "hourlyRate": 275,
-      "bonus": 0,
-      "totalHours": 0
+      "hourlyRate": 275
     },
     {
       "id": 2,
       "name": "dr-mohamed",
-      "hourlyRate": 275,
-      "bonus": 0,
-      "totalHours": 0
+      "hourlyRate": 275
     },
     {
       "id": 1723835736564,
       "name": "abd elrahman",
-      "hourlyRate": 270,
-      "bonus": 0,
-      "totalHours": 0
+      "hourlyRate": 270
     }
   ],
   "attendence": {
     "7": [
       {
         "userId": 1,
-        "completed": true,
-        "paidSalary": 84.62,
+        "completed": false,
+        "paidSalary": 73.33,
         "days": [
           {
             "id": 9,
             "startDate": "2024-08-09T15:00:00.000Z",
             "endDate": "2024-08-09T23:00:00.000Z",
             "numberOfHours": 28800000
+          },
+          {
+            "id": 18,
+            "startDate": "2024-08-18T11:00:00.000Z",
+            "endDate": "2024-08-19T00:00:00.000Z",
+            "numberOfHours": 46800000
           }
         ]
       },
       {
         "userId": 2,
-        "completed": true,
+        "completed": false,
         "paidSalary": 0,
         "days": [
           {
@@ -81,5 +81,13 @@
         ]
       }
     ]
-  }
+  },
+  "notifications": [
+    {
+      "from": 1,
+      "to": "admin",
+      "type": "salaryRequest",
+      "read": false
+    }
+  ]
 }
