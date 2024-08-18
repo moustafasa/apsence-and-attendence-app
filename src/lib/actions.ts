@@ -5,6 +5,7 @@ import { isRedirectError } from "next/dist/client/components/redirect";
 import { editEmployee, setAttandence, addEmployee, getMonthPaid } from "./db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import getDayDate from "./getDayDate";
 
 export async function signinAction(
   prevState: string | undefined,
@@ -105,9 +106,15 @@ export async function addEmployeeAction(
 }
 
 export async function getPaidAction(
-  month: number,
   userId: number,
-  salary: number
+  salary: number,
+  month?: number
 ) {
-  await getMonthPaid(month, userId, salary);
+  let mon = month;
+  if (!mon) {
+    const todayDate = getDayDate();
+    mon = todayDate.getMonth();
+  }
+  await getMonthPaid(mon, userId, salary);
+  revalidatePath(`dashboard/view/${userId}`);
 }

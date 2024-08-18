@@ -4,33 +4,47 @@ import convertMillSecondsToHours from "@/lib/convertMillSecondsToHours";
 import cn from "@/lib/cssConditional";
 import { triggerNotification } from "@/lib/PusherConnect";
 import Link from "next/link";
-import { useState } from "react";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 type Props = {
   totalHours: number;
-  hourRate: number;
-  username: string;
+  employee: DbEmployeeUser;
   admin?: boolean;
-  month?: number;
 };
 
 export default function ClientCalcSalaryModal({
   totalHours,
-  hourRate,
-  username,
-  month,
+  employee,
   admin,
 }: Props) {
   const [holidays, setHolidays] = useState(false);
   const [totalSalary, setTotalSalary] = useState(0);
   const totalHoursInHours = convertMillSecondsToHours(totalHours);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const month = searchParams.get("month")
+    ? +!searchParams.get("month")
+    : undefined;
 
   const calcSalary = () => {
     if (holidays) {
-      setTotalSalary(+((totalHoursInHours / 30) * hourRate).toFixed(2));
+      setTotalSalary(
+        +((totalHoursInHours / 30) * employee.hourlyRate).toFixed(2)
+      );
     } else {
-      setTotalSalary(+((totalHoursInHours / 26) * hourRate).toFixed(2));
+      setTotalSalary(
+        +((totalHoursInHours / 26) * employee.hourlyRate).toFixed(2)
+      );
     }
+  };
+
+  const hideSearch = () => {
+    const search = new URLSearchParams(searchParams);
+    search.delete("show");
+    router.replace(`${pathname}?${search}`, { scroll: false });
   };
 
   const onPaidHandler = () => {
@@ -78,19 +92,22 @@ export default function ClientCalcSalaryModal({
         <div className="flex items-center gap-3 justify-center">
           <button
             onClick={async () => {
-              admin ? await getPaidAction(month) : onPaidHandler();
+              admin
+                ? await getPaidAction(employee.id, totalSalary, month)
+                : onPaidHandler();
+
+              hideSearch();
             }}
             className="block capitalize bg-green-100 py-2 px-3 rounded-lg hover:bg-green-200 transition-colors duration-400 shadow-lg text-xl "
           >
             get paid
           </button>
-          <Link
-            href={"?"}
+          <button
+            onClick={hideSearch}
             className="block capitalize bg-black-300 py-2 px-3 rounded-lg hover:bg-black-400 transition-colors duration-400 shadow-lg text-xl "
-            scroll={false}
           >
             cancel
-          </Link>
+          </button>
         </div>
       </div>
     </div>

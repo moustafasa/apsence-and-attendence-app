@@ -8,7 +8,7 @@ import formatTime from "@/lib/formatTime";
 import getDayDate from "@/lib/getDayDate";
 import modifiedGetAttendence from "@/lib/modifiedGetAttendence";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 type Props = {
@@ -27,8 +27,20 @@ export default async function page({ searchParams, params: { id } }: Props) {
 
   const employee = await getEmployee(+id);
 
+  const modalUrl = () => {
+    const search = new URLSearchParams(searchParams);
+    search.append("show", "");
+    return `?${search.toString()}`;
+  };
+
   if (!employee) {
     notFound();
+  }
+
+  if (currentMonthIndex === -1) {
+    const search = new URLSearchParams(searchParams);
+    search.delete("month");
+    return redirect(`?${search.toString()}`);
   }
 
   const theader = [
@@ -70,10 +82,10 @@ export default async function page({ searchParams, params: { id } }: Props) {
 
   return (
     <div>
-      <h2 className="text-center text-3xl capitalize mt-10 font-bold">
+      <h2 className="text-center text-3xl capitalize mt-10 font-bold mb-4">
         attendence of {employee?.name}
       </h2>
-      <h3 className="text-center p-3 mb-4 capitalize text-2xl font-bold flex justify-center items-center gap-6">
+      <h3 className="text-center p-3 pt-3 capitalize text-2xl font-bold flex justify-center items-center gap-6">
         <Link
           href={{
             query: {
@@ -128,7 +140,7 @@ export default async function page({ searchParams, params: { id } }: Props) {
         </Table>
 
         <Link
-          href={"?show"}
+          href={modalUrl()}
           className="mx-auto block w-fit mt-5 capitalize bg-green-100 p-3 rounded-lg shadow-lg hover:bg-green-200 transition-colors duration-500 mb-5"
           scroll={false}
         >

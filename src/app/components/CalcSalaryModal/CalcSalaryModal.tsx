@@ -3,6 +3,7 @@ import ClientCalcSalaryModal from "./ClientCalcSalaryModal";
 import { auth } from "@/auth";
 import { getEmployee } from "@/lib/db";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 export default async function CalcSalaryModal({
   userId,
@@ -17,14 +18,18 @@ export default async function CalcSalaryModal({
     user = session!.user.userId;
   }
   const employee = await getEmployee(user);
+
+  if (!employee) return null;
+
   const totalHours = await calcTotalMonthHours(month, userId);
+
   return (
-    <ClientCalcSalaryModal
-      totalHours={totalHours}
-      hourRate={employee?.hourlyRate || 0}
-      username={employee!.name}
-      admin={!!userId}
-      month={month}
-    />
+    <Suspense fallback={<div>loading...</div>}>
+      <ClientCalcSalaryModal
+        totalHours={totalHours}
+        employee={employee}
+        admin={!!userId}
+      />
+    </Suspense>
   );
 }

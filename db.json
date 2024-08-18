@@ -56,8 +56,8 @@
     "7": [
       {
         "userId": 1,
-        "completed": false,
-        "paidSalary": 0,
+        "completed": true,
+        "paidSalary": 84.62,
         "days": [
           {
             "id": 9,
@@ -69,7 +69,7 @@
       },
       {
         "userId": 2,
-        "completed": false,
+        "completed": true,
         "paidSalary": 0,
         "days": [
           {
