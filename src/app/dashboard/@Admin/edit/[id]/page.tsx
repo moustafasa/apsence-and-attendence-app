@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 type Props = { params: { id: string } };
 export default async function page({ params: { id } }: Props) {
-  const employee = await getEmployee(+id);
+  const employee = await getEmployee(id);
   if (!employee) return notFound();
   return (
     <div className="container">

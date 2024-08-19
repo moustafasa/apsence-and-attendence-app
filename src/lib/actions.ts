@@ -45,7 +45,6 @@ export async function setAttandenceAction(
     return "you must logged in";
   }
 
-  console.log(session.user);
   // get startHours and startMinutes
   const [startHours, startMinutes] = (formData.get("start") as string)
     .split(":")
@@ -83,7 +82,7 @@ export async function setAttandenceAction(
 }
 
 export async function editEmployeeAction(
-  id: number,
+  id: DbEmployeeUser["id"],
   prevState: string | undefined,
   formData: FormData
 ) {
@@ -113,7 +112,7 @@ export async function addEmployeeAction(
 }
 
 export async function getPaidAction(
-  userId: number,
+  userId: DbUser["id"],
   salary: number,
   month?: number
 ) {

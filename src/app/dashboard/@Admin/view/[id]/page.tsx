@@ -21,11 +21,11 @@ export default async function page({ searchParams, params: { id } }: Props) {
   const month = searchParams?.month
     ? +searchParams.month
     : todayDate.getMonth();
-  const attendences = modifiedGetAttendence(month, +id);
-  const monthMeta = await getUserMonthsMetaData(+id);
+  const attendences = modifiedGetAttendence(month, id);
+  const monthMeta = await getUserMonthsMetaData(id);
   const currentMonthIndex = monthMeta.findIndex((mon) => +mon.month === month);
 
-  const employee = await getEmployee(+id);
+  const employee = await getEmployee(id);
 
   const modalUrl = () => {
     const search = new URLSearchParams(searchParams);
@@ -122,7 +122,7 @@ export default async function page({ searchParams, params: { id } }: Props) {
       <div className="max-w-full">
         <Table
           theaders={theader}
-          tfoot={<AttendenceTableFooter month={month} id={+id} />}
+          tfoot={<AttendenceTableFooter month={month} id={id} />}
           disabled={monthMeta[0]?.completed}
           noOptions
         >
@@ -148,7 +148,7 @@ export default async function page({ searchParams, params: { id } }: Props) {
         </Link>
       </div>
       {searchParams.show !== undefined && (
-        <CalcSalaryModal userId={+id} month={month} />
+        <CalcSalaryModal userId={id} month={month} />
       )}
     </div>
   );

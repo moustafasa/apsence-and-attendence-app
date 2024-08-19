@@ -4,7 +4,9 @@ import { ClassValue } from "clsx";
 type Props<T extends Attendence | DbEmployeeUser> = {
   promise: Promise<T[]>;
   tableBodyData: TableBodyElement<T>[];
-  addOnClassNames?: (item: number) => ClassValue;
+  addOnClassNames?: (
+    item: DbEmployeeUser["id"] | Attendence["id"]
+  ) => ClassValue;
 };
 
 export default async function TableBody<T extends Attendence | DbEmployeeUser>({
@@ -20,11 +22,11 @@ export default async function TableBody<T extends Attendence | DbEmployeeUser>({
     >
       {tableBodyData.map(({ getContent, th }, i) =>
         !th ? (
-          <td key={i + item.id} className={cn("px-3 py-5")}>
+          <td key={i.toString() + item.id} className={cn("px-3 py-5")}>
             {getContent(item, index)}
           </td>
         ) : (
-          <th key={i + item.id} className={cn("px-3 py-5")}>
+          <th key={i.toString() + item.id} className={cn("px-3 py-5")}>
             {getContent(item, index)}
           </th>
         )

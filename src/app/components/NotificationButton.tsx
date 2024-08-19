@@ -18,8 +18,6 @@ export default function NotificationButton() {
     getNotifications();
   }, []);
 
-  console.log(notifications);
-
   useEffect(() => {
     const getNotification = async () => {
       const user = await getCurrentUser();

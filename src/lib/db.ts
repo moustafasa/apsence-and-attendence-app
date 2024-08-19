@@ -3,6 +3,7 @@ import { JSONFilePreset } from "lowdb/node";
 import { cache } from "react";
 import getDayDate from "./getDayDate";
 import { Role } from "@/authTypes.d";
+import { randomUUID } from "crypto";
 
 const getDb = cache(async () => {
   const db = await JSONFilePreset<Db>("db.json", {
@@ -31,27 +32,29 @@ export const getEmployees = cache(async () => {
   return db.data.employees;
 });
 
-export const getEmployee = cache(async (id: number) => {
+export const getEmployee = cache(async (id: DbEmployeeUser["id"]) => {
   const employees = await getEmployees();
   return employees.find((employee) => employee.id === id);
 });
 
-export const getAttendences = cache(async (month?: number, userId?: number) => {
-  let user = userId;
-  if (!user) {
-    const session = await auth();
-    user = session?.user.userId;
-  }
-  const db = await getDb();
-  const todayDate = getDayDate();
-  const allAttendences = db.data.attendence[
-    month || todayDate.getMonth().toString()
-  ]?.find((att) => att.userId === user);
+export const getAttendences = cache(
+  async (month?: number, userId?: DbUser["id"]) => {
+    let user = userId;
+    if (!user) {
+      const session = await auth();
+      user = session?.user.userId;
+    }
+    const db = await getDb();
+    const todayDate = getDayDate();
+    const allAttendences = db.data.attendence[
+      month || todayDate.getMonth().toString()
+    ]?.find((att) => att.userId === user);
 
-  return allAttendences
-    ? allAttendences.days.toSorted((a, b) => a.id - b.id)
-    : [];
-});
+    return allAttendences
+      ? allAttendences.days.toSorted((a, b) => a.id - b.id)
+      : [];
+  }
+);
 
 export const setAttandence = cache(
   async (startDate: Date, endDate?: Date, month?: number) => {
@@ -88,14 +91,16 @@ export const setAttandence = cache(
   }
 );
 
-export const getSingleAttendence = cache(async (id: number, month?: number) => {
-  const session = await auth();
-  const attendences = await getAttendences(month);
-  if (session?.user) return attendences.find((att) => att.id === id);
-  else throw new Error("you must log in");
-});
+export const getSingleAttendence = cache(
+  async (id: Attendence["id"], month?: number) => {
+    const session = await auth();
+    const attendences = await getAttendences(month);
+    if (session?.user) return attendences.find((att) => att.id === id);
+    else throw new Error("you must log in");
+  }
+);
 
-export const getUserMonthsMetaData = cache(async (userId?: number) => {
+export const getUserMonthsMetaData = cache(async (userId?: DbUser["id"]) => {
   let user = userId;
   if (!user) {
     const session = await auth();
@@ -118,13 +123,15 @@ export const getUserMonthsMetaData = cache(async (userId?: number) => {
 
 export const clearThisMonthAttendence = cache(async () => {});
 
-export const editEmployee = cache(async (id: number, hourlyRate: number) => {
-  const db = await getDb();
-  db.update((data) => {
-    const employee = data.employees.find((employee) => employee.id === id);
-    if (employee) employee.hourlyRate = hourlyRate;
-  });
-});
+export const editEmployee = cache(
+  async (id: DbEmployeeUser["id"], hourlyRate: number) => {
+    const db = await getDb();
+    db.update((data) => {
+      const employee = data.employees.find((employee) => employee.id === id);
+      if (employee) employee.hourlyRate = hourlyRate;
+    });
+  }
+);
 
 export const addEmployee = cache(
   async (employee: {
@@ -134,7 +141,7 @@ export const addEmployee = cache(
     hourlyRate: number;
   }) => {
     const db = await getDb();
-    const id = +new Date().getTime();
+    const id = randomUUID();
     db.update((data) => {
       data.users.push({
         id,
@@ -153,7 +160,7 @@ export const addEmployee = cache(
 );
 
 export const getMonthPaid = cache(
-  async (month: number, userId: number, salary: number) => {
+  async (month: number, userId: DbUser["id"], salary: number) => {
     const db = await getDb();
     db.update((data) => {
       const userAtt = data.attendence[month].find(

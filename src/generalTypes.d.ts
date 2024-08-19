@@ -8,23 +8,21 @@ type LinkObj = {
   href: string;
 };
 
-type DbEmployeeUser = {
-  id: number;
-  name: string;
-  hourlyRate: number;
-};
-
 type DbUser = {
-  id: number;
+  id: string;
   password: string;
   username: string;
   name: string;
   role: Role;
 };
-
+type DbEmployeeUser = {
+  id: DbUser["id"];
+  name: DbUser["name"];
+  hourlyRate: number;
+};
 type NotificationMessage = {
-  from: number;
-  to: number | string;
+  from: DbUser["id"];
+  to: DbUser["id"] | "admin";
   read: boolean;
   type: string;
 };
@@ -33,7 +31,7 @@ type Db = {
   users: DbUser[];
   attendence: {
     [month: string]: {
-      userId: number;
+      userId: DbUser["id"];
       completed: boolean;
       days: Attendence[];
       paidSalary: number;

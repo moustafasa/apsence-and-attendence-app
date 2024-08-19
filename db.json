@@ -1,28 +1,28 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
       "name": "dr-moustafa",
       "username": "moustafa",
       "password": "123456",
       "role": 1
     },
     {
-      "id": 2,
+      "id": "25e7d1cf-2c5a-4378-af10-0e63da60deb3",
       "name": "dr-mohamed",
       "username": "mohamed",
       "password": "123456",
       "role": 1
     },
     {
-      "id": 3,
+      "id": "b56c3103-dd29-4732-979d-7e688f0dae6c",
       "name": "dr-adel",
       "username": "adel",
       "password": "123456",
       "role": 0
     },
     {
-      "id": 1723835736564,
+      "id": "dbea4828-c05a-48f4-adfb-0e4b518ffbda",
       "name": "abd elrahman",
       "username": "abdelrahman",
       "password": "123456",
@@ -31,17 +31,17 @@
   ],
   "employees": [
     {
-      "id": 1,
+      "id": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
       "name": "dr-moustafa",
       "hourlyRate": 275
     },
     {
-      "id": 2,
+      "id": "25e7d1cf-2c5a-4378-af10-0e63da60deb3",
       "name": "dr-mohamed",
       "hourlyRate": 275
     },
     {
-      "id": 1723835736564,
+      "id": "dbea4828-c05a-48f4-adfb-0e4b518ffbda",
       "name": "abd elrahman",
       "hourlyRate": 270
     }
@@ -49,7 +49,7 @@
   "attendence": {
     "7": [
       {
-        "userId": 1,
+        "userId": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
         "completed": false,
         "paidSalary": 73.33,
         "days": [
@@ -68,7 +68,7 @@
         ]
       },
       {
-        "userId": 2,
+        "userId": "25e7d1cf-2c5a-4378-af10-0e63da60deb3",
         "completed": false,
         "paidSalary": 0,
         "days": [
@@ -84,7 +84,7 @@
   },
   "notifications": [
     {
-      "from": 1,
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
       "to": "admin",
       "type": "salaryRequest",
       "read": false

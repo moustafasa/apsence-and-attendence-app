@@ -7,7 +7,6 @@ type Props = { params: { id: string } };
 
 export default async function Page({ params: { id } }: Props) {
   const attendence = await getSingleAttendence(+id);
-  console.log(attendence);
 
   if (!attendence) {
     const date = getDayDate(+id);

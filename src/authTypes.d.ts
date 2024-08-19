@@ -3,27 +3,27 @@ import { JWT } from "next-auth/jwt";
 
 declare module "next-auth" {
   interface User {
-    userId: number;
-    name: string;
-    username: string;
-    role: Role;
+    userId: DbUser["id"];
+    name: DbUser["name"];
+    username: DbUser["username"];
+    role: DbUser["role"];
   }
   interface Session {
     user: {
-      userId: number;
-      name: string;
-      username: string;
-      role: Role;
+      userId: DbUser["id"];
+      name: DbUser["name"];
+      username: DbUser["username"];
+      role: DbUser["role"];
     };
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    userId: number;
-    role: Role;
-    username: string;
-    name: string;
+    userId: DbUser["id"];
+    name: DbUser["name"];
+    username: DbUser["username"];
+    role: DbUser["role"];
   }
 }
 export enum Role {

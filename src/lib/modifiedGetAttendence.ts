@@ -3,7 +3,7 @@ import { getAttendences } from "./db";
 
 export default async function modifiedGetAttendence(
   month?: number,
-  userId?: number
+  userId?: DbUser["id"]
 ) {
   const data = await getAttendences(month, userId);
   let user = userId;

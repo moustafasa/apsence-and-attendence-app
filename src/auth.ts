@@ -9,7 +9,6 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
     credentials({
       async authorize(credentials, request) {
         const user = await dbAuth(credentials as DbUser);
-        console.log(user);
 
         if (user) {
           return {

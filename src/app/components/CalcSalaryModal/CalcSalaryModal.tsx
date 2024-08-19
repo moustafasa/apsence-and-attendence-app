@@ -9,7 +9,7 @@ export default async function CalcSalaryModal({
   userId,
   month,
 }: {
-  userId?: number;
+  userId?: DbEmployeeUser["id"];
   month?: number;
 }) {
   let user = userId;

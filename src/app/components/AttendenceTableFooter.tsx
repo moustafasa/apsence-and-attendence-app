@@ -1,6 +1,6 @@
 import calcTotalMonthHours from "@/lib/calcTotalMonthHours";
 
-type Props = { month?: number; id?: number };
+type Props = { month?: number; id?: DbUser["id"] };
 export default async function AttendenceTableFooter({ month, id }: Props) {
   const totalMonthHours = await calcTotalMonthHours(month, id);
 
