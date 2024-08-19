@@ -34,12 +34,23 @@ export default function NotificationButton() {
     };
     getNotification();
   }, []);
+
   return (
-    <button className="text-xl relative">
-      <sub className="grid place-content-center text-xs bg-red-600 absolute aspect-square h-5  left-0 top-0 -translate-x-1/2 -translate-y-1/2  rounded-full ">
-        10
-      </sub>
-      <IoNotifications />
-    </button>
+    <div className="relative flex items-center">
+      <button className="text-xl relative">
+        <sub className="grid place-content-center text-xs bg-red-600 absolute aspect-square h-5  left-0 top-0 -translate-x-1/2 -translate-y-1/2  rounded-full ">
+          {notifications.filter((notify) => !notify.read).length}
+        </sub>
+        <IoNotifications />
+      </button>
+      <ul className="absolute hidden ">
+        {notifications.map((notify) => (
+          <li key={notify.id} className="">
+            {notify.type === "salaryRequest" &&
+              `${notify.from} ask you to paid his salary`}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

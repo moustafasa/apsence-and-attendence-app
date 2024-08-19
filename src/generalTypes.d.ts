@@ -21,6 +21,7 @@ type DbEmployeeUser = {
   hourlyRate: number;
 };
 type NotificationMessage = {
+  id: string;
   from: DbUser["id"];
   to: DbUser["id"] | "admin";
   read: boolean;
