@@ -8,8 +8,6 @@ import { getCurrentUser, getUserNotificationAction } from "@/lib/actions";
 export default function NotificationButton() {
   const [notifications, setNotifications] = useState<NotificationMessage[]>([]);
 
-  console.log(notifications);
-
   const getNotifications = useCallback(async () => {
     const notif = await getUserNotificationAction();
     if (notif) {
