@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { JSONFilePreset } from "lowdb/node";
 import { cache } from "react";
 import getDayDate from "./getDayDate";
-import { Role } from "@/authTypes.d";
+import { Role } from "@/types/Enums";
 import { randomUUID } from "crypto";
 
 const getDb = cache(async () => {

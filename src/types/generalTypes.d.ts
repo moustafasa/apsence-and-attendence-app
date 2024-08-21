@@ -1,6 +1,10 @@
-enum Role {
+declare enum Role {
   ADMIN = 0,
   EMPLOYEE = 1,
+}
+
+declare enum NotificationTypes {
+  SALARY_REQUEST = "SALARY_REQUEST",
 }
 
 type LinkObj = {
@@ -23,9 +27,10 @@ type DbEmployeeUser = {
 type NotificationMessage = {
   id: string;
   from: DbUser["id"];
+  name: DbUser["name"];
   to: DbUser["id"] | "admin";
   read: boolean;
-  type: string;
+  type: NotificationTypes;
 };
 
 type Db = {

@@ -26,7 +26,3 @@ declare module "next-auth/jwt" {
     role: DbUser["role"];
   }
 }
-export enum Role {
-  ADMIN = 0,
-  EMPLOYEE = 1,
-}

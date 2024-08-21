@@ -12,7 +12,7 @@ import {
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import getDayDate from "./getDayDate";
-import { Role } from "@/authTypes.d";
+import { Role } from "@/types/Enums";
 
 export async function signinAction(
   prevState: string | undefined,
