@@ -1,8 +1,9 @@
 "use client";
-import { getPaidAction } from "@/lib/actions";
+import { getCurrentUser, getPaidAction } from "@/lib/actions";
 import convertMillSecondsToHours from "@/lib/convertMillSecondsToHours";
 import cn from "@/lib/cssConditional";
 import { triggerNotification } from "@/lib/PusherConnect";
+import { NotificationTypes } from "@/types/Enums";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -47,7 +48,7 @@ export default function ClientCalcSalaryModal({
     router.replace(`${pathname}?${search}`, { scroll: false });
   };
 
-  const onPaidHandler = () => {
+  const onClientPaidHandler = () => {
     triggerNotification({
       from: employee.id,
       to: "admin",
@@ -55,6 +56,21 @@ export default function ClientCalcSalaryModal({
       name: employee.name,
       read: false,
     });
+  };
+
+  const onServerPaidHandler = async () => {
+    await getPaidAction(employee.id, totalSalary, month);
+    const currentUser = await getCurrentUser();
+    if (currentUser) {
+      console.log("done");
+      triggerNotification({
+        from: currentUser.userId,
+        to: employee.id,
+        type: NotificationTypes.SALARY_PAID,
+        name: currentUser.name,
+        read: false,
+      });
+    }
   };
 
   return (
@@ -98,9 +114,7 @@ export default function ClientCalcSalaryModal({
         <div className="flex items-center gap-3 justify-center">
           <button
             onClick={async () => {
-              admin
-                ? await getPaidAction(employee.id, totalSalary, month)
-                : onPaidHandler();
+              admin ? await onServerPaidHandler() : onClientPaidHandler();
 
               hideSearch();
             }}

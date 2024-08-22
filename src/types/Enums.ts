@@ -4,4 +4,5 @@ export enum Role {
 }
 export enum NotificationTypes {
   SALARY_REQUEST = "SALARY_REQUEST",
+  SALARY_PAID = "SALARY_PAID",
 }

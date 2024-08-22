@@ -5,6 +5,7 @@ declare enum Role {
 
 declare enum NotificationTypes {
   SALARY_REQUEST = "SALARY_REQUEST",
+  SALARY_PAID = "SALARY_PAID",
 }
 
 type LinkObj = {
