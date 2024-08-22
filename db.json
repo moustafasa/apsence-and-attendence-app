@@ -88,9 +88,8 @@
       "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
       "name": "dr-moustafa",
       "to": "admin",
-      "type": "salaryRequest",
-      "read": false,
-      "test": "fdsafdsa"
+      "type": "SALARY_REQUEST",
+      "read": false
     }
   ]
 }

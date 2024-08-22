@@ -185,5 +185,5 @@ export const addNotification = cache(
 
 export const getNotificationOfUser = cache(async (id: number | string) => {
   const db = await getDb();
-  return db.data.notifications.find((notif) => notif.to === id);
+  return db.data.notifications.filter((notif) => notif.to === id);
 });

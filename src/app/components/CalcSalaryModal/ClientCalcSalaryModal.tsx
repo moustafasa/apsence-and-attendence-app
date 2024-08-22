@@ -51,7 +51,8 @@ export default function ClientCalcSalaryModal({
     triggerNotification({
       from: employee.id,
       to: "admin",
-      type: "salaryRequest",
+      type: NotificationTypes.SALARY_REQUEST,
+      name: employee.name,
       read: false,
     });
   };
