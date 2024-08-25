@@ -4,8 +4,8 @@ import Pusher from "pusher-js";
 import { Suspense, useEffect, useState } from "react";
 import { Role } from "@/types/Enums";
 import { getCurrentUser, getUserNotificationAction } from "@/lib/actions";
-
-import NotificationMenu from "./Notification/NotificationMenu";
+import NotificationMenu from "./NotificationMenu";
+import { toast } from "react-toastify";
 
 export default function NotificationButton() {
   const [notifications, setNotifications] = useState<NotificationMessage[]>([]);
@@ -32,6 +32,7 @@ export default function NotificationButton() {
         channel.bind("notification", (data: { message: string }) => {
           const parsedMessage = JSON.parse(data.message) as NotificationMessage;
           setNotifications((prev) => [...prev, parsedMessage]);
+          toast("this is notification", { position: "top-right" });
         });
       }
     };

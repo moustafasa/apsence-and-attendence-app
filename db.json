@@ -50,8 +50,8 @@
     "7": [
       {
         "userId": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
-        "completed": true,
-        "paidSalary": 222.12,
+        "completed": false,
+        "paidSalary": 0,
         "days": [
           {
             "id": 9,
@@ -69,7 +69,7 @@
       },
       {
         "userId": "25e7d1cf-2c5a-4378-af10-0e63da60deb3",
-        "completed": true,
+        "completed": false,
         "paidSalary": 84.62,
         "days": [
           {
@@ -98,6 +98,38 @@
       "name": "dr-moustafa",
       "read": false,
       "id": "672d7329-b6ba-4b4e-925d-c29cd2f3fd35"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": false,
+      "id": "5fbc8bb9-e567-4ab4-ba36-7b0b5f275cc5"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": false,
+      "id": "8bc62738-a17e-4714-8d87-a5c26f1ec935"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": false,
+      "id": "6b3d4db2-0312-4114-b7aa-774dd8ceb140"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": false,
+      "id": "ce9810f5-819f-441e-afac-ceda19a0aa03"
     }
   ]
 }
