@@ -8,6 +8,7 @@ import {
   addEmployee,
   getMonthPaid,
   getNotificationOfUser,
+  makeNotificationAsReaded,
 } from "./db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -138,4 +139,12 @@ export async function getUserNotificationAction() {
     );
     return notification;
   }
+}
+
+export async function readNotificationsAction() {
+  const currentUser = await getCurrentUser();
+  if (currentUser)
+    await makeNotificationAsReaded(
+      currentUser?.role === Role.ADMIN ? "admin" : currentUser?.userId
+    );
 }

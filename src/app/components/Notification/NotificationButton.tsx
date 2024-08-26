@@ -31,7 +31,7 @@ export default function NotificationButton() {
         );
         channel.bind("notification", (data: { message: string }) => {
           const parsedMessage = JSON.parse(data.message) as NotificationMessage;
-          setNotifications((prev) => [...prev, parsedMessage]);
+          setNotifications((prev) => [parsedMessage, ...prev]);
           toast("this is notification", { position: "top-right" });
         });
       }

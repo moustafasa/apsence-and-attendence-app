@@ -187,3 +187,14 @@ export const getNotificationOfUser = cache(async (id: number | string) => {
   const db = await getDb();
   return db.data.notifications.filter((notif) => notif.to === id);
 });
+
+export async function makeNotificationAsReaded(to: NotificationMessage["to"]) {
+  const db = await getDb();
+  db.update((data) => {
+    data.notifications
+      .filter((notif) => notif.to === to && !notif.read)
+      .forEach((notif) => {
+        notif.read = true;
+      });
+  });
+}
