@@ -84,12 +84,12 @@
   },
   "notifications": [
     {
-      "from": "25e7d1cf-2c5a-4378-af10-0e63da60deb3",
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
       "to": "admin",
       "type": "SALARY_REQUEST",
-      "name": "dr-mohamed",
+      "name": "dr-moustafa",
       "read": true,
-      "id": "d7fc2d58-9d29-4c0e-bda2-359b68787ae5"
+      "id": "5f0c3733-ee11-4c94-9227-da5666b0531e"
     },
     {
       "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
@@ -97,7 +97,7 @@
       "type": "SALARY_REQUEST",
       "name": "dr-moustafa",
       "read": true,
-      "id": "672d7329-b6ba-4b4e-925d-c29cd2f3fd35"
+      "id": "fe1b43b1-e141-41a3-baf2-f7559b351659"
     },
     {
       "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
@@ -105,7 +105,7 @@
       "type": "SALARY_REQUEST",
       "name": "dr-moustafa",
       "read": true,
-      "id": "5fbc8bb9-e567-4ab4-ba36-7b0b5f275cc5"
+      "id": "9cda9cb5-3b6f-42e7-94b6-be096837a833"
     },
     {
       "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
@@ -113,15 +113,7 @@
       "type": "SALARY_REQUEST",
       "name": "dr-moustafa",
       "read": true,
-      "id": "3fb1163b-ecde-4162-a0b0-22e70250e7b2"
-    },
-    {
-      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
-      "to": "admin",
-      "type": "SALARY_REQUEST",
-      "name": "dr-moustafa",
-      "read": false,
-      "id": "a520254c-883b-4677-91a2-32f09daf578a"
+      "id": "f58f2a09-48fe-46ea-8ad8-e9fad93fc0ec"
     },
     {
       "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
@@ -129,23 +121,7 @@
       "type": "SALARY_REQUEST",
       "name": "dr-moustafa",
       "read": true,
-      "id": "8d5b33e3-938e-4ed9-81fe-77745cde7598"
-    },
-    {
-      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
-      "to": "admin",
-      "type": "SALARY_REQUEST",
-      "name": "dr-moustafa",
-      "read": true,
-      "id": "1ad8972d-354c-47ff-af6a-ddc9da606412"
-    },
-    {
-      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
-      "to": "admin",
-      "type": "SALARY_REQUEST",
-      "name": "dr-moustafa",
-      "read": true,
-      "id": "1803c877-9229-44a8-819b-91c804d2f6c5"
+      "id": "2d4c76ca-99b9-43fd-ba96-919d1f9477b9"
     }
   ]
 }

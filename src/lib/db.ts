@@ -178,7 +178,7 @@ export const addNotification = cache(
   async (notification: NotificationMessage) => {
     const db = await getDb();
     db.update((data) => {
-      data.notifications.push(notification);
+      data.notifications.unshift(notification);
     });
   }
 );
