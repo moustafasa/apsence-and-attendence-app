@@ -61,7 +61,6 @@ export default function ClientCalcSalaryModal({
   const onServerPaidHandler = async () => {
     await getPaidAction(employee.id, totalSalary, month);
     const currentUser = await getCurrentUser();
-    console.log(currentUser);
     if (currentUser) {
       triggerNotification({
         from: currentUser.userId,
