@@ -15,7 +15,7 @@ export default function NotificationMenu({ notifications }: Props) {
       await readNotificationsAction();
     };
     readNotif();
-  }, []);
+  }, [notifications]);
 
   return (
     <div
