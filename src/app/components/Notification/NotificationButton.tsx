@@ -1,7 +1,7 @@
 "use client";
 import { IoNotifications } from "react-icons/io5";
 import Pusher from "pusher-js";
-import { MouseEvent, Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Role } from "@/types/Enums";
 import { getCurrentUser, getUserNotificationAction } from "@/lib/actions";
 import NotificationMenu from "./NotificationMenu";
@@ -24,7 +24,9 @@ export default function NotificationButton() {
   }, []);
 
   useEffect(() => {
-    const hideMenuOnBlur = (e: MouseEvent) => {};
+    const hideMenuOnBlur = (e: MouseEvent) => {
+      console.log(e.target);
+    };
     document.addEventListener("click", hideMenuOnBlur);
     return () => {
       document.removeEventListener("click", hideMenuOnBlur);

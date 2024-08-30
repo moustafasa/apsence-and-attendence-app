@@ -8,18 +8,21 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
   providers: [
     credentials({
       async authorize(credentials, request) {
-        const user = await dbAuth(credentials as DbUser);
+        try {
+          const user = await dbAuth(credentials as DbUser);
 
-        if (user) {
-          return {
-            userId: user.id,
-            username: user.username,
-            name: user.name,
-            role: user.role,
-          };
+          if (user) {
+            return {
+              userId: user.id,
+              username: user.username,
+              name: user.name,
+              role: user.role,
+            };
+          }
+          return null;
+        } catch (e) {
+          return null;
         }
-
-        return null;
       },
     }),
   ],

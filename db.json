@@ -89,11 +89,7 @@
       "type": "SALARY_REQUEST",
       "name": "dr-moustafa",
       "read": true,
-<<<<<<< HEAD
-      "id": "5e4114bc-2706-4244-8dd6-9dbf2fe64680"
-=======
       "id": "8a352207-c829-461e-9f1f-ac2cff17ee4d"
->>>>>>> ca147e335e35aacda2cc65580e1b01a468c63171
     },
     {
       "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
@@ -101,11 +97,7 @@
       "type": "SALARY_REQUEST",
       "name": "dr-moustafa",
       "read": true,
-<<<<<<< HEAD
-      "id": "b58e9392-6686-4658-94ef-a579921d7df8"
-=======
       "id": "2ff96f1c-0ba3-4bb1-861f-4631cf573b6a"
->>>>>>> ca147e335e35aacda2cc65580e1b01a468c63171
     },
     {
       "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
@@ -113,11 +105,7 @@
       "type": "SALARY_REQUEST",
       "name": "dr-moustafa",
       "read": true,
-<<<<<<< HEAD
-      "id": "d27dde96-b1ef-4eaa-ba7d-401210f5ea8c"
-=======
       "id": "2ae4928b-c8f0-4a73-9882-a51f4974d93f"
->>>>>>> ca147e335e35aacda2cc65580e1b01a468c63171
     },
     {
       "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
@@ -125,9 +113,6 @@
       "type": "SALARY_REQUEST",
       "name": "dr-moustafa",
       "read": true,
-<<<<<<< HEAD
-      "id": "7d191d4b-680f-46ab-9908-257b1ef870af"
-=======
       "id": "61688d36-25d0-4f23-9a74-edf4217cd6db"
     },
     {
@@ -241,7 +226,6 @@
       "name": "dr-moustafa",
       "read": true,
       "id": "5218c15f-9f3e-426f-9ebc-8b3bbd42f691"
->>>>>>> ca147e335e35aacda2cc65580e1b01a468c63171
     },
     {
       "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
