@@ -25,7 +25,11 @@ export default function NotificationButton() {
 
   useEffect(() => {
     const hideMenuOnBlur = (e: MouseEvent) => {
-      console.log(e.target);
+      const element = e.target as HTMLElement | null;
+
+      if (!element?.closest("#notif-menu")) {
+        setShowMenu(false);
+      }
     };
     document.addEventListener("click", hideMenuOnBlur);
     return () => {
@@ -53,7 +57,7 @@ export default function NotificationButton() {
   }, []);
 
   return (
-    <div className=" flex items-center relative h-full ">
+    <div className=" flex items-center relative h-full " id="notif-menu">
       <button
         className="text-xl relative"
         onClick={() => {

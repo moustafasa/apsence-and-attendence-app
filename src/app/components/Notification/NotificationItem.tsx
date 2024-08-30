@@ -10,7 +10,6 @@ type Props = {
 export default function NotificationItem({ notify }: Props) {
   return (
     <li
-      key={notify.id}
       className={cn("p-3 capitalize rounded-lg", {
         "bg-black-300": !notify.read,
       })}
