@@ -1,5 +1,6 @@
 import Table from "@/app/components/table/Table";
 import TableBody from "@/app/components/table/TableBody";
+import { deleteEmployeeAction } from "@/lib/actions";
 import calcTotalMonthHours from "@/lib/calcTotalMonthHours";
 import convertMillSecondsToHours from "@/lib/convertMillSecondsToHours";
 import { getEmployees } from "@/lib/db";
@@ -35,6 +36,14 @@ export default async function page({
     {
       getContent: (bodyData) => (
         <div className="flex justify-center gap-3">
+          <form action="">
+            <button
+              formAction={deleteEmployeeAction.bind(undefined, bodyData.id)}
+              className=" capitalize bg-red-600 transition-colors duration-300 hover:bg-red-700 shadow-sm px-4 py-2 rounded-lg"
+            >
+              delete
+            </button>
+          </form>
           <Link
             href={`/dashboard/edit/${bodyData.id}`}
             className=" capitalize bg-green-100 transition-colors duration-300 hover:bg-green-200 shadow-sm px-4 py-2 rounded-lg"

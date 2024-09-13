@@ -1,33 +1,31 @@
 "use client";
 import { IoNotifications } from "react-icons/io5";
-import Pusher from "pusher-js";
-import { Suspense, useEffect, useState } from "react";
-import { Role } from "@/types/Enums";
-import { getCurrentUser, getUserNotificationAction } from "@/lib/actions";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import NotificationMenu from "./NotificationMenu";
-import { toast } from "react-toastify";
+import useCLientPusherConnect from "@/lib/useCLientPusherConnect";
 
 export default function NotificationButton() {
-  const [notifications, setNotifications] = useState<NotificationMessage[]>([]);
-  const [unReadNotifications, setUnReadNotifications] = useState(0);
   const [showMenu, setShowMenu] = useState(false);
+  const [notifications, unReadNotifications, readAllNotifications, markAsRead] =
+    useCLientPusherConnect();
+  const asReadTimeout = useRef<NodeJS.Timeout>();
 
-  useEffect(() => {
-    const getNotifications = async () => {
-      const notif = await getUserNotificationAction();
-      if (notif) {
-        setNotifications(notif || []);
-        setUnReadNotifications(notif.filter((notify) => !notify.read).length);
-      }
-    };
-    getNotifications();
-  }, []);
+  const markAsReadOnHide = useCallback(() => {
+    clearTimeout(asReadTimeout.current);
+    if (showMenu) {
+      console.log("done");
+      asReadTimeout.current = setTimeout(() => {
+        markAsRead();
+      }, 1000);
+    }
+  }, [markAsRead, showMenu]);
 
   useEffect(() => {
     const hideMenuOnBlur = (e: MouseEvent) => {
       const element = e.target as HTMLElement | null;
 
       if (!element?.closest("#notif-menu")) {
+        markAsReadOnHide();
         setShowMenu(false);
       }
     };
@@ -35,36 +33,27 @@ export default function NotificationButton() {
     return () => {
       document.removeEventListener("click", hideMenuOnBlur);
     };
-  }, []);
+  }, [markAsReadOnHide]);
 
   useEffect(() => {
-    const getNotification = async () => {
-      const user = await getCurrentUser();
-      if (user) {
-        const pusher = new Pusher("8bd15854ea58c1783a94", { cluster: "eu" });
-        const channel = pusher.subscribe(
-          user.role === Role.ADMIN ? "admin" : user.userId.toString()
-        );
-        channel.bind("notification", (data: { message: string }) => {
-          const parsedMessage = JSON.parse(data.message) as NotificationMessage;
-          setNotifications((prev) => [parsedMessage, ...prev]);
-          setUnReadNotifications((prev) => prev + 1);
-          toast("this is notification", { position: "top-right" });
-        });
+    const readNotifTimeout = setTimeout(() => {
+      if (showMenu) {
+        readAllNotifications();
       }
+    }, 1000);
+
+    return () => {
+      clearTimeout(readNotifTimeout);
     };
-    getNotification();
-  }, []);
+  }, [showMenu, readAllNotifications]);
 
   return (
     <div className=" flex items-center relative h-full " id="notif-menu">
       <button
         className="text-xl relative"
-        onClick={() => {
+        onClick={async (e) => {
+          markAsReadOnHide();
           setShowMenu((prev) => !prev);
-          if (showMenu) {
-            setUnReadNotifications(0);
-          }
         }}
       >
         {unReadNotifications > 0 && (

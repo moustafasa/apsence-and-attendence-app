@@ -48,8 +48,8 @@ export default function ClientCalcSalaryModal({
     router.replace(`${pathname}?${search}`, { scroll: false });
   };
 
-  const onClientPaidHandler = () => {
-    triggerNotification({
+  const onClientPaidHandler = async () => {
+    await triggerNotification({
       from: employee.id,
       to: "admin",
       type: NotificationTypes.SALARY_REQUEST,

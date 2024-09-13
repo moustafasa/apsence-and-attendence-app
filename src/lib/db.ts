@@ -198,3 +198,10 @@ export async function makeNotificationAsReaded(to: NotificationMessage["to"]) {
       });
   });
 }
+
+export const deleteEmployee = cache(async (id: DbEmployeeUser["id"]) => {
+  const db = await getDb();
+  db.update((data) => {
+    data.employees = data.employees.filter((employee) => employee.id !== id);
+  });
+});

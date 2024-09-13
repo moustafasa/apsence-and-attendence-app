@@ -27,6 +27,20 @@
       "username": "abdelrahman",
       "password": "123456",
       "role": 1
+    },
+    {
+      "id": "821923eb-4c60-4d0c-b416-cd5b395565d9",
+      "name": "test",
+      "username": "test@test",
+      "password": "123456",
+      "role": 1
+    },
+    {
+      "id": "8810329f-2a99-4715-8c01-6e28794f4912",
+      "name": "abdelrahman",
+      "username": "abdelrahman",
+      "password": "123456",
+      "role": 1
     }
   ],
   "employees": [
@@ -41,13 +55,13 @@
       "hourlyRate": 275
     },
     {
-      "id": "dbea4828-c05a-48f4-adfb-0e4b518ffbda",
-      "name": "abd elrahman",
-      "hourlyRate": 270
+      "id": "8810329f-2a99-4715-8c01-6e28794f4912",
+      "name": "abdelrahman",
+      "hourlyRate": 275
     }
   ],
   "attendence": {
-    "7": [
+    "8": [
       {
         "userId": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
         "completed": false,
@@ -58,12 +72,6 @@
             "startDate": "2024-08-09T15:00:00.000Z",
             "endDate": "2024-08-09T23:00:00.000Z",
             "numberOfHours": 28800000
-          },
-          {
-            "id": 18,
-            "startDate": "2024-08-18T11:00:00.000Z",
-            "endDate": "2024-08-19T00:00:00.000Z",
-            "numberOfHours": 46800000
           }
         ]
       },
@@ -89,7 +97,7 @@
       "type": "SALARY_REQUEST",
       "name": "dr-moustafa",
       "read": true,
-      "id": "8a352207-c829-461e-9f1f-ac2cff17ee4d"
+      "id": "7f807a85-5380-4313-ac04-f799bf351ebc"
     },
     {
       "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
@@ -97,7 +105,167 @@
       "type": "SALARY_REQUEST",
       "name": "dr-moustafa",
       "read": true,
-      "id": "2ff96f1c-0ba3-4bb1-861f-4631cf573b6a"
+      "id": "25b25c78-fb54-48d8-aee7-e8170cbf005a"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "0ca670dc-424b-4dbf-8d57-ba85a574eda4"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "7b3363a3-58ef-4270-822d-147f1c5ec251"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "c0edc316-75d0-411e-88b3-82de634017d5"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "049dca11-20aa-4de2-a41b-a24cfc5ff299"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "df122bc3-9bb3-4194-9c8a-1152debf2289"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "6a61ac91-6908-4539-bde9-1f6bed48653d"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "e0406cbd-0b66-4d38-b5ff-40e2ab680a32"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "e8a13c3c-a4fa-4629-a4da-77b9aa1f2b87"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "fc547d9c-37ce-4f76-991c-b0437c5bec3c"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "a81f340b-d2c9-46c8-b7a7-97f9c75d5030"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "462db7c2-9520-486a-b199-bf78074fa9dd"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "3e49734f-a3fb-4ab4-b275-48b7f1698f56"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "11b13627-ebcd-4421-9637-b543d01b2855"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "6fa1e7a3-bf6b-4d50-aad0-16dfeed1820c"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "6db69d78-dd8e-4e2f-ab7e-3aed45e162cc"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "002ca7ff-a9c3-41cc-ae9c-11e4487a215f"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "b1894911-b87d-42e2-9eaa-6f40be08902e"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "1cdbd205-24d4-4d84-b75b-9f51ace6f656"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "81470706-7d49-44be-b264-5fc70e074587"
+    },
+    {
+      "from": "2b3c58a9-f9d4-4fcb-a987-ff65dc16aa4c",
+      "to": "admin",
+      "type": "SALARY_REQUEST",
+      "name": "dr-moustafa",
+      "read": true,
+      "id": "49312e15-1aca-478a-b07b-810cc0b88ff0"
     }
   ]
 }

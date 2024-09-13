@@ -9,6 +9,7 @@ import {
   getMonthPaid,
   getNotificationOfUser,
   makeNotificationAsReaded,
+  deleteEmployee,
 } from "./db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -147,4 +148,9 @@ export async function readNotificationsAction() {
     await makeNotificationAsReaded(
       currentUser?.role === Role.ADMIN ? "admin" : currentUser?.userId
     );
+}
+
+export async function deleteEmployeeAction(id: DbEmployeeUser["id"]) {
+  await deleteEmployee(id);
+  revalidatePath("/dashboard/");
 }
