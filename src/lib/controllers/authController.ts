@@ -1,6 +1,5 @@
 import dbConnect from "@/config/dbConnect";
 import Users from "@/models/Users";
-import { cache } from "react";
 import bcrypt from "bcryptjs";
 import { HydratedDocument } from "mongoose";
 

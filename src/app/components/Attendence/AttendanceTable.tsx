@@ -85,9 +85,9 @@ export default async function AttendanceTable({
                 !monthMeta[currentMonthIndex]?.completed
               )
                 return (
-                  index + 1 < todayDate.getDate() && (
+                  index + 1 <= todayDate.getDate() && (
                     <Link
-                      href={`/dashboard/edit/${bodyData.dayIndex}`}
+                      href={`/dashboard/view/${userId}/edit/${bodyData.dayIndex}`}
                       className="capitalize bg-green-100 transition-colors duration-300 hover:bg-green-200 shadow-sm px-4 py-1 rounded-lg"
                     >
                       edit

@@ -2,14 +2,25 @@
 import { setAttandenceAction } from "@/lib/actions/attendenceAction";
 import cn from "@/lib/cssConditional";
 import getDayDate from "@/lib/getDayDate";
+import { format, formatDistance } from "date-fns";
 import { useFormState } from "react-dom";
 import { FaExclamation } from "react-icons/fa";
 
-type Props = { date: Date; startTime?: string; endTime?: Date };
+type Props = {
+  date: Date;
+  startTime?: string;
+  endTime?: Date;
+  userId?: string;
+};
 
-export default function AttendenceForm({ date, startTime, endTime }: Props) {
+export default function AttendenceForm({
+  date,
+  startTime,
+  endTime,
+  userId,
+}: Props) {
   const [error, formAction] = useFormState(
-    setAttandenceAction.bind(null, date),
+    setAttandenceAction.bind(null, date, userId),
     undefined
   );
 
@@ -62,7 +73,11 @@ export default function AttendenceForm({ date, startTime, endTime }: Props) {
             type="datetime-local"
             name="end"
             id="endTime"
-            defaultValue={endTime?.toISOString()?.slice(0, 16)}
+            defaultValue={
+              endTime
+                ? format(endTime, "yyyy-MM-dd.hh:mm").replace(".", "T")
+                : undefined
+            }
           />
         </div>
         <button className="capitalize text-xl bg-blue-300 mt-7 p-3 rounded-lg hover">

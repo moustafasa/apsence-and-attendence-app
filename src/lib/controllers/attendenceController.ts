@@ -35,23 +35,21 @@ export const getAttendences = cache(
 );
 
 export const setAttandence = cache(
-  async (startDate: Date, endDate?: Date, month?: number) => {
-    await dbConnect();
+  async (startDate: Date, endDate?: Date, userId?: string, month?: number) => {
     const dayIndex = startDate.getDate();
     const monthIndex = month || getDayDate().getMonth();
-    const session = await auth();
+    if (!userId) {
+      const session = await auth();
+      if (!session?.user) return;
+      userId = session.user.userId;
+    }
 
-    if (!session?.user) return;
-
-    const attendence = await getMonthAttendence(
-      monthIndex,
-      session.user.userId
-    );
+    const attendence = await getMonthAttendence(monthIndex, userId);
 
     if (!attendence) {
       const newAttendence = new Attendence({
         monthIndex,
-        userId: session.user.userId,
+        userId,
         days: [
           {
             dayIndex,
@@ -79,8 +77,12 @@ export const setAttandence = cache(
 );
 
 export const getSingleAttendence = cache(
-  async (dayIndex: IDayAttendence["dayIndex"], month?: number) => {
-    const attendence = await getMonthAttendence(month);
+  async (
+    dayIndex: IDayAttendence["dayIndex"],
+    userId?: string,
+    month?: number
+  ) => {
+    const attendence = await getMonthAttendence(month, userId);
 
     return {
       _id: attendence?._id,
@@ -124,7 +126,7 @@ export async function calcTotalMonthHours(month?: number, id?: IUser["_id"]) {
     },
     { $group: { _id: "$totalMonthHours" } },
   ];
-
+  await dbConnect();
   const monthAttendence = await Attendence.aggregate(pipeline);
   return monthAttendence[0]?._id || 0;
 }
@@ -135,6 +137,7 @@ export const getUserMonthsMetaData = cache(async (userId?: IUser["_id"]) => {
     if (!session?.user.userId) return [];
     userId = session.user.userId;
   }
+  await dbConnect();
   const monthMetas = await Attendence.find<
     HydratedDocument<
       Pick<IMonthAttendence, "_id" | "completed" | "monthIndex" | "paidSalary">

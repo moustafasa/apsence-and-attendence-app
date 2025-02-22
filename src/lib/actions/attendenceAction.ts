@@ -8,8 +8,20 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import getDayDate from "../getDayDate";
 
+export async function setInAction(InTime: Date) {
+  await setAttandence(InTime);
+  revalidatePath("/dashboard/");
+  redirect("/dashboard/");
+}
+export async function setOutAction(startDate: Date, outTime: Date) {
+  console.log(outTime);
+  await setAttandence(startDate, outTime);
+  revalidatePath("/dashboard/");
+  redirect("/dashboard/");
+}
 export async function setAttandenceAction(
   day: Date,
+  userId: string | undefined,
   prevState: string | undefined,
   formData: FormData
 ) {
@@ -42,9 +54,9 @@ export async function setAttandenceAction(
     }
   }
 
-  await setAttandence(startDate, endDate);
-  revalidatePath("/dashboard/");
-  redirect("/dashboard/");
+  await setAttandence(startDate, endDate, userId);
+  revalidatePath(`/dashboard/view/${userId}`);
+  redirect(`/dashboard/view/${userId}`);
 }
 
 export async function getPaidAction(
