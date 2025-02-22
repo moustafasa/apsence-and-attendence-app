@@ -1,5 +1,5 @@
-import EditEmployeeForm from "@/app/components/EditEmployeeForm";
-import { getEmployee } from "@/lib/db";
+import EditEmployeeForm from "@/app/components/Employee/EditEmployeeForm";
+import { getEmployee } from "@/lib/controllers/employeesController";
 import { notFound } from "next/navigation";
 
 type Props = { params: { id: string } };

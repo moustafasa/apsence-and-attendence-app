@@ -1,9 +1,9 @@
 import { auth } from "@/auth";
-import { getAttendences } from "./db";
+import { getAttendences } from "./controllers/attendenceController";
 
 export default async function modifiedGetAttendence(
   month?: number,
-  userId?: DbUser["id"]
+  userId?: IUser["_id"]
 ) {
   const data = await getAttendences(month, userId);
   let user = userId;
@@ -14,15 +14,15 @@ export default async function modifiedGetAttendence(
 
   if (data.length <= 0) return [];
   return new Array(30).fill(3).map((ele, ind) => {
-    const att = data.find((att) => att.id === ind + 1);
+    const att = data.find((att) => att.dayIndex === ind + 1);
     return att
       ? att
       : {
-          id: ind + 1,
+          dayIndex: ind + 1,
           user,
           startDate: "",
           endDate: "",
-          numberOfHours: 0,
+          totalHours: 0,
         };
   });
 }

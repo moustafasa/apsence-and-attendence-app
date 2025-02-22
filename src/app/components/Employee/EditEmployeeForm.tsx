@@ -1,17 +1,17 @@
 "use client";
 
-import { editEmployeeAction } from "@/lib/actions";
+import { editEmployeeAction } from "@/lib/actions/employeesActions";
 import cn from "@/lib/cssConditional";
 import { useFormState } from "react-dom";
 import { FaExclamation } from "react-icons/fa";
 
 type Props = {
-  employee: DbEmployeeUser;
+  employee: Omit<IUser, "role" | "password">;
 };
 
 export default function EditEmployeeForm({ employee }: Props) {
   const [error, formAction] = useFormState(
-    editEmployeeAction.bind(null, employee.id),
+    editEmployeeAction.bind(null, employee._id),
     undefined
   );
   return (

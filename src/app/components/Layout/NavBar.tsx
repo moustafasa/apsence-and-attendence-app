@@ -1,6 +1,7 @@
 import Link from "next/link";
-import NavBarButtons from "./NavBarButtons";
+
 import { auth } from "@/auth";
+import NavBarButtons from "./NavBarButtons";
 
 export default async function NavBar() {
   const session = await auth();

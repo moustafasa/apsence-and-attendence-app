@@ -1,64 +1,57 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getCurrentUser, getUserNotificationAction } from "./actions";
-import Pusher from "pusher-js";
+import { useEffect, useRef, useState } from "react";
+import Pusher, { Channel } from "pusher-js";
 import { Role } from "@/types/Enums";
+import { useSession } from "next-auth/react";
 
 /**
  *
- * @returns [notifications,unReadNotifications,clearNotifications,markAsUnRead]
+ * @returns [unReadNotifications,clearNotifications,channel]
  */
-type readAllNotifications = () => void;
-type markAsRead = readAllNotifications;
 export default function useCLientPusherConnect(): [
-  NotificationMessage[],
   number,
-  readAllNotifications,
-  markAsRead
+  () => void,
+  Channel | null
 ] {
-  const [notifications, setNotifications] = useState<NotificationMessage[]>([]);
   const [unReadNotifications, setUnReadNotifications] = useState(0);
+  const channel = useRef<Channel | null>(null);
+  const user = useSession().data?.user;
 
   useEffect(() => {
     const getNotifications = async () => {
-      const notif = await getUserNotificationAction();
-      if (notif) {
-        setNotifications(notif || []);
-        setUnReadNotifications(notif.filter((notify) => !notify.read).length);
-      }
+      const res = await fetch("/api/notifications/unReadCount");
+      if (!res.ok) return;
+      const count = (await res.json()) as number;
+      setUnReadNotifications(count);
     };
     getNotifications();
   }, []);
 
   useEffect(() => {
     const getNotification = async () => {
-      const user = await getCurrentUser();
       if (user) {
-        const pusher = new Pusher("4818efa720b6def4922e", { cluster: "eu" });
-        const channel = pusher.subscribe(
+        const pusher = new Pusher("a2a05997f41c1ec741ab", { cluster: "eu" });
+        channel.current = pusher.subscribe(
           user.role === Role.ADMIN ? "admin" : user.userId.toString()
         );
-        channel.bind("notification", (data: { message: string }) => {
-          const parsedMessage = JSON.parse(data.message) as NotificationMessage;
-          setNotifications((prev) => [parsedMessage, ...prev]);
+        channel.current.bind("notification", (data: { message: string }) => {
           setUnReadNotifications((prev) => prev + 1);
         });
       }
     };
     getNotification();
-  }, []);
+    return () => {
+      channel.current?.unbind_all();
+      channel.current?.unsubscribe();
+    };
+  }, [user]);
 
   return [
-    notifications,
     unReadNotifications,
     () => {
       setUnReadNotifications(0);
     },
-    () => {
-      setNotifications((prev) =>
-        prev.map((notif) => ({ ...notif, read: true }))
-      );
-    },
+    channel.current,
   ];
 }

@@ -1,17 +1,17 @@
 "use client";
-import { getCurrentUser, getPaidAction } from "@/lib/actions";
+import { getPaidAction } from "@/lib/actions/attendenceAction";
 import convertMillSecondsToHours from "@/lib/convertMillSecondsToHours";
 import cn from "@/lib/cssConditional";
 import { triggerNotification } from "@/lib/PusherConnect";
 import { NotificationTypes } from "@/types/Enums";
+import { useSession } from "next-auth/react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 type Props = {
   totalHours: number;
-  employee: DbEmployeeUser;
-  id?: number;
+  employee: Omit<IUser, "password" | "role">;
   admin?: boolean;
 };
 
@@ -22,55 +22,55 @@ export default function ClientCalcSalaryModal({
 }: Props) {
   const [holidays, setHolidays] = useState(false);
   const [totalSalary, setTotalSalary] = useState(0);
-  const totalHoursInHours = convertMillSecondsToHours(totalHours);
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const month = searchParams.get("month")
-    ? +!searchParams.get("month")
-    : undefined;
 
-  const calcSalary = () => {
+  const month = useMemo(
+    () => (searchParams.get("month") ? +!searchParams.get("month") : undefined),
+    [searchParams]
+  );
+  const currentUser = useSession().data?.user;
+
+  const calcSalary = useCallback(() => {
     if (holidays) {
       setTotalSalary(
-        +((totalHoursInHours / 30) * employee.hourlyRate).toFixed(2)
+        +((totalHours / 30) * (employee.hourlyRate as number)).toFixed(2)
       );
     } else {
       setTotalSalary(
-        +((totalHoursInHours / 26) * employee.hourlyRate).toFixed(2)
+        +((totalHours / 26) * (employee.hourlyRate as number)).toFixed(2)
       );
     }
-  };
+  }, [employee.hourlyRate, holidays, totalHours]);
 
-  const hideSearch = () => {
+  const hideSearch = useCallback(() => {
     const search = new URLSearchParams(searchParams);
     search.delete("show");
     router.replace(`${pathname}?${search}`, { scroll: false });
-  };
+  }, [pathname, router, searchParams]);
 
-  const onClientPaidHandler = async () => {
+  const onClientPaidHandler = useCallback(async () => {
     await triggerNotification({
-      from: employee.id,
+      from: employee._id,
       to: "admin",
       type: NotificationTypes.SALARY_REQUEST,
-      name: employee.name,
       read: false,
     });
-  };
+  }, [employee._id]);
 
-  const onServerPaidHandler = async () => {
-    await getPaidAction(employee.id, totalSalary, month);
-    const currentUser = await getCurrentUser();
+  const onServerPaidHandler = useCallback(async () => {
     if (currentUser) {
-      triggerNotification({
+      console.log(month);
+      await getPaidAction(employee._id, totalSalary, month);
+      await triggerNotification({
         from: currentUser.userId,
-        to: employee.id,
+        to: employee._id,
         type: NotificationTypes.SALARY_PAID,
-        name: currentUser.name,
         read: false,
       });
     }
-  };
+  }, [employee._id, month, totalSalary, currentUser]);
 
   return (
     <div
@@ -84,7 +84,7 @@ export default function ClientCalcSalaryModal({
         </h2>
         <dl className="capitalize text-xl items-center flex px-3  gap-3">
           <dt className="  text-2xl font-bold">total hours: </dt>
-          <dd className=" ">{totalHoursInHours} hours</dd>
+          <dd className=" ">{totalHours.toFixed(2)} hours</dd>
         </dl>
         <div className="px-6 flex gap-2 capitalize text-xl mt-2 items-center cursor-pointer">
           <input
@@ -113,8 +113,7 @@ export default function ClientCalcSalaryModal({
         <div className="flex items-center gap-3 justify-center">
           <button
             onClick={async () => {
-              admin ? await onServerPaidHandler() : onClientPaidHandler();
-
+              admin ? await onServerPaidHandler() : await onClientPaidHandler();
               hideSearch();
             }}
             className="block capitalize bg-green-100 py-2 px-3 rounded-lg hover:bg-green-200 transition-colors duration-400 shadow-lg text-xl "

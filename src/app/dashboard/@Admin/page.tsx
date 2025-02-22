@@ -1,10 +1,10 @@
 import Table from "@/app/components/table/Table";
 import TableBody from "@/app/components/table/TableBody";
-import { deleteEmployeeAction } from "@/lib/actions";
-import calcTotalMonthHours from "@/lib/calcTotalMonthHours";
 import convertMillSecondsToHours from "@/lib/convertMillSecondsToHours";
-import { getEmployees } from "@/lib/db";
+import { getEmployees } from "@/lib/controllers/employeesController";
 import Link from "next/link";
+import { deleteEmployeeAction } from "@/lib/actions/employeesActions";
+import { calcTotalMonthHours } from "@/lib/controllers/attendenceController";
 
 export default async function page({
   searchParams,
@@ -28,7 +28,7 @@ export default async function page({
       getContent: async (bodyData) => {
         const totalHours = await calcTotalMonthHours(
           searchParams.month ? +searchParams.month : undefined,
-          bodyData.id
+          bodyData._id
         );
         return convertMillSecondsToHours(totalHours);
       },
@@ -38,20 +38,20 @@ export default async function page({
         <div className="flex justify-center gap-3">
           <form action="">
             <button
-              formAction={deleteEmployeeAction.bind(undefined, bodyData.id)}
+              formAction={deleteEmployeeAction.bind(undefined, bodyData._id)}
               className=" capitalize bg-red-600 transition-colors duration-300 hover:bg-red-700 shadow-sm px-4 py-2 rounded-lg"
             >
               delete
             </button>
           </form>
           <Link
-            href={`/dashboard/edit/${bodyData.id}`}
+            href={`/dashboard/edit/${bodyData._id}`}
             className=" capitalize bg-green-100 transition-colors duration-300 hover:bg-green-200 shadow-sm px-4 py-2 rounded-lg"
           >
             edit
           </Link>
           <Link
-            href={`/dashboard/view/${bodyData.id}`}
+            href={`/dashboard/view/${bodyData._id}`}
             className=" capitalize bg-blue-300 transition-colors duration-300 hover:bg-blue-200 shadow-sm px-4 py-2 rounded-lg"
           >
             view
@@ -59,7 +59,7 @@ export default async function page({
         </div>
       ),
     },
-  ] satisfies TableBodyElement<DbEmployeeUser>[];
+  ] satisfies TableBodyElement<Omit<IUser, "password">>[];
 
   return (
     <div>
@@ -67,7 +67,7 @@ export default async function page({
         emplyees list
       </h2>
       <Table theaders={tHeaders}>
-        <TableBody<DbEmployeeUser>
+        <TableBody<Omit<IUser, "password">>
           promise={employees}
           tableBodyData={tableBody}
         />

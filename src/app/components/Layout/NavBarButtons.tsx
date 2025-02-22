@@ -1,9 +1,9 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import SignOutButton from "./SignOutButton";
 import { Session } from "next-auth";
-import NotificationButton from "./Notification/NotificationButton";
+import NotificationButton from "../Notification/NotificationButton";
+import SignOutButton from "./SignOutButton";
 
 export default function NavBarButtons({
   session,

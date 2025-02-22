@@ -1,5 +1,5 @@
 "use client";
-import { signinAction } from "@/lib/actions";
+import { signinAction } from "@/lib/actions/authActions";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
 

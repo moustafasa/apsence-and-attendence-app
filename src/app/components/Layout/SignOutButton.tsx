@@ -1,4 +1,4 @@
-import { signOutAction } from "@/lib/actions";
+import { signOutAction } from "@/lib/actions/authActions";
 
 export default function SignOutButton() {
   return (

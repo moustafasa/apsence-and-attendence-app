@@ -3,26 +3,26 @@ import { JWT } from "next-auth/jwt";
 
 declare module "next-auth" {
   interface User {
-    userId: DbUser["id"];
-    name: DbUser["name"];
-    username: DbUser["username"];
-    role: DbUser["role"];
+    userId: IUser["id"];
+    name: IUser["name"];
+    username: IUser["username"];
+    role: IUser["role"];
   }
   interface Session {
     user: {
-      userId: DbUser["id"];
-      name: DbUser["name"];
-      username: DbUser["username"];
-      role: DbUser["role"];
+      userId: IUser["id"];
+      name: IUser["name"];
+      username: IUser["username"];
+      role: IUser["role"];
     };
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    userId: DbUser["id"];
-    name: DbUser["name"];
-    username: DbUser["username"];
-    role: DbUser["role"];
+    userId: IUser["id"];
+    name: IUser["name"];
+    username: IUser["username"];
+    role: IUser["role"];
   }
 }

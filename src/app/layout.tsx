@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Cairo } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/app/components/NavBar";
-import { ToastContainer } from "react-toastify";
-import ClientToastContainer from "./ClientToastContainer";
+import NavBar from "@/app/components/Layout/NavBar";
+import { SessionProvider } from "next-auth/react";
 
 const cairo = Cairo({ subsets: ["latin"] });
 
@@ -20,9 +19,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={cairo.className + " bg-black-300 text-white"}>
-        <NavBar />
-        {children}
-        <ClientToastContainer />
+        <SessionProvider>
+          <NavBar />
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );

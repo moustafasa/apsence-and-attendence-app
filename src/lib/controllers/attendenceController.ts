@@ -1,0 +1,164 @@
+import { getDb } from "@/models/db";
+import { auth } from "@/auth";
+import { cache } from "react";
+import getDayDate from "../getDayDate";
+import dbConnect from "@/config/dbConnect";
+import Attendence from "@/models/Attendence";
+import { HydratedDocument } from "mongoose";
+
+export const getMonthAttendence = cache(async function (
+  month?: number,
+  userId?: IUser["_id"]
+) {
+  let user = userId;
+  if (!user) {
+    const session = await auth();
+    user = session?.user.userId;
+  }
+
+  await dbConnect();
+  const attendence = await Attendence.findOne<
+    HydratedDocument<IMonthAttendence>
+  >({
+    monthIndex: month ?? getDayDate().getMonth(),
+    userId: user,
+  });
+  return attendence;
+});
+
+export const getAttendences = cache(
+  async (month?: number, userId?: IUser["_id"]) => {
+    const allAttendences = await getMonthAttendence(month, userId);
+
+    return allAttendences?.toObject({ virtuals: true }).days || [];
+  }
+);
+
+export const setAttandence = cache(
+  async (startDate: Date, endDate?: Date, month?: number) => {
+    await dbConnect();
+    const dayIndex = startDate.getDate();
+    const monthIndex = month || getDayDate().getMonth();
+    const session = await auth();
+
+    if (!session?.user) return;
+
+    const attendence = await getMonthAttendence(
+      monthIndex,
+      session.user.userId
+    );
+
+    if (!attendence) {
+      const newAttendence = new Attendence({
+        monthIndex,
+        userId: session.user.userId,
+        days: [
+          {
+            dayIndex,
+            startDate,
+            endDate,
+          },
+        ],
+      });
+      await newAttendence.save();
+    } else {
+      const foundAtt = attendence.days.find((day) => day.dayIndex === dayIndex);
+      if (foundAtt) {
+        foundAtt.startDate = startDate;
+        foundAtt.endDate = endDate;
+      } else {
+        attendence.days.push({
+          dayIndex,
+          startDate,
+          endDate,
+        });
+      }
+      await attendence.save();
+    }
+  }
+);
+
+export const getSingleAttendence = cache(
+  async (dayIndex: IDayAttendence["dayIndex"], month?: number) => {
+    const attendence = await getMonthAttendence(month);
+
+    return {
+      _id: attendence?._id,
+      completed: attendence?.completed,
+      days: attendence?.days.find((day) => day.dayIndex === dayIndex),
+    };
+  }
+);
+
+export async function calcTotalMonthHours(month?: number, id?: IUser["_id"]) {
+  if (!id) {
+    const session = await auth();
+    if (!session?.user) {
+      return 0;
+    }
+    id = session.user.userId;
+  }
+  const pipeline = [
+    {
+      $match: { monthIndex: month ?? getDayDate().getMonth(), userId: id },
+    },
+    {
+      $addFields: {
+        totalMonthHours: {
+          $sum: {
+            $map: {
+              input: "$days",
+              as: "day",
+              in: {
+                $divide: [
+                  {
+                    $subtract: ["$$day.endDate", "$$day.startDate"],
+                  },
+                  1000 * 60 * 60,
+                ],
+              },
+            },
+          },
+        },
+      },
+    },
+    { $group: { _id: "$totalMonthHours" } },
+  ];
+
+  const monthAttendence = await Attendence.aggregate(pipeline);
+  return monthAttendence[0]?._id || 0;
+}
+
+export const getUserMonthsMetaData = cache(async (userId?: IUser["_id"]) => {
+  if (!userId) {
+    const session = await auth();
+    if (!session?.user.userId) return [];
+    userId = session.user.userId;
+  }
+  const monthMetas = await Attendence.find<
+    HydratedDocument<
+      Pick<IMonthAttendence, "_id" | "completed" | "monthIndex" | "paidSalary">
+    >
+  >({ userId }, "completed paidSalary monthIndex");
+  return monthMetas;
+});
+
+export const clearThisMonthAttendence = cache(async () => {});
+
+export const getMonthPaid = cache(
+  async (month: number, userId: IUser["_id"], salary: number) => {
+    await dbConnect();
+    await Attendence.findOneAndUpdate(
+      {
+        userId,
+        monthIndex: month,
+      },
+      {
+        $set: {
+          completed: true,
+          paidSalary: salary,
+        },
+      }
+    );
+  }
+);

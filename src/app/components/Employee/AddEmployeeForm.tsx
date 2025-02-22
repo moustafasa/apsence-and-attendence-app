@@ -1,6 +1,6 @@
 "use client";
 
-import { addEmployeeAction } from "@/lib/actions";
+import { addEmployeeAction } from "@/lib/actions/employeesActions";
 import cn from "@/lib/cssConditional";
 import { useFormState } from "react-dom";
 import { FaExclamation } from "react-icons/fa";

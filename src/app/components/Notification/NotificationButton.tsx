@@ -1,31 +1,19 @@
 "use client";
 import { IoNotifications } from "react-icons/io5";
-import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import NotificationMenu from "./NotificationMenu";
 import useCLientPusherConnect from "@/lib/useCLientPusherConnect";
 
 export default function NotificationButton() {
   const [showMenu, setShowMenu] = useState(false);
-  const [notifications, unReadNotifications, readAllNotifications, markAsRead] =
+  const [unReadNotifications, readAllNotifications, channel] =
     useCLientPusherConnect();
-  const asReadTimeout = useRef<NodeJS.Timeout>();
-
-  const markAsReadOnHide = useCallback(() => {
-    clearTimeout(asReadTimeout.current);
-    if (showMenu) {
-      console.log("done");
-      asReadTimeout.current = setTimeout(() => {
-        markAsRead();
-      }, 1000);
-    }
-  }, [markAsRead, showMenu]);
 
   useEffect(() => {
     const hideMenuOnBlur = (e: MouseEvent) => {
       const element = e.target as HTMLElement | null;
 
       if (!element?.closest("#notif-menu")) {
-        markAsReadOnHide();
         setShowMenu(false);
       }
     };
@@ -33,7 +21,7 @@ export default function NotificationButton() {
     return () => {
       document.removeEventListener("click", hideMenuOnBlur);
     };
-  }, [markAsReadOnHide]);
+  }, []);
 
   useEffect(() => {
     const readNotifTimeout = setTimeout(() => {
@@ -52,7 +40,6 @@ export default function NotificationButton() {
       <button
         className="text-xl relative"
         onClick={async (e) => {
-          markAsReadOnHide();
           setShowMenu((prev) => !prev);
         }}
       >
@@ -63,9 +50,7 @@ export default function NotificationButton() {
         )}
         <IoNotifications />
       </button>
-      <Suspense fallback={<div>loading...</div>}>
-        {showMenu && <NotificationMenu notifications={notifications} />}
-      </Suspense>
+      {showMenu && <NotificationMenu channel={channel} />}
     </div>
   );
 }
