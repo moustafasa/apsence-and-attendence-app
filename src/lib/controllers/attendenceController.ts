@@ -137,7 +137,6 @@ export async function calcTotalMonthHours(month?: number, id?: IUser["_id"]) {
   ];
   await dbConnect();
   const monthAttendence = await Attendence.aggregate(pipeline);
-  console.log(monthAttendence);
   return monthAttendence[0]?._id || 0;
 }
 

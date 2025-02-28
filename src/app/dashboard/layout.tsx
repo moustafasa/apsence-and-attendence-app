@@ -13,14 +13,10 @@ export default async function DashboardLayout({ Employee, Admin }: Props) {
   }
   return (
     <div className="flex gap-2 min-h-[calc(100vh-theme(spacing.nav))] relative">
-      <aside className="w-60 bg-black-400">
-        <DashboardSideNav
-          links={
-            session.user.role === Role.EMPLOYEE ? employeeLinks : adminLinks
-          }
-        />
-      </aside>
-      <div className="flex-1 max-w-full">
+      <DashboardSideNav
+        links={session.user.role === Role.EMPLOYEE ? employeeLinks : adminLinks}
+      />
+      <div className="flex-1 max-w-full overflow-auto">
         {session.user.role === Role.ADMIN
           ? Admin
           : session.user.role === Role.EMPLOYEE

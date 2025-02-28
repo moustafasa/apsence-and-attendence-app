@@ -2,7 +2,7 @@
 import { IoNotifications } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import NotificationMenu from "./NotificationMenu";
-import useCLientPusherConnect from "@/lib/useCLientPusherConnect";
+import useCLientPusherConnect from "@/utilty/useCLientPusherConnect";
 
 export default function NotificationButton() {
   const [showMenu, setShowMenu] = useState(false);

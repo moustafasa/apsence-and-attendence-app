@@ -19,7 +19,5 @@ export async function triggerNotification(
     await pusher.trigger(notification.to.toString(), "notification", {
       message: JSON.stringify(newNotif),
     });
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 }

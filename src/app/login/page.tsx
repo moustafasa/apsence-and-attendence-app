@@ -6,7 +6,6 @@ import ErrorMessage from "../components/ErrorMessage";
 
 export default function Page() {
   const [error, formAction] = useFormState(signinAction, undefined);
-  console.log(error);
 
   return (
     <div className="container mt-28">

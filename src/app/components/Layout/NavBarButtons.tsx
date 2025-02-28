@@ -13,7 +13,7 @@ export default function NavBarButtons({
   const pathname = usePathname();
 
   return session?.user ? (
-    <div className="flex gap-3 items-center">
+    <div className="flex gap-3 items-center ">
       <NotificationButton />
       {pathname === "/" && (
         <Link

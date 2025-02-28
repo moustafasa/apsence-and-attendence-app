@@ -8,8 +8,6 @@ import { notFound } from "next/navigation";
 type Props = { params: { id: string; userId: string } };
 
 export default async function Page({ params: { id, userId } }: Props) {
-
-
   const dayIndex = +id;
   const attendence = await getSingleAttendence(dayIndex, userId);
 
@@ -34,15 +32,14 @@ export default async function Page({ params: { id, userId } }: Props) {
   );
 }
 
-
 export async function generateStaticParams() {
   const employees = await getEmployees();
   const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
-  
-  return employees.flatMap(emp => 
-    days.map(day => ({
+
+  return employees.flatMap((emp) =>
+    days.map((day) => ({
       userId: emp._id.toString(),
-      id: day
+      id: day,
     }))
   );
 }

@@ -14,7 +14,6 @@ export async function setInAction(InTime: Date) {
   redirect("/dashboard/");
 }
 export async function setOutAction(startDate: Date, outTime: Date) {
-  console.log(outTime);
   await setAttandence(startDate, outTime);
   revalidatePath("/dashboard/");
   redirect("/dashboard/");
