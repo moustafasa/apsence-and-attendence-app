@@ -1,9 +1,8 @@
 "use client";
 
 import { addEmployeeAction } from "@/lib/actions/employeesActions";
-import cn from "@/lib/cssConditional";
 import { useFormState } from "react-dom";
-import { FaExclamation } from "react-icons/fa";
+import ErrorMessage from "../ErrorMessage";
 
 export default function AddEmployeeFormData() {
   const [error, formAction] = useFormState(addEmployeeAction, undefined);
@@ -13,14 +12,7 @@ export default function AddEmployeeFormData() {
       action={formAction}
       noValidate
     >
-      <p
-        className={cn(
-          `capitalize  p-3 mb-3 rounded-lg bg-red-600 flex items-center gap-3 invisible min-h-14 `,
-          { visible: !!error }
-        )}
-      >
-        <FaExclamation className="inline" /> {error}
-      </p>
+      <ErrorMessage error={error} />
       <h2 className=" text-center capitalize text-3xl mb-6 font-bold p-3">
         add new employee
       </h2>

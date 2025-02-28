@@ -1,5 +1,6 @@
 "use server";
 import { signIn, signOut } from "@/auth";
+import { CredentialsSignin } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 
 export async function signinAction(
@@ -12,7 +13,10 @@ export async function signinAction(
     if (isRedirectError(error)) {
       throw error;
     }
-    return "there is an error";
+    if (error instanceof CredentialsSignin) {
+      return "Invalid credentials";
+    }
+    return "unknown error";
   }
 }
 

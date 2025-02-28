@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import DashboardSideNav from "../components/Layout/DashboardSideNav";
 import { adminLinks, employeeLinks } from "@/lib/navLinkObjs";
 import { Role } from "@/types/Enums";

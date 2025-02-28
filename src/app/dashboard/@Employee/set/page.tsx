@@ -5,7 +5,7 @@ import { FaCheck } from "react-icons/fa";
 
 export default async function Page() {
   const todayDate = getDayDate();
-  const att = await getSingleAttendence(todayDate.getDate());
+  const att = await getSingleAttendence();
 
   if (att.completed)
     return (
@@ -25,7 +25,7 @@ export default async function Page() {
           <span className="capitalize text-xl w-[150px]">day date : </span>
           <p className="flex-1 text-xl capitalize px-3 py-2 ">
             {Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(
-              todayDate
+              att.days?.startDate || todayDate
             )}
           </p>
         </div>
@@ -52,12 +52,14 @@ export default async function Page() {
           <form
             action={async () => {
               "use server";
-              !att.days?.startDate
-                ? await setInAction(new Date())
-                : await setOutAction(att.days.startDate, new Date());
+              if (!att.days?.startDate) {
+                await setInAction(new Date());
+              } else {
+                await setOutAction(att.days?.startDate, new Date());
+              }
             }}
           >
-            <button className="capitalize text-xl bg-blue-300 mt-7 p-3 rounded-lg hover w-full">
+            <button className="capitalize text-xl bg-blue-300 mt-7 p-3 rounded-lg hover:bg-blue-200 transition-colors duration-300 w-full">
               {!att.days?.startDate ? "set In" : "set out"}
             </button>
           </form>

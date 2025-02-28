@@ -78,7 +78,7 @@ export const setAttandence = cache(
 
 export const getSingleAttendence = cache(
   async (
-    dayIndex: IDayAttendence["dayIndex"],
+    dayIndex?: IDayAttendence["dayIndex"],
     userId?: string,
     month?: number
   ) => {
@@ -87,7 +87,16 @@ export const getSingleAttendence = cache(
     return {
       _id: attendence?._id,
       completed: attendence?.completed,
-      days: attendence?.days.find((day) => day.dayIndex === dayIndex),
+
+      // if not dayIndex i will return the last day that not ended OR the current day
+      days: dayIndex
+        ? attendence?.days.find((day) => day.dayIndex === dayIndex)
+        : attendence?.days
+            ?.toSorted((a, b) => a.dayIndex - b.dayIndex)
+            .findLast((day) => !day.endDate) ||
+          attendence?.days.findLast(
+            (day) => day.dayIndex === getDayDate().getDate()
+          ),
     };
   }
 );
@@ -128,6 +137,7 @@ export async function calcTotalMonthHours(month?: number, id?: IUser["_id"]) {
   ];
   await dbConnect();
   const monthAttendence = await Attendence.aggregate(pipeline);
+  console.log(monthAttendence);
   return monthAttendence[0]?._id || 0;
 }
 

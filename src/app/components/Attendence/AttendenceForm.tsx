@@ -80,7 +80,7 @@ export default function AttendenceForm({
             }
           />
         </div>
-        <button className="capitalize text-xl bg-blue-300 mt-7 p-3 rounded-lg hover">
+        <button className="capitalize text-xl bg-blue-300 mt-7 p-3 rounded-lg hover:bg-blue-200 transition-colors duration-300 w-full">
           set attendence
         </button>
       </form>

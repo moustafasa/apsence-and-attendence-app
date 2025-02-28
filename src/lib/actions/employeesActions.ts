@@ -30,6 +30,14 @@ export async function addEmployeeAction(
     password: string;
     hourlyRate: string;
   };
+  if (
+    !employee.name ||
+    !employee.username ||
+    !employee.password ||
+    !employee.hourlyRate
+  ) {
+    return "please fill all required fields";
+  }
 
   await addEmployee({ ...employee, hourlyRate: +employee.hourlyRate });
 

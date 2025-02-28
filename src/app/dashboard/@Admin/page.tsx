@@ -1,6 +1,5 @@
 import Table from "@/app/components/table/Table";
 import TableBody from "@/app/components/table/TableBody";
-import convertMillSecondsToHours from "@/lib/convertMillSecondsToHours";
 import { getEmployees } from "@/lib/controllers/employeesController";
 import Link from "next/link";
 import { deleteEmployeeAction } from "@/lib/actions/employeesActions";
@@ -30,7 +29,7 @@ export default async function page({
           searchParams.month ? +searchParams.month : undefined,
           bodyData._id
         );
-        return convertMillSecondsToHours(totalHours);
+        return totalHours.toFixed(2);
       },
     },
     {
@@ -70,6 +69,7 @@ export default async function page({
         <TableBody<Omit<IUser, "password">>
           promise={employees}
           tableBodyData={tableBody}
+          options={3}
         />
       </Table>
     </div>

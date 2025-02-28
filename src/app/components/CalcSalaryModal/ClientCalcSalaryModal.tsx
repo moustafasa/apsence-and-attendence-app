@@ -1,6 +1,5 @@
 "use client";
 import { getPaidAction } from "@/lib/actions/attendenceAction";
-import convertMillSecondsToHours from "@/lib/convertMillSecondsToHours";
 import cn from "@/lib/cssConditional";
 import { triggerNotification } from "@/lib/PusherConnect";
 import { NotificationTypes } from "@/types/Enums";

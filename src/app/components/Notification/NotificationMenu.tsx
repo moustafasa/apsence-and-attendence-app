@@ -3,6 +3,7 @@ import NotificationItem from "./NotificationItem";
 import { readNotificationsAction } from "@/lib/actions/notificationActions";
 import cn from "@/lib/cssConditional";
 import { Channel } from "pusher-js";
+import AdminNotificationSkeleton from "../skeleton/AdminNotificationSkeleton";
 
 type Props = {
   channel: Channel | null;
@@ -69,7 +70,11 @@ export default function NotificationMenu({ channel }: Props) {
     >
       <h3 className="text-3xl mb-3 mt-3">notifications</h3>
       <ul className=" overflow-auto max-h-[50vh] [&::-webkit-scrollbar]:hidden ">
-        {loading && <p>Loading...</p>}
+        {loading && (
+          <>
+            <AdminNotificationSkeleton />
+          </>
+        )}
         {notifications.map((notify, ind) => (
           <Fragment key={notify._id}>
             {ind !== 0 && <hr />}

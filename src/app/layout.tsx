@@ -3,6 +3,8 @@ import { Cairo } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/app/components/Layout/NavBar";
 import { SessionProvider } from "next-auth/react";
+import { Suspense } from "react";
+import NavSkeleton from "./components/skeleton/NavSkeleton";
 
 const cairo = Cairo({ subsets: ["latin"] });
 
@@ -20,7 +22,9 @@ export default async function RootLayout({
     <html lang="en">
       <body className={cairo.className + " bg-black-300 text-white"}>
         <SessionProvider>
-          <NavBar />
+          <Suspense fallback={<NavSkeleton />}>
+            <NavBar />
+          </Suspense>
           {children}
         </SessionProvider>
       </body>

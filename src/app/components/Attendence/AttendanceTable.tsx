@@ -8,6 +8,8 @@ import modifiedGetAttendence from "@/lib/modifiedGetAttendence";
 import Link from "next/link";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import CalcSalaryModal from "../CalcSalaryModal/CalcSalaryModal";
+import AttendenceTableFooterSkeleton from "../skeleton/AttendenceTableFooterSkeleton";
+import { Suspense } from "react";
 
 type Props = {
   searchParams: { show?: string; month?: string };
@@ -152,11 +154,13 @@ export default async function AttendanceTable({
         <Table
           theaders={theader}
           tfoot={
-            <AttendenceTableFooter
-              month={month}
-              id={userId}
-              paidSalary={monthMeta[currentMonthIndex]?.paidSalary}
-            />
+            <Suspense fallback={<AttendenceTableFooterSkeleton />}>
+              <AttendenceTableFooter
+                month={month}
+                id={userId}
+                paidSalary={monthMeta[currentMonthIndex]?.paidSalary}
+              />
+            </Suspense>
           }
           disabled={monthMeta[currentMonthIndex]?.completed}
           noOptions={!isAdmin}
@@ -173,6 +177,7 @@ export default async function AttendanceTable({
                   month === todayDate.getMonth(),
               },
             ]}
+            options={isAdmin ? 1 : 0}
           />
         </Table>
 

@@ -98,7 +98,7 @@ type Attendence = {
 };
 
 type TableHeader = {
-  label: string;
+  label: React.ReactNode;
   addonClassName?: string;
 };
 

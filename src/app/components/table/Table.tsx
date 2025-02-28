@@ -27,7 +27,7 @@ export default function Table({
           <tr className="bg-black-100">
             {theaders.map((th, ind) => (
               <th
-                key={th.label}
+                key={ind}
                 className={cn("px-3 py-5", th.addonClassName, {
                   "rounded-ss-lg": ind === 0,
                   "rounded-se-lg": noOptions && ind === theaders.length - 1,
