@@ -148,10 +148,13 @@ export const getUserMonthsMetaData = cache(async (userId?: IUser["_id"]) => {
   }
   await dbConnect();
   const monthMetas = await Attendence.find<
-    HydratedDocument<
-      Pick<IMonthAttendence, "_id" | "completed" | "monthIndex" | "paidSalary">
-    >
-  >({ userId }, "completed paidSalary monthIndex");
+    Pick<IMonthAttendence, "_id" | "completed" | "monthIndex" | "paidSalary">[]
+  >({ userId }, "completed paidSalary monthIndex", {
+    sort: "monthIndex",
+  }).lean<
+    Pick<IMonthAttendence, "_id" | "completed" | "monthIndex" | "paidSalary">[]
+  >();
+
   return monthMetas;
 });
 

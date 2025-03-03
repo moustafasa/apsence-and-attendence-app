@@ -65,7 +65,7 @@ export default function NotificationMenu({ channel }: Props) {
   return (
     <div
       className={cn(
-        "absolute min-w-max p-5 pb-6 right-0 top-full z-50 translate-y-3 bg-black-400  rounded-lg before:absolute before:w-0 before:h-0 before:border-[10px] before:top-0 before:right-0 before:-translate-y-[calc(100%-5px)] before:border-transparent before:border-b-black-400 backdrop:blur-lg shadow-lg shadow-black-100  "
+        "absolute min-w-max p-5 pb-6 md:left-auto md:right-0 top-full z-50 translate-y-3 bg-black-400  rounded-lg md:before:absolute md:before:w-0 md:before:h-0 md:before:border-[10px] md:before:top-0 md:before:right-0 md:before:-translate-y-[calc(100%-5px)] md:before:border-transparent md:before:border-b-black-400 backdrop:blur-lg shadow-lg shadow-black-100  left-[10px] w-[calc(100%-20px)]  md:w-auto "
       )}
     >
       <h3 className="text-3xl mb-3 mt-3">notifications</h3>

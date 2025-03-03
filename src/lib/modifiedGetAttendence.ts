@@ -12,7 +12,7 @@ export default async function modifiedGetAttendence(
     user = session?.user.userId;
   }
 
-  if (data.length <= 0) return [];
+  // if (data.length <= 0) return [];
   return new Array(30).fill(3).map((ele, ind) => {
     const att = data.find((att) => att.dayIndex === ind + 1);
     return att

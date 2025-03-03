@@ -18,7 +18,7 @@ export default function NavBarButtons({
       {pathname === "/" && (
         <Link
           href={"/dashboard"}
-          className="block bg-blue-200 px-3 py-2 rounded-lg hover:bg-blue-300 transition-colors duration-300"
+          className="block max-md:hidden bg-blue-200 px-3 py-2 rounded-lg hover:bg-blue-300 transition-colors duration-300"
         >
           go to dashboard
         </Link>

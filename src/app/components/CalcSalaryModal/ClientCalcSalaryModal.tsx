@@ -106,7 +106,7 @@ export default function ClientCalcSalaryModal({
         <hr className="my-4" />
         <dl className="capitalize text-xl mb-7 items-center flex px-3  gap-3 justify-center">
           <dt className="  text-2xl font-bold">total salary: </dt>
-          <dd className=" ">{totalSalary} pounds</dd>
+          <dd>{totalSalary} pounds</dd>
         </dl>
         <div className="flex items-center gap-3 justify-center">
           <button

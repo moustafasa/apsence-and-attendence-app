@@ -36,7 +36,6 @@ export default async function AttendanceTable({
   const currentMonthIndex = monthMeta.findIndex(
     (mon) => +mon.monthIndex === month
   );
-
   const modalUrl = () => {
     const search = new URLSearchParams(searchParams);
     search.append("show", "");
@@ -119,13 +118,12 @@ export default async function AttendanceTable({
         <Link
           href={{
             query: {
-              month: monthMeta[currentMonthIndex + 1]?.monthIndex,
+              month: monthMeta[currentMonthIndex - 1]?.monthIndex,
             },
           }}
           prefetch={currentMonthIndex < monthMeta.length - 1}
           className={cn({
-            "pointer-events-none text-gray-600":
-              currentMonthIndex >= monthMeta.length - 1,
+            "pointer-events-none text-gray-600": currentMonthIndex <= 0,
           })}
         >
           <FaAngleLeft />
@@ -139,12 +137,13 @@ export default async function AttendanceTable({
         <Link
           href={{
             query: {
-              month: monthMeta[currentMonthIndex - 1]?.monthIndex,
+              month: monthMeta[currentMonthIndex + 1]?.monthIndex,
             },
           }}
           prefetch={currentMonthIndex > 0}
           className={cn({
-            "pointer-events-none text-gray-600": currentMonthIndex <= 0,
+            "pointer-events-none text-gray-600":
+              currentMonthIndex >= monthMeta.length - 1,
           })}
         >
           <FaAngleRight />
@@ -181,7 +180,8 @@ export default async function AttendanceTable({
           />
         </Table>
 
-        {!monthMeta[currentMonthIndex]?.paidSalary &&
+        {currentMonthIndex > -1 &&
+          !monthMeta[currentMonthIndex]?.paidSalary &&
           !monthMeta[currentMonthIndex]?.completed && (
             <Link
               href={modalUrl()}

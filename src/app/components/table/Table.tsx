@@ -19,10 +19,15 @@ export default function Table({
   return (
     <div
       className={cn("p-5 overflow-x-auto max-w-full ", {
-        "opacity-70 pointer-events-none": disabled,
+        "opacity-70 ": disabled,
       })}
     >
-      <table className="min-w-full border-separate capitalize table-fixed border-spacing-0 text-center shadow-lg text-nowrap">
+      <table
+        className={cn(
+          "min-w-full whitespace-nowrap border-separate capitalize table-fixed border-spacing-0 text-center shadow-lg text-nowrap",
+          { "pointer-events-none": disabled }
+        )}
+      >
         <thead className="">
           <tr className="bg-black-100">
             {theaders.map((th, ind) => (

@@ -1,6 +1,5 @@
 import cn from "@/lib/cssConditional";
 import Skeleton from "./Skeleton";
-import ViewSkeleton from "./ViewSkeleton";
 import Table from "../table/Table";
 import TableSkeleton from "./TableSkeleton";
 
@@ -14,7 +13,7 @@ export default function DashboardSkeleton() {
 
   return (
     <div className="flex gap-2 min-h-[calc(100vh-theme(spacing.nav))] relative">
-      <aside className="w-60 bg-black-400">
+      <aside className="w-60 bg-black-400 h-full hidden md:block">
         <div className="p-3">
           <h2 className="my-3">pages</h2>
           <nav className="space-y-3">
