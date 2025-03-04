@@ -1,6 +1,6 @@
 import Attendence from "@/models/Attendence";
 import dbConnect from "../config/dbConnect";
-import { getDb } from "../models/db";
+import { getDb } from "./db";
 import { HydratedDocument } from "mongoose";
 import { auth } from "@/auth";
 

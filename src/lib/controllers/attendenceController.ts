@@ -1,4 +1,3 @@
-import { getDb } from "@/models/db";
 import { auth } from "@/auth";
 import { cache } from "react";
 import getDayDate from "../getDayDate";

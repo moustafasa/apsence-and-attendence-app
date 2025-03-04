@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 import dbConnect from "@/config/dbConnect";
-import { getDb } from "@/models/db";
 import Notifications from "@/models/Notifications";
 import { HydratedDocument } from "mongoose";
 import { cache } from "react";
