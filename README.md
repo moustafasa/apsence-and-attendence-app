@@ -3,7 +3,7 @@
 ## Description
 
 this is an apsence and attendence app that calculate the employees hours allover the month and calculate the salary of it
-it is an front end and backend but my specialization is front end i am not specialized yet in backend
+(**it is an front end and backend but my specialization is front end i am not specialized yet in backend**)
 
 ## Features
 
