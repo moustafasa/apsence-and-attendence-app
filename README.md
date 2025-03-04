@@ -27,7 +27,7 @@ this is an apsence and attendence app that calculate the employees hours allover
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/project-name.git
+git clone https://github.com/moustafasa/apsence-and-attendence-app.git
 
 # Install dependencies
 npm install
