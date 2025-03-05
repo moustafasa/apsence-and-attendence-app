@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 import Link from "next/link";
-import Skeleton from "../components/skeleton/Skeleton";
 
 export default async function Home() {
   const session = await auth();

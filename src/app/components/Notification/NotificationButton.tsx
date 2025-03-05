@@ -39,7 +39,7 @@ export default function NotificationButton() {
     <div className=" flex items-center md:relative h-full  " id="notif-menu">
       <button
         className="text-xl relative"
-        onClick={async (e) => {
+        onClick={async () => {
           setShowMenu((prev) => !prev);
         }}
       >

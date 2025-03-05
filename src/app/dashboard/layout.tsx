@@ -1,9 +1,8 @@
 import { auth } from "@/auth";
-import { ReactNode, Suspense } from "react";
+import { ReactNode } from "react";
 import DashboardSideNav from "../components/Layout/DashboardSideNav";
 import { adminLinks, employeeLinks } from "@/lib/navLinkObjs";
 import { Role } from "@/types/Enums";
-import DashboardSkeleton from "../components/skeleton/DashboardSkeleton";
 
 type Props = { Employee: ReactNode; Admin: ReactNode };
 

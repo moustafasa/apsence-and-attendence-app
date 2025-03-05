@@ -48,8 +48,8 @@ interface IMonthAttendence {
 interface IDayAttendence {
   _id?: string;
   dayIndex: number;
-  startDate: date;
-  endDate?: date;
+  startDate: Date;
+  endDate?: Date;
   totalHours?: number;
 }
 
@@ -103,6 +103,6 @@ type TableHeader = {
 };
 
 type TableBodyElement<T> = {
-  getContent: (bodyData: T, index: number) => ReactNode;
+  getContent: (bodyData: T, index: number) => React.ReactNode;
   th?: boolean;
 };

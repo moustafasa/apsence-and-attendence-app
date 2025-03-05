@@ -1,9 +1,6 @@
 "use server";
 import { auth } from "@/auth";
-import {
-  getNotificationOfUser,
-  makeNotificationAsReaded,
-} from "../controllers/notificationController";
+import { makeNotificationAsReaded } from "../controllers/notificationController";
 import { Role } from "@/types/Enums";
 
 export async function readNotificationsAction() {

@@ -60,14 +60,12 @@ export default async function AttendanceTable({
       getContent(bodyData) {
         return bodyData.startDate
           ? formatTime(new Date(bodyData.startDate))
-          : bodyData.startDate;
+          : "";
       },
     },
     {
       getContent(bodyData) {
-        return bodyData.endDate
-          ? formatTime(new Date(bodyData.endDate))
-          : bodyData.endDate;
+        return bodyData.endDate ? formatTime(new Date(bodyData.endDate)) : "";
       },
     },
     {

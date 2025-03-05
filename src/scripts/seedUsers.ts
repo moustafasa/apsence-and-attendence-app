@@ -1,4 +1,3 @@
-import { Role } from "@/types/Enums";
 import dbConnect from "../config/dbConnect";
 import { hashPassword } from "../lib/controllers/authController";
 import { getDb } from "./db";

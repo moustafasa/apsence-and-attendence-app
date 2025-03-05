@@ -2,8 +2,6 @@
 import cn from "@/lib/cssConditional";
 import DashboardSideItem from "./DashboardSideItem";
 import useSideBarToggleContext from "@/utilty/useSideBarToggleContext";
-import NavBarButtons from "./NavBarButtons";
-import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 
 type Props = { links: LinkObj[] };

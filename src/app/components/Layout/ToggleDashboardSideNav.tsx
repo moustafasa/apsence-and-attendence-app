@@ -1,7 +1,6 @@
 "use client";
 
 import useSideBarToggleContext from "@/utilty/useSideBarToggleContext";
-import { useEffect } from "react";
 import { FaBars } from "react-icons/fa";
 
 export default function ToggleDashboardSideNav() {

@@ -5,7 +5,6 @@ import {
 import { getUserMonthsMetaData } from "@/lib/controllers/attendenceController";
 import { notFound } from "next/navigation";
 import AttendanceTable from "@/app/components/Attendence/AttendanceTable";
-import ViewSkeleton from "@/app/components/skeleton/ViewSkeleton";
 
 type Props = {
   searchParams: { show?: string; month?: string };

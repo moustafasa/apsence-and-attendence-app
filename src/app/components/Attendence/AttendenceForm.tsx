@@ -2,7 +2,7 @@
 import { setAttandenceAction } from "@/lib/actions/attendenceAction";
 import cn from "@/lib/cssConditional";
 import getDayDate from "@/lib/getDayDate";
-import { format, formatDistance } from "date-fns";
+import { format } from "date-fns";
 import { useFormState } from "react-dom";
 import { FaExclamation } from "react-icons/fa";
 
