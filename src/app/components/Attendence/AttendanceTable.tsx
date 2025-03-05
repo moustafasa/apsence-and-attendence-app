@@ -10,6 +10,7 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import CalcSalaryModal from "../CalcSalaryModal/CalcSalaryModal";
 import AttendenceTableFooterSkeleton from "../skeleton/AttendenceTableFooterSkeleton";
 import { Suspense } from "react";
+import { TZDate } from "@date-fns/tz";
 
 type Props = {
   searchParams: { show?: string; month?: string };
@@ -59,13 +60,13 @@ export default async function AttendanceTable({
     {
       getContent(bodyData) {
         return bodyData.startDate
-          ? formatTime(new Date(bodyData.startDate))
+          ? formatTime(new TZDate(bodyData.startDate))
           : "";
       },
     },
     {
       getContent(bodyData) {
-        return bodyData.endDate ? formatTime(new Date(bodyData.endDate)) : "";
+        return bodyData.endDate ? formatTime(new TZDate(bodyData.endDate)) : "";
       },
     },
     {
