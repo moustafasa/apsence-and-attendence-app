@@ -2,7 +2,7 @@ import { model, models, Schema } from "mongoose";
 
 const dayAttendenceSchema = new Schema<IDayAttendence>({
   dayIndex: { type: Number, required: true },
-  startDate: { type: Date, required: true, timezone: true },
+  startDate: { type: Date, required: true },
   endDate: { type: Date, timezone: true },
 });
 
