@@ -1,3 +1,4 @@
+import FormButton from "@/app/components/FormButton";
 import { setInAction, setOutAction } from "@/lib/actions/attendenceAction";
 import { getSingleAttendence } from "@/lib/controllers/attendenceController";
 import formatTime from "@/lib/formatTime";
@@ -35,7 +36,7 @@ export default async function Page() {
               formatTime(att.days.startDate, "hh:mm:ss a")}
           </p>
         </div>
-        <div className="flex gap-3 items-center mb-5">
+        <div className="flex gap-3 items-center mb-10">
           <label className="capitalize text-xl w-[150px]">end time : </label>
 
           <p className="flex-1 text-xl capitalize px-3 py-2 ">
@@ -53,9 +54,7 @@ export default async function Page() {
               }
             }}
           >
-            <button className="capitalize text-xl bg-blue-300 mt-7 p-3 rounded-lg hover:bg-blue-200 transition-colors duration-300 w-full">
-              {!att.days?.startDate ? "set In" : "set out"}
-            </button>
+            <FormButton label={!att.days?.startDate ? "set In" : "set out"} />
           </form>
         )}
       </div>

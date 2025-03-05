@@ -5,6 +5,7 @@ import formatTime from "@/lib/formatTime";
 import getDayDate from "@/lib/getDayDate";
 import { useFormState } from "react-dom";
 import { FaExclamation } from "react-icons/fa";
+import FormButton from "../FormButton";
 
 type Props = {
   date: Date;
@@ -66,7 +67,7 @@ export default function AttendenceForm({
             }
           />
         </div>
-        <div className="flex gap-3 items-center mb-5">
+        <div className="flex gap-3 items-center mb-10">
           <label htmlFor="endTime" className="capitalize text-xl w-[150px]">
             end time
           </label>
@@ -82,9 +83,7 @@ export default function AttendenceForm({
             }
           />
         </div>
-        <button className="capitalize text-xl bg-blue-300 mt-7 p-3 rounded-lg hover:bg-blue-200 transition-colors duration-300 w-full">
-          set attendence
-        </button>
+        <FormButton label="set attendence" />
       </form>
     </div>
   );

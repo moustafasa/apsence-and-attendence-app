@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes loading-animation {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -23,5 +35,28 @@
   }
   .sk-input {
     @apply h-10 w-24 rounded-md px-3 py-2;
+  }
+  .button-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    inset: 0;
+    gap: 0.5rem;
+  }
+
+  .button-loader > div {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: white;
+    animation: 1s ease-in-out infinite loading-animation;
+  }
+
+  .button-loader div:nth-child(1) {
+    animation-delay: -0.4s;
+  }
+  .button-loader div:nth-child(2) {
+    animation-delay: -0.2s;
   }
 }

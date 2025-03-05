@@ -1,11 +1,10 @@
 import { signOutAction } from "@/lib/actions/authActions";
+import FormButton from "../FormButton";
 
 export default function SignOutButton() {
   return (
     <form action={signOutAction}>
-      <button className=" capitalize block bg-blue-300 px-3 py-2 rounded-lg hover:bg-blue-200 transition-colors duration-300">
-        sign out
-      </button>
+      <FormButton label="sign out" notFull />
     </form>
   );
 }

@@ -3,6 +3,7 @@
 import { addEmployeeAction } from "@/lib/actions/employeesActions";
 import { useFormState } from "react-dom";
 import ErrorMessage from "../ErrorMessage";
+import FormButton from "../FormButton";
 
 export default function AddEmployeeFormData() {
   const [error, formAction] = useFormState(addEmployeeAction, undefined);
@@ -50,7 +51,7 @@ export default function AddEmployeeFormData() {
           id="password"
         />
       </div>
-      <div className="flex gap-3 items-center mb-5">
+      <div className="flex gap-3 items-center mb-10">
         <label htmlFor="hourly-rate" className="capitalize text-xl w-[150px]">
           hourly rate
         </label>
@@ -61,12 +62,7 @@ export default function AddEmployeeFormData() {
           id="hourly-rate"
         />
       </div>
-      <button
-        className="capitalize text-xl bg-blue-300 mt-7 p-3 rounded-lg hover"
-        type="submit"
-      >
-        save
-      </button>
+      <FormButton label="add" />
     </form>
   );
 }
