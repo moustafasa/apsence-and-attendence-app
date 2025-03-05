@@ -35,7 +35,7 @@ export default function useCLientPusherConnect(): [
         channel.current = pusher.subscribe(
           user.role === Role.ADMIN ? "admin" : user.userId.toString()
         );
-        channel.current.bind("notification", (data: { message: string }) => {
+        channel.current.bind("notification", () => {
           setUnReadNotifications((prev) => prev + 1);
         });
       }

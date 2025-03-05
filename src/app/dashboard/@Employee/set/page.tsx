@@ -1,6 +1,7 @@
 import { setInAction, setOutAction } from "@/lib/actions/attendenceAction";
 import { getSingleAttendence } from "@/lib/controllers/attendenceController";
 import getDayDate from "@/lib/getDayDate";
+import { format } from "date-fns";
 import { FaCheck } from "react-icons/fa";
 
 export default async function Page() {
@@ -24,8 +25,9 @@ export default async function Page() {
         <div className="flex gap-3 items-center mb-5">
           <span className="capitalize text-xl w-[150px]">day date : </span>
           <p className="flex-1 text-xl capitalize px-3 py-2 ">
-            {Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(
-              att.days?.startDate || todayDate
+            {format(
+              att.days?.startDate.toString() || todayDate.toString(),
+              "dd MMM yyyy"
             )}
           </p>
         </div>
@@ -33,9 +35,7 @@ export default async function Page() {
           <label className="capitalize text-xl w-[150px]">start time : </label>
           <p className="flex-1 text-xl capitalize px-3 py-2 ">
             {att.days?.startDate &&
-              Intl.DateTimeFormat("en-US", { timeStyle: "medium" }).format(
-                att.days.startDate
-              )}
+              format(att.days.startDate.toString(), "hh:mm:ss a")}
           </p>
         </div>
         <div className="flex gap-3 items-center mb-5">
@@ -43,9 +43,7 @@ export default async function Page() {
 
           <p className="flex-1 text-xl capitalize px-3 py-2 ">
             {att.days?.endDate &&
-              Intl.DateTimeFormat("en-US", { timeStyle: "medium" }).format(
-                att.days.endDate
-              )}
+              format(att.days.endDate.toString(), "hh:mm:ss a")}
           </p>
         </div>
         {!att.days?.endDate && (
