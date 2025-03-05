@@ -1,5 +1,6 @@
 import cn from "@/lib/cssConditional";
 import { NotificationTypes } from "@/types/Enums";
+import { tz } from "@date-fns/tz";
 import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -14,6 +15,7 @@ export default function NotificationItem({ notify }: Props) {
     () =>
       formatDistanceToNow(new Date(notify.createdAt), {
         addSuffix: true,
+        in: tz("Africa/Cairo"),
       }),
     [notify.createdAt]
   );

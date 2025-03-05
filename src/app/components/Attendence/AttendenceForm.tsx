@@ -1,14 +1,14 @@
 "use client";
 import { setAttandenceAction } from "@/lib/actions/attendenceAction";
 import cn from "@/lib/cssConditional";
+import formatTime from "@/lib/formatTime";
 import getDayDate from "@/lib/getDayDate";
-import { format } from "date-fns";
 import { useFormState } from "react-dom";
 import { FaExclamation } from "react-icons/fa";
 
 type Props = {
   date: Date;
-  startTime?: string;
+  startTime?: Date;
   endTime?: Date;
   userId?: string;
 };
@@ -49,7 +49,7 @@ export default function AttendenceForm({
         <div className="flex gap-3 items-center mb-5">
           <span className="capitalize text-xl w-[150px]">day date</span>
           <p className="flex-1 text-xl capitalize px-3 py-2 ">
-            {startTime ? format(startTime.toString(), "hh:mm:ss a") : ""}
+            {startTime ? formatTime(startTime, "hh:mm:ss a") : ""}
           </p>
         </div>
         <div className="flex gap-3 items-center mb-5">
@@ -61,7 +61,9 @@ export default function AttendenceForm({
             type="time"
             name="start"
             id="startTime"
-            defaultValue={startTime}
+            defaultValue={
+              startTime ? formatTime(startTime, "hh:mm") : undefined
+            }
           />
         </div>
         <div className="flex gap-3 items-center mb-5">
@@ -75,7 +77,7 @@ export default function AttendenceForm({
             id="endTime"
             defaultValue={
               endTime
-                ? format(endTime, "yyyy-MM-dd.hh:mm").replace(".", "T")
+                ? formatTime(endTime, "yyyy-MM-dd.hh:mm").replace(".", "T")
                 : undefined
             }
           />
