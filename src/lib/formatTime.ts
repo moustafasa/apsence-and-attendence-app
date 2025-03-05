@@ -1,5 +1,6 @@
+import { TZDate } from "@date-fns/tz";
 import { format } from "date-fns";
 
 export default function formatTime(time: Date, hour12: boolean = true) {
-  return format(time.toString(), `hh:mm${hour12 ? " a" : ""}`);
+  return format(new TZDate(time, "Africa/Cario"), `hh:mm${hour12 ? " a" : ""}`);
 }
